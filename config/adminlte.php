@@ -236,6 +236,20 @@ return [
             'search' => true,
             'topnav' => true,
         ],
+        [
+            'text' => 'login',
+            'url' => '/login',
+            'icon'    => '',
+            'topnav_right' => true,
+
+        ],
+        [
+            'text' => 'register',
+            'url' => '/register',
+            'icon'    => '',
+            'topnav_right' => true,
+            
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
