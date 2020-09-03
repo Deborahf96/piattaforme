@@ -47,7 +47,7 @@ class DittaEsternaController extends Controller
     {
         //store è l'operazione effettiva di add
         $ditta_esterna = new DittaEsterna;   //non c'è il costruttore in DittaEsterna quindi non c'è bisogno di mettere le parentesi
-        $this->valida_richiesta($request, $ditta_esterna);      //request: dati che vengono inseriti nella GUI. Se la validazione non va a buon fine torna nella stessa pagina specificata in redirect ma con un messaggio di errore
+        $this->valida_richiesta_store($request);      //request: dati che vengono inseriti nella GUI. Se la validazione non va a buon fine torna nella stessa pagina specificata in redirect ma con un messaggio di errore
         $this->salva_ditta($request, $ditta_esterna);           //fa la add sul database
         return redirect('/ditte_esterne')->with('success', 'Ditta inserita con successo');
     }
@@ -97,7 +97,7 @@ class DittaEsternaController extends Controller
     {
         //salva i dati della modifica
         $ditta_esterna = DittaEsterna::where('partita_iva', $partita_iva)->first();
-        $this->valida_richiesta($request, $ditta_esterna);      //request: dati che vengono inseriti nella GUI. Se la validazione non va a buon fine torna nella stessa pagina specificata in redirect ma con un messaggio di errore
+        $this->valida_richiesta_update($request);      //request: dati che vengono inseriti nella GUI. Se la validazione non va a buon fine torna nella stessa pagina specificata in redirect ma con un messaggio di errore
         $this->salva_ditta($request, $ditta_esterna);           //fa la add sul database
         return redirect('/ditte_esterne')->with('success', 'Ditta modificata con successo');
     }
@@ -117,10 +117,10 @@ class DittaEsternaController extends Controller
     }
     
 
-    private function valida_richiesta(Request $request, $ditta_esterna)
+    private function valida_richiesta_update(Request $request)
     {
         $rules = [                              //unique su un parametro controlla che ci sia un solo valore per quel parametro. Il punto serve per concatenare le stringhe
-            'partita_iva' => 'required|max:11|unique:ditta_esterna,partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
+            'partita_iva' => 'required|max:11', //|unique:ditta_esterna,partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
             'nome' => 'required|max:255',             
             'indirizzo' => 'required|max:255',             
             'telefono' => 'required|numeric',
@@ -141,6 +141,32 @@ class DittaEsternaController extends Controller
         ];
         $this->validate($request, $rules, $customMessages);     //richiesta che arriva dalla GUI, regole: stringa di massimo numero di caratteri ad esempio, messaggio da mostrare
     }
+
+    private function valida_richiesta_store(Request $request)
+    {
+        $rules = [                              //unique su un parametro controlla che ci sia un solo valore per quel parametro. Il punto serve per concatenare le stringhe
+            'partita_iva' => 'required|max:11|unique:ditta_esterna',    //partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
+            'nome' => 'required|max:255',             
+            'indirizzo' => 'required|max:255',             
+            'telefono' => 'required|numeric',
+            'email' => 'required|email',
+            'iban' => 'required|max:27|min:27',
+            'descrizione' => 'required|max:255',
+            'tipo_contratto' => 'required|max:255',
+            'paga' => 'required|max:255',
+            'data_inizio' => 'required|date',
+            'data_fine' => 'required|date',
+        ];
+        $customMessages = [
+            'partita_iva.required' => "E' necessario inserire il parametro 'Partita Iva'",            
+            'partita_iva.max' => "Il numero massimo di caratteri consentito per 'Partita Iva' è 11",             
+           
+            //Inserire anche gli altri attributi
+
+        ];
+        $this->validate($request, $rules, $customMessages);     //richiesta che arriva dalla GUI, regole: stringa di massimo numero di caratteri ad esempio, messaggio da mostrare
+    }
+
 
     private function salva_ditta(Request $request, $ditta_esterna)              //ha bisogno di passargli come parametro il DittaEsterna creato in store
     {

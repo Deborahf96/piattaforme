@@ -257,17 +257,17 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'    => 'Aziende',
+            'text'    => 'Ditte esterne',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'Aggiungi azienda',
-                    'url'  => '#',
+                    'text' => 'Visualizza',
+                    'url'  => '/ditte_esterne',
                 ],
                 [
-                    'text' => 'Modifica azienda',
-                    'url'  => '#',
-                    'icon' => 'fa fa-user-circle',
+                    'text' => 'Aggiungi',
+                    'url'  => '/ditte_esterne/create',
+                    'icon' => 'fa fa-circle',
                 ],
             ],
         ],
