@@ -6,7 +6,7 @@
 <div class="col-md-12 d-flex align-items-stretch">
     <div class="card card-primary card-outline" style="width: 100%">
         <div class="card-header">
-            <h5 class="card-title m-0"><b>Cameraa</b></h5>
+            <h5 class="card-title m-0"><b>Camera</b></h5>
         </div>
         <div class="card-body">
             <div class="row">
