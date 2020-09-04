@@ -12,4 +12,20 @@ class Enums
             'Tour operator' => 'Tour operator',
         ];
     }
+
+    public static function camera_disponibilità_enum()
+    {
+        return [
+            'Disponibile'=>'Disponibile',
+            'Non disponibile' => 'Non disponibile',
+        ];
+    }
+
+    public static function camera_piano_enum()
+    {
+        return [
+            'Piano terra'=>'Piano terra',
+            'Primo piano' => 'Primo piano',
+        ];
+    }
 }

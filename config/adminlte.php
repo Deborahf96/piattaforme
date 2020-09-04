@@ -248,17 +248,26 @@ return [
             'url' => '/register',
             'icon'    => '',
             'topnav_right' => true,
-            
+
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'Visualizza profilo',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Camere',
+            'icon' => 'fa fa-bed',
+            'submenu' => [
+                [
+                    'text' => 'Visualizza',
+                    'url'  => '/camere',
+                ],
+                [
+                    'text' => 'Aggiungi',
+                    'url'  => '/camere/create',
+                ],
+            ],
         ],
         [
             'text'    => 'Ditte esterne',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fa fa-user',
             'submenu' => [
                 [
                     'text' => 'Visualizza',
