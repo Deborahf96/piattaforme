@@ -54,7 +54,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('categoria', 'Categoria')}}}
-                                {{{Form::text('categoria', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::select('categoria', $ditta_esterna_categoria_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona una categoria' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
