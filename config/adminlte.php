@@ -232,25 +232,19 @@ return [
 
     'menu' => [
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
-            'text' => 'login',
+            'text' => 'Accedi',
             'url' => '/login',
             'icon'    => '',
             'topnav_right' => true,
 
         ],
         [
-            'text' => 'register',
+            'text' => 'Registrati',
             'url' => '/register',
             'icon'    => '',
             'topnav_right' => true,
 
         ],
-        ['header' => 'account_settings'],
         [
             'text' => 'Camere',
             'icon' => 'fa fa-bed',
@@ -258,10 +252,12 @@ return [
                 [
                     'text' => 'Visualizza',
                     'url'  => '/camere',
+                    'icon' => 'fa fa-search-plus',
                 ],
                 [
                     'text' => 'Aggiungi',
                     'url'  => '/camere/create',
+                    'icon' => 'fa fa-plus',
                 ],
             ],
         ],
@@ -272,11 +268,12 @@ return [
                 [
                     'text' => 'Visualizza',
                     'url'  => '/ditte_esterne',
+                    'icon' => 'fa fa-search-plus',
                 ],
                 [
                     'text' => 'Aggiungi',
                     'url'  => '/ditte_esterne/create',
-                    'icon' => 'fa fa-circle',
+                    'icon' => 'fa fa-plus',
                 ],
             ],
         ],
