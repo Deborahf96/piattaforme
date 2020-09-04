@@ -53,8 +53,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('descrizione', 'Descrizione')}}}
-                                {{{Form::text('descrizione', $ditta_esterna->descrizione, [ 'class' => 'form-control' ])}}}
+                                {{{Form::label('categoria', 'Categoria')}}}
+                                {{{Form::text('categoria', $ditta_esterna->categoria, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">

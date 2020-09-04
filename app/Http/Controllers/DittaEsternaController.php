@@ -120,24 +120,43 @@ class DittaEsternaController extends Controller
     private function valida_richiesta_update(Request $request)
     {
         $rules = [                              //unique su un parametro controlla che ci sia un solo valore per quel parametro. Il punto serve per concatenare le stringhe
-            'partita_iva' => 'required|max:11', //|unique:ditta_esterna,partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
+            'partita_iva' => 'required|min:11|max:11', //|unique:ditta_esterna,partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
             'nome' => 'required|max:255',             
             'indirizzo' => 'required|max:255',             
             'telefono' => 'required|numeric',
             'email' => 'required|email',
-            'iban' => 'required|max:27|min:27',
-            'descrizione' => 'required|max:255',
+            'iban' => 'required|min:27|max:27',
+            'categoria' => 'required|max:255',
             'tipo_contratto' => 'required|max:255',
             'paga' => 'required|max:255',
             'data_inizio' => 'required|date',
-            'data_fine' => 'required|date',
+            'data_fine' => 'required|date|date_greater_than:'.$request->data_inizio,
         ];
         $customMessages = [
-            'partita_iva.required' => "E' necessario inserire il parametro 'Partita Iva'",            
-            'partita_iva.max' => "Il numero massimo di caratteri consentito per 'Partita Iva' è 11",             
-           
-            //Inserire anche gli altri attributi
-
+            'partita_iva.required' => "E' necessario inserire il parametro 'Partita IVA'",  
+            'partita_iva.min' => "Il numero minimo di caratteri consentito per 'Partita IVA' è 11",          
+            'partita_iva.max' => "Il numero massimo di caratteri consentito per 'Partita IVA' è 11",             
+            'nome.required' => "E' necessario inserire il parametro 'Nome'",           
+            'nome.max' => "Il numero massimo di caratteri consentito per 'Nome' è 255",
+            'indirizzo.required' => "E' necessario inserire il parametro 'Indirizzo'",           
+            'indirizzo.max' => "Il numero massimo di caratteri consentito per 'Indirizzo' è 255",
+            'telefono.required' => "E' necessario inserire il parametro 'Telefono'",           
+            'telefono.numeric' => "Il campo 'Telefono' deve contenere solo numeri",
+            'email.required' => "E' necessario inserire il parametro 'Email'",  
+            'email.email' => "Formato email errato", 
+            'iban.required' => "E' necessario inserire il parametro 'IBAN'",           
+            'iban.min' => "Il numero minimo di caratteri consentito per 'IBAN' è 27",
+            'iban.max' => "Il numero massimo di caratteri consentito per 'IBAN' è 27",
+            'categoria.required' => "E' necessario inserire il parametro 'Categoria'",           
+            'categoria.max' => "Il numero massimo di caratteri consentito per 'Categoria' è 255",
+            'tipo_contratto.required' => "E' necessario inserire il parametro 'Tipo contratto'",           
+            'tipo_contratto.max' => "Il numero massimo di caratteri consentito per 'Tipo contratto' è 255",
+            'paga.required' => "E' necessario inserire il parametro 'Paga'",           
+            'paga.max' => "Il numero massimo di caratteri consentito per 'Paga' è 255",
+            'data_inizio.required' => "E' necessario inserire il parametro 'Data inizio'",  
+            'data_inizio.date' => "E' necessario inserire una data per il campo 'Data inizio'",         
+            'data_fine.required' => "E' necessario inserire il parametro 'Data fine'", 
+            'data_fine.date' => "E' necessario inserire una data per il campo 'Data fine'",         
         ];
         $this->validate($request, $rules, $customMessages);     //richiesta che arriva dalla GUI, regole: stringa di massimo numero di caratteri ad esempio, messaggio da mostrare
     }
@@ -145,24 +164,44 @@ class DittaEsternaController extends Controller
     private function valida_richiesta_store(Request $request)
     {
         $rules = [                              //unique su un parametro controlla che ci sia un solo valore per quel parametro. Il punto serve per concatenare le stringhe
-            'partita_iva' => 'required|max:11|unique:ditta_esterna',    //partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
+            'partita_iva' => 'required|min:11|max:11|unique:ditta_esterna',    //partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
             'nome' => 'required|max:255',             
             'indirizzo' => 'required|max:255',             
             'telefono' => 'required|numeric',
             'email' => 'required|email',
-            'iban' => 'required|max:27|min:27',
-            'descrizione' => 'required|max:255',
+            'iban' => 'required|min:27|max:27',
+            'categoria' => 'required|max:255',
             'tipo_contratto' => 'required|max:255',
             'paga' => 'required|max:255',
             'data_inizio' => 'required|date',
-            'data_fine' => 'required|date',
+            'data_fine' => 'required|date|date_greater_than:'.$request->data_inizio,
         ];
         $customMessages = [
-            'partita_iva.required' => "E' necessario inserire il parametro 'Partita Iva'",            
-            'partita_iva.max' => "Il numero massimo di caratteri consentito per 'Partita Iva' è 11",             
-           
-            //Inserire anche gli altri attributi
-
+            'partita_iva.required' => "E' necessario inserire il parametro 'Partita IVA'",  
+            'partita_iva.min' => "Il numero minimo di caratteri consentito per 'Partita IVA' è 11",          
+            'partita_iva.max' => "Il numero massimo di caratteri consentito per 'Partita IVA' è 11",
+            'partita_iva.unique' => "Il valore inserito in 'Partita IVA' esiste già",             
+            'nome.required' => "E' necessario inserire il parametro 'Nome'",           
+            'nome.max' => "Il numero massimo di caratteri consentito per 'Nome' è 255",
+            'indirizzo.required' => "E' necessario inserire il parametro 'Indirizzo'",           
+            'indirizzo.max' => "Il numero massimo di caratteri consentito per 'Indirizzo' è 255",
+            'telefono.required' => "E' necessario inserire il parametro 'Telefono'",           
+            'telefono.numeric' => "Il campo 'Telefono' deve contenere solo numeri",
+            'email.required' => "E' necessario inserire il parametro 'Email'",  
+            'email.email' => "Formato email errato", 
+            'iban.required' => "E' necessario inserire il parametro 'IBAN'",           
+            'iban.min' => "Il numero minimo di caratteri consentito per 'IBAN' è 27",
+            'iban.max' => "Il numero massimo di caratteri consentito per 'IBAN' è 27",
+            'categoria.required' => "E' necessario inserire il parametro 'Categoria'",           
+            'categoria.max' => "Il numero massimo di caratteri consentito per 'Categoria' è 255",
+            'tipo_contratto.required' => "E' necessario inserire il parametro 'Tipo contratto'",           
+            'tipo_contratto.max' => "Il numero massimo di caratteri consentito per 'Tipo contratto' è 255",
+            'paga.required' => "E' necessario inserire il parametro 'Paga'",           
+            'paga.max' => "Il numero massimo di caratteri consentito per 'Paga' è 255",
+            'data_inizio.required' => "E' necessario inserire il parametro 'Data inizio'",  
+            'data_inizio.date' => "E' necessario inserire una data per il campo 'Data inizio'",         
+            'data_fine.required' => "E' necessario inserire il parametro 'Data fine'", 
+            'data_fine.date' => "E' necessario inserire una data per il campo 'Data fine'",          
         ];
         $this->validate($request, $rules, $customMessages);     //richiesta che arriva dalla GUI, regole: stringa di massimo numero di caratteri ad esempio, messaggio da mostrare
     }
@@ -178,7 +217,7 @@ class DittaEsternaController extends Controller
         $ditta_esterna->telefono = $request->input('telefono');
         $ditta_esterna->email = $request->input('email');
         $ditta_esterna->iban = $request->input('iban');
-        $ditta_esterna->descrizione = $request->input('descrizione');
+        $ditta_esterna->categoria = $request->input('categoria');
         $ditta_esterna->tipo_contratto = $request->input('tipo_contratto');
         $ditta_esterna->paga = $request->input('paga');
         $ditta_esterna->data_inizio = $request->input('data_inizio');

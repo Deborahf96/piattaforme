@@ -47,14 +47,14 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('iban', 'Iban')}}}
+                                {{{Form::label('iban', 'IBAN')}}}
                                 {{{Form::text('iban', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('descrizione', 'Descrizione')}}}
-                                {{{Form::text('descrizione', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::label('categoria', 'Categoria')}}}
+                                {{{Form::text('categoria', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">

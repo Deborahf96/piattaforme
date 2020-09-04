@@ -20,7 +20,7 @@ class CreateDittaEsternaTable extends Migration
             $table->integer('telefono');
             $table->string('email');
             $table->string('iban');
-            $table->string('descrizione');
+            $table->string('categoria');
             $table->string('tipo_contratto');
             $table->string('paga');
             $table->date('data_inizio');
