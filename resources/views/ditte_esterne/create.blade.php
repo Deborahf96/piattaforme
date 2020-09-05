@@ -36,7 +36,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('telefono', 'Telefono')}}}
-                                {{{Form::number('telefono', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::text('telefono', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -60,7 +60,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('tipo_contratto', 'Tipo contratto')}}}
-                                {{{Form::text('tipo_contratto', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::select('tipo_contratto', $ditta_esterna_tipo_contratto_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un tipo di contratto' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">

@@ -12,10 +12,10 @@ class CreateAttivitaTable extends Migration
             $table->id();
             $table->string('ditta_esterna');
             $table->date('data');
-            $table->datetime('ora');
+            $table->time('ora');
             $table->integer('max_persone');
             $table->string('destinazione');
-            $table->string('descrizione');
+            $table->string('tipologia');
         });
     }
 

@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $clienti = Cliente::all();
@@ -20,8 +15,6 @@ class ClienteController extends Controller
         ];
         return view('clienti.index',$data);
     }
-
-
    
     public function show($email)
     {

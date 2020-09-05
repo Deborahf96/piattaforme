@@ -18,7 +18,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('ditta_esterna', 'Ditta esterna')}}}
-                                {{{Form::string('ditta_esterna', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::text('ditta_esterna', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -30,7 +30,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('ora', 'Ora')}}}
-                                {{{Form::datetime('ora', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::time('ora', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -47,8 +47,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('descrizione', 'Descrizione')}}}
-                                {{{Form::text('descrizione', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::label('tipologia', 'Tipologia')}}}
+                                {{{Form::select('tipologia', $attivita_tipologia_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona una tipologia' ])}}}
                             </div>
                         </div>
                     </div>

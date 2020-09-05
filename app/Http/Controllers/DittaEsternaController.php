@@ -30,7 +30,8 @@ class DittaEsternaController extends Controller
     {
         //serve per mostrare la pagina in cui vengono aggiunti i dati
         $data = [
-            'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum()
+            'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum(),
+            'ditta_esterna_tipo_contratto_enum' => Enums::ditta_esterna_tipo_contratto_enum(),
         ];
         return view('ditte_esterne.create', $data);
     }
@@ -43,7 +44,6 @@ class DittaEsternaController extends Controller
         $this->salva_ditta($request, $ditta_esterna);           //fa la add sul database
         return redirect('/ditte_esterne')->with('success', 'Ditta inserita con successo');
     }
-
 
     public function show($partita_iva)
     {
@@ -62,7 +62,8 @@ class DittaEsternaController extends Controller
         //where(nome colonna, valore) //first per dire di prendere il primo elemento e non una lista, proprio perché la where si può fare anche su un attributo non chiave. Per avere la lista bisognava usare la get
         $data = [
             'ditta_esterna' => $ditta_esterna,
-            'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum()
+            'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum(),
+            'ditta_esterna_tipo_contratto_enum' => Enums::ditta_esterna_tipo_contratto_enum(),
         ];
         return view('ditte_esterne.edit', $data);
     }
@@ -84,14 +85,13 @@ class DittaEsternaController extends Controller
         return redirect('/ditte_esterne')->with('success', 'Ditta eliminata con successo');
     }
 
-
     private function valida_richiesta_store(Request $request)
     {
         $rules = [                              //unique su un parametro controlla che ci sia un solo valore per quel parametro. Il punto serve per concatenare le stringhe
             'partita_iva' => 'required|min:11|max:11|unique:ditta_esterna',    //partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
             'nome' => 'required|max:255',
             'indirizzo' => 'required|max:255',
-            'telefono' => 'required|numeric',
+            'telefono' => 'required|min:9|max:10',
             'email' => 'required|email',
             'iban' => 'required|min:27|max:27',
             'categoria' => 'required|max:255',
@@ -110,7 +110,8 @@ class DittaEsternaController extends Controller
             'indirizzo.required' => "E' necessario inserire il parametro 'Indirizzo'",
             'indirizzo.max' => "Il numero massimo di caratteri consentito per 'Indirizzo' è 255",
             'telefono.required' => "E' necessario inserire il parametro 'Telefono'",
-            'telefono.numeric' => "Il campo 'Telefono' deve contenere solo numeri",
+            'telefono.min' => "Il numero minimo di caratteri consentito per  'Telefono' è 9",
+            'telefono.max' => "Il numero massimo di caratteri consentito per  'Telefono' è 10",
             'email.required' => "E' necessario inserire il parametro 'Email'",
             'email.email' => "Formato email errato",
             'iban.required' => "E' necessario inserire il parametro 'IBAN'",
@@ -136,7 +137,7 @@ class DittaEsternaController extends Controller
             'partita_iva' => 'required|min:11|max:11', //|unique:ditta_esterna,partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
             'nome' => 'required|max:255',
             'indirizzo' => 'required|max:255',
-            'telefono' => 'required|numeric',
+            'telefono' => 'required|min:9|max:10',
             'email' => 'required|email',
             'iban' => 'required|min:27|max:27',
             'categoria' => 'required|max:255',
@@ -154,8 +155,8 @@ class DittaEsternaController extends Controller
             'indirizzo.required' => "E' necessario inserire il parametro 'Indirizzo'",
             'indirizzo.max' => "Il numero massimo di caratteri consentito per 'Indirizzo' è 255",
             'telefono.required' => "E' necessario inserire il parametro 'Telefono'",
-            'telefono.numeric' => "Il campo 'Telefono' deve contenere solo numeri",
-            'email.required' => "E' necessario inserire il parametro 'Email'",
+            'telefono.min' => "Il numero minimo di caratteri consentito per  'Telefono' è 9",
+            'telefono.max' => "Il numero massimo di caratteri consentito per  'Telefono' è 10",            'email.required' => "E' necessario inserire il parametro 'Email'",
             'email.email' => "Formato email errato",
             'iban.required' => "E' necessario inserire il parametro 'IBAN'",
             'iban.min' => "Il numero minimo di caratteri consentito per 'IBAN' è 27",

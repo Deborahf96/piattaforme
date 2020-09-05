@@ -12,23 +12,24 @@
                 <div class="row">
                     <div class="col-md-2"><b>Ditta esterna</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $attivita->ditta_esterna }}</div>
-                    <div class="col-md-2"><b>Data</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ \Carbon\Carbon::parse($attivita->data)->format('d/m/Y') }}
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-2"><b>Ora</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ $attivita->ora }}</div>
                     <div class="col-md-2"><b>Numero massimo di partecipanti</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $attivita->max_persone }}</div>
                 </div>
                 <hr>
                 <div class="row">
+                    <div class="col-md-2"><b>Data</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ \Carbon\Carbon::parse($attivita->data)->format('d/m/Y') }}
+                    </div>
                     <div class="col-md-2"><b>Luogo di destinazione</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $attivita->destinazione }}</div>
-                    <div class="col-md-2"><b>Descrizione</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ $attivita->descrizione }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2"><b>Ora</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ \Carbon\Carbon::parse($attivita->ora)->format('H:i') }}
+                    </div>
+                    <div class="col-md-2"><b>Tipologia</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ $attivita->tipologia }}</div>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@ class CreateDittaEsternaTable extends Migration
             $table->string('partita_iva')->primary();
             $table->string('nome');
             $table->string('indirizzo');
-            $table->integer('telefono');
+            $table->string('telefono');
             $table->string('email');
             $table->string('iban');
             $table->string('categoria');
