@@ -293,6 +293,11 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Clienti',
+            'url'     => '/clienti',
+            'icon'    => 'fa fa-users',
+        ],
     ],
 
     /*
