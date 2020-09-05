@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => '<b>Thousand Sunny</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/bb.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -257,6 +257,22 @@ return [
                 [
                     'text' => 'Aggiungi',
                     'url'  => '/camere/create',
+                    'icon' => 'fa fa-plus',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Attività',
+            'icon' => 'fa fa-briefcase',
+            'submenu' => [
+                [
+                    'text' => 'Visualizza',
+                    'url'  => '/attivita',
+                    'icon' => 'fa fa-search-plus',
+                ],
+                [
+                    'text' => 'Aggiungi',
+                    'url'  => '/attivita/create',
                     'icon' => 'fa fa-plus',
                 ],
             ],
