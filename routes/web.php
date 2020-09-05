@@ -22,3 +22,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/ditte_esterne', 'DittaEsternaController');
 Route::resource('/camere', 'CameraController');
+Route::resource('/clienti', 'ClienteController');

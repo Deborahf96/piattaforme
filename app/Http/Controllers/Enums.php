@@ -28,4 +28,13 @@ class Enums
             'Primo piano' => 'Primo piano',
         ];
     }
+
+    public static function cliente_metodo_pagamento_enum()
+    {
+        return [
+            'Carta di credito' => 'Carta di credito',
+            'Bonifico bancario'=>'Bonifico bancario',
+            'Contrassegno'=>'Contrassegno',
+        ];
+    }
 }
