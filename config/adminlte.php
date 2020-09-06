@@ -196,7 +196,7 @@ return [
 
     'register_url' => 'register',
 
-    'password_reset_url' => 'password/reset',
+    'password_reset_url' => false,
 
     'password_email_url' => 'password/email',
 
@@ -246,6 +246,22 @@ return [
 
         ],
         [
+            'text' => 'Prenotazioni',
+            'icon' => 'fa fa-bell',
+            'submenu' => [
+                [
+                    'text' => 'Visualizza',
+                    'url'  => '/prenotazioni',
+                    'icon' => 'fa fa-search-plus',
+                ],
+                [
+                    'text' => 'Aggiungi',
+                    'url'  => '/prenotazioni/create',
+                    'icon' => 'fa fa-plus',
+                ],
+            ],
+        ],
+        [
             'text' => 'Camere',
             'icon' => 'fa fa-bed',
             'submenu' => [
@@ -279,7 +295,7 @@ return [
         ],
         [
             'text'    => 'Ditte esterne',
-            'icon'    => 'fa fa-user',
+            'icon'    => 'fa fa-handshake',
             'submenu' => [
                 [
                     'text' => 'Visualizza',
@@ -289,6 +305,22 @@ return [
                 [
                     'text' => 'Aggiungi',
                     'url'  => '/ditte_esterne/create',
+                    'icon' => 'fa fa-plus',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Dipendenti',
+            'icon'    => 'fa fa-user',
+            'submenu' => [
+                [
+                    'text' => 'Visualizza',
+                    'url'  => '/dipendenti',
+                    'icon' => 'fa fa-search-plus',
+                ],
+                [
+                    'text' => 'Aggiungi',
+                    'url'  => '/dipendenti/create',
                     'icon' => 'fa fa-plus',
                 ],
             ],

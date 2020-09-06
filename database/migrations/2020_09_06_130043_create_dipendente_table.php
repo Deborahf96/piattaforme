@@ -14,7 +14,7 @@ class CreateDipendenteTable extends Migration
     public function up()
     {
         Schema::create('dipendente', function (Blueprint $table) {
-            $table->bigInteger('user_id')->unsigned()->index();
+            $table->bigInteger('user_id')->unsigned()->primary();
             $table->string('iban');
             $table->string('ruolo');
             $table->string('tipo_contratto');

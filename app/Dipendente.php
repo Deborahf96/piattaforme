@@ -8,6 +8,8 @@ class Dipendente extends Model
 {
     protected $table = 'dipendente';
     public $timestamps = false; 
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
 
     public function utente()
     {

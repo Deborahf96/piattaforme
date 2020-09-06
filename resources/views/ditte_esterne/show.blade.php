@@ -38,11 +38,6 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-5"><b>IBAN</b></div>
-                                <div class="col-md-7 col-md-offset-1">{{ $ditta_esterna->iban }}</div>
-                            </div>
-                            <hr>
-                            <div class="row">
                                 <div class="col-md-5"><b>Categoria</b></div>
                                 <div class="col-md-7 col-md-offset-1">{{ $ditta_esterna->categoria }}</div>
                             </div>
@@ -52,12 +47,8 @@
                 <div class="col-7 d-flex align-items-stretch">
                     <!-- Custom Tabs -->
                     <div class="card card-primary card-outline" style="width: 100%">
-                        <div class="card-header d-flex p-0">
-                            <h3 class="card-title p-3"></h3>
-                            <ul class="nav nav-pills ml-auto p-2">
-                                <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Dati
-                                        contrattuali</a></li>
-                            </ul>
+                        <div class="card-header">
+                            <h5 class="card-title m-0"><b>Dati contrattuali</b></h5>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
@@ -86,7 +77,12 @@
                                                 <div class="row">
                                                     <div class="col-md-3"><b>Data fine</b></div>
                                                     <div class="col-md-9 col-md-offset-1">
-                                                        {{ \Carbon\Carbon::parse($ditta_esterna->data_fine)->format('d/m/Y') }}</div>
+                                                        {{ isset($ditta_esterna->data_fine) ? \Carbon\Carbon::parse($ditta_esterna->data_fine)->format('d/m/Y') : '-' }}</div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-3"><b>IBAN</b></div>
+                                                    <div class="col-md-9 col-md-offset-1">{{ $ditta_esterna->iban }}</div>
                                                 </div>
                                             </div>
                                         </div>

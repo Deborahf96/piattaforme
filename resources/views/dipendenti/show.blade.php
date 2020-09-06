@@ -24,7 +24,9 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-5"><b>Data di nascita</b></div>
-                                <div class="col-md-7 col-md-offset-1">{{ $dipendente->utente->data_nascita }}</div>
+                                <div class="col-md-7 col-md-offset-1">
+                                    {{ \Carbon\Carbon::parse($dipendente->utente->data_nascita)->format('d/m/Y') }}
+                                </div>
                             </div>
                             <hr>
                             <div class="row">
@@ -83,7 +85,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3"><b>Data fine</b></div>
                                                     <div class="col-md-9 col-md-offset-1">
-                                                        {{ \Carbon\Carbon::parse($dipendente->data_fine)->format('d/m/Y') }}
+                                                        {{ isset($dipendente->data_fine) ? \Carbon\Carbon::parse($dipendente->data_fine)->format('d/m/Y') : '-' }}
                                                     </div>
                                                 </div>
                                                 <br>
@@ -108,22 +110,19 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /.tab-content -->
+                            </div><!-- /.tab-content -->
                         </div><!-- /.card-body -->
-                    </div>
-                    <!-- ./card -->
+                    </div><!-- ./card -->
                 </div>
             </div>
         </div>
     </div>
 
-    @php $username = $dipendente->utente->name @endphp
     <a href="/dipendenti/{{ $dipendente->user_id }}/edit" class="btn btn-primary">Modifica</a>
     {!! Form::open(['action' => ['DipendenteController@destroy', $dipendente->user_id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
-    {{ Form::submit('Elimina', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questo dipendente? $username ')"]) }}
+    {{ Form::submit('Elimina', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questo dipendente? ')"]) }}
     {!! Form::close() !!}
     <hr>
 

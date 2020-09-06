@@ -13,17 +13,6 @@ class Enums
         ];
     }
 
-    public static function tipo_contratto_enum()
-    {
-        return [
-            'A chiamata' => 'A chiamata',
-            'A tempo determinato' => 'A tempo determinato',
-            'A tempo indeterminato' => 'A tempo indeterminato',
-            'Apprendistato' => 'Apprendistato',
-            'Part-time' => 'Part-time',
-        ];
-    }
-
     public static function camera_disponibilità_enum()
     {
         return [
@@ -40,6 +29,37 @@ class Enums
         ];
     }
 
+    public static function attivita_tipologia_enum()
+    {
+        return [
+            'Servizio navetta' => 'Servizio navetta',
+            'Visita guidata' => 'Visita guidata',
+        ];
+    }
+
+    public static function dipendente_ruolo_enum()
+    {
+        return [
+            'Addetto alle pulizie' => 'Addetto alle pulizie',
+            'Addetto alla manutenzione' => 'Addetto alla manutenzione',
+            'Cuoco' => 'Cuoco',
+            'Receptionist' => 'Receptionist',
+            'Responsabile area esterna' => 'Responsabile area esterna',
+            'Responsabile sala' => 'Responsabile sala',
+        ];
+    }
+
+    public static function tipo_contratto_enum()
+    {
+        return [
+            'A chiamata' => 'A chiamata',
+            'A tempo determinato' => 'A tempo determinato',
+            'A tempo indeterminato' => 'A tempo indeterminato',
+            'Apprendistato' => 'Apprendistato',
+            'Part-time' => 'Part-time',
+        ];
+    }
+
     public static function metodo_pagamento_enum()
     {
         return [
@@ -49,11 +69,4 @@ class Enums
         ];
     }
 
-    public static function attivita_tipologia_enum()
-    {
-        return [
-            'Servizio navetta' => 'Servizio navetta',
-            'Visita guidata' => 'Visita guidata',
-        ];
-    }
 }

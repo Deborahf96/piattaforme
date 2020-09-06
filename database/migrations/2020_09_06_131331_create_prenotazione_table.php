@@ -15,7 +15,7 @@ class CreatePrenotazioneTable extends Migration
     {
         Schema::create('prenotazione', function (Blueprint $table) {
             $table->id();
-            $table->string('camera_numero');
+            $table->integer('camera_numero');
             $table->date('data_checkin');
             $table->date('data_checkout');
             $table->string('cliente_email');   //modifica il nome inserendo la chiave di cliente

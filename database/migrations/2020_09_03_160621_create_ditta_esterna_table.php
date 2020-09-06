@@ -24,7 +24,7 @@ class CreateDittaEsternaTable extends Migration
             $table->string('tipo_contratto');
             $table->string('paga');
             $table->date('data_inizio');
-            $table->date('data_fine');
+            $table->date('data_fine')->nullable();
         });
     }
 

@@ -76,7 +76,7 @@ class PrenotazioneController extends Controller
     private function valida_richiesta(Request $request, $id)
     {
         $rules = [
-            'camera_numero' => 'required|unique_camera_datain_dataout:'.$request->data_checkin.','.$request->data_checkout.','.$id,
+            'camera_numero' => 'required|numeric|unique_camera_datain_dataout:'.$request->data_checkin.','.$request->data_checkout.','.$id,
             'data_checkin' => 'required|date',
             'data_checkout'=> 'required|date',
             'num_persone' => 'required|numeric',
@@ -84,6 +84,7 @@ class PrenotazioneController extends Controller
         ];
         $customMessages = [
             'camera_numero.required' => "E' necessario inserire il parametro 'Camera'",
+            'camera_numero.numeric' => "Il campo 'Camera' può contenere solo numeri",
             'data_checkin.required' => "E' necessario inserire il parametro 'Data checkin'",
             'data_checkin.date' => "E' necessario inserire una data per il campo 'Data checkin'",
             'data_checkout.required' => "E' necessario inserire il parametro 'Data checkout'",

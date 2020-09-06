@@ -72,20 +72,18 @@ class CameraController extends Controller
     {
         $rules = [                              
             'numero' => 'required|numeric',
-            'disponibilità' => 'required|max:255',
+            'disponibilità' => 'required',
             'numero_letti' => 'required|numeric',
-            'piano' => 'required|max:255',
+            'piano' => 'required',
             'descrizione' => 'required|max:255',
         ];
         $customMessages = [
             'numero.required' => "E' necessario inserire il parametro 'Numero'",
             'numero.numeric' => "Il campo 'Numero' deve contenere solo numeri",
             'disponibilità.required' => "E' necessario inserire il parametro 'Disponibilità'",
-            'disponibilità.max' => "Il numero massimo di caratteri consentito per 'Disponibilità' è 255",
             'numero_letti.required' => "E' necessario inserire il parametro 'Numero letti'",
             'numero_letti.numeric' => "Il campo 'Numero letti' deve contenere solo numeri",
             'piano.required' => "E' necessario inserire il parametro 'Piano'",
-            'piano.max' => "Il numero massimo di caratteri consentito per 'Piano' è 255",
             'descrizione.required' => "E' necessario inserire il parametro 'Descrizione'",
             'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
         ];
@@ -96,20 +94,18 @@ class CameraController extends Controller
     {
         $rules = [                             
             'numero' => 'required|numeric|unique:camera',
-            'disponibilità' => 'required|max:255',
+            'disponibilità' => 'required',
             'numero_letti' => 'required|numeric',
-            'piano' => 'required|max:255',
+            'piano' => 'required',
             'descrizione' => 'required|max:255',
         ];
         $customMessages = [
             'numero.required' => "E' necessario inserire il parametro 'Numero'",
             'numero.numeric' => "Il campo 'Numero' deve contenere solo numeri",
             'disponibilità.required' => "E' necessario inserire il parametro 'Disponibilità'",
-            'disponibilità.max' => "Il numero massimo di caratteri consentito per 'Disponibilità' è 255",
             'numero_letti.required' => "E' necessario inserire il parametro 'Numero letti'",
             'numero_letti.numeric' => "Il campo 'Numero letti' deve contenere solo numeri",
             'piano.required' => "E' necessario inserire il parametro 'Piano'",
-            'piano.max' => "Il numero massimo di caratteri consentito per 'Piano' è 255",
             'descrizione.required' => "E' necessario inserire il parametro 'Descrizione'",
             'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
         ];
