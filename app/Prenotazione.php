@@ -8,4 +8,16 @@ class Prenotazione extends Model
 {
     protected $table = 'prenotazione';
     public $timestamps = false;
+
+    public function camera()
+    {
+        return $this->belongsTo('App\Camera', 'camera_numero');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo('App\Cliente', 'cliente_email');
+    }
 }
+
+
