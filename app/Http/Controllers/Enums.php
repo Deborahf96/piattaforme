@@ -7,7 +7,7 @@ class Enums
     public static function ditta_esterna_categoria_enum()
     {
         return [
-            'Manutenzione '=> 'Manutenzione',
+            'Manutenzione'=> 'Manutenzione',
             'Servizio navetta' => 'Servizio navetta',
             'Tour operator' => 'Tour operator',
         ];

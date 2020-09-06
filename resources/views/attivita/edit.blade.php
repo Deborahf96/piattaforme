@@ -30,7 +30,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('ora', 'Ora')}}}
-                                {{{Form::time('ora', $attivita->ora, [ 'class' => 'form-control' ])}}}
+                                {{{Form::time('ora', \Carbon\Carbon::parse($attivita->ora)->format('H:i'), [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
