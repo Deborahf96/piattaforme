@@ -17,8 +17,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('ditta_esterna', 'Ditta esterna')}}}
-                                {{{Form::text('ditta_esterna', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::label('ditta_esterna_partita_iva', 'Ditta esterna')}}}
+                                {{{Form::select('ditta_esterna_partita_iva', $ditte_esterne, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona una ditta esterna' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">

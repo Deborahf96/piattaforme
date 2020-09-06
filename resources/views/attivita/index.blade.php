@@ -49,7 +49,7 @@
                         @foreach ($attivita as $singola_attivita)
                             <tr>
                                 <td width=20%>
-                                    {{ $singola_attivita->ditta_esterna }}
+                                    {{ $singola_attivita->ditta_esterna->nome }}
                                 </td>
                                 <td width=15%>
                                     {{ $singola_attivita->data }}
