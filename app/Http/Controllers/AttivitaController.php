@@ -34,7 +34,7 @@ class AttivitaController extends Controller
     public function store(Request $request)
     {
         $attivita = new Attivita;
-        $this->valida_richiesta_store($request);
+        $this->valida_richiesta($request, $attivita->id);
         $this->salva_attivita($request, $attivita);
         return redirect('/attivita')->with('success', 'Attività inserita con successo');
     }
@@ -62,7 +62,7 @@ class AttivitaController extends Controller
     public function update(Request $request, $id)
     {
         $attivita = Attivita::find($id);
-        $this->valida_richiesta_update($request);
+        $this->valida_richiesta($request, $id);
         $this->salva_attivita($request, $attivita);
         return redirect('/attivita')->with('success','Attività modificata con successo');
     }
@@ -74,35 +74,10 @@ class AttivitaController extends Controller
         return redirect('/attivita')->with('success', 'Attività eliminata con successo');
     }
 
-    private function valida_richiesta_update(Request $request)
+    private function valida_richiesta(Request $request, $id)
     {
         $rules = [
-            'ditta_esterna_partita_iva' => 'required',
-            'data' => 'required|date',
-            'ora' => 'required|date_format:"H:i"',
-            'max_persone' => 'required|numeric',
-            'destinazione' => 'required|max:255',
-            'tipologia' => 'required',
-        ];
-        $customMessages = [
-            'ditta_esterna_partita_iva.required' => "E' necessario inserire il parametro 'Ditta esterna'",
-            'data.required' => "E' necessario inserire il parametro 'Data'",
-            'data.date' => "E' necessario inserire una data per il campo 'Data'",
-            'ora.required' => "E' necessario inserire il parametro 'Ora'",
-            'ora.date_format' => "Il formato di 'Ora' non è valido. Formato richiesto: hh:mm",
-            'max_persone.required' => "E' necessario inserire il parametro 'Numero massimo di partecipanti'",
-            'max_persone.numeric' => "Il campo 'Numero massimo di partecipanti' può contenere solo numeri",
-            'destinazione.required' => "E' necessario inserire il parametro 'Luogo di destinazione'",
-            'destinazione.max' => "Il numero massimo di caratteri consentito per 'Luogo di destinazione' è 255",
-            'tipologia.required' => "E' necessario inserire il parametro 'Tipologia'",
-        ];
-        $this->validate($request, $rules, $customMessages);
-    }
-
-    private function valida_richiesta_store(Request $request)
-    {
-        $rules = [
-            'ditta_esterna_partita_iva' => 'required', //vedere come fare la unique composta
+            'ditta_esterna_partita_iva' => 'required|unique_ditta_data_ora:'.$request->data.','.$request->ora.','.$id,
             'data' => 'required|date',
             'ora' => 'required|date_format:"H:i"',
             'max_persone' => 'required|numeric',
