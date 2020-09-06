@@ -13,7 +13,7 @@ class Enums
         ];
     }
 
-    public static function ditta_esterna_tipo_contratto_enum()
+    public static function tipo_contratto_enum()
     {
         return [
             'A chiamata' => 'A chiamata',
@@ -40,7 +40,7 @@ class Enums
         ];
     }
 
-    public static function cliente_metodo_pagamento_enum()
+    public static function metodo_pagamento_enum()
     {
         return [
             'Bonifico bancario' => 'Bonifico bancario',

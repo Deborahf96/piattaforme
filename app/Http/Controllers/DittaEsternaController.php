@@ -31,7 +31,7 @@ class DittaEsternaController extends Controller
         //serve per mostrare la pagina in cui vengono aggiunti i dati
         $data = [
             'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum(),
-            'ditta_esterna_tipo_contratto_enum' => Enums::ditta_esterna_tipo_contratto_enum(),
+            'ditta_esterna_tipo_contratto_enum' => Enums::tipo_contratto_enum(),
         ];
         return view('ditte_esterne.create', $data);
     }
@@ -63,7 +63,7 @@ class DittaEsternaController extends Controller
         $data = [
             'ditta_esterna' => $ditta_esterna,
             'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum(),
-            'ditta_esterna_tipo_contratto_enum' => Enums::ditta_esterna_tipo_contratto_enum(),
+            'ditta_esterna_tipo_contratto_enum' => Enums::tipo_contratto_enum(),
         ];
         return view('ditte_esterne.edit', $data);
     }
