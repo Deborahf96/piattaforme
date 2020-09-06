@@ -14,14 +14,7 @@ class CreateDipendenteTable extends Migration
     public function up()
     {
         Schema::create('dipendente', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('nome');
-            $table->string('cognome');
-            $table->date('data_nascita');
-            $table->string('luogo_nascita');
-            $table->string('indirizzo');
-            $table->integer('telefono');
-            $table->string('password');
+            $table->bigInteger('user_id')->unsigned()->index();
             $table->string('iban');
             $table->string('ruolo');
             $table->string('tipo_contratto');
@@ -29,6 +22,8 @@ class CreateDipendenteTable extends Migration
             $table->date('data_inizio');
             $table->date('data_fine')->nullable();
             $table->integer('ore_settimanali');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

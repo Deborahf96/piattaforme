@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +25,5 @@ Route::resource('/ditte_esterne', 'DittaEsternaController');
 Route::resource('/camere', 'CameraController');
 Route::resource('/clienti', 'ClienteController');
 Route::resource('/attivita', 'AttivitaController');
+Route::resource('/dipendenti', 'DipendenteController');
 
