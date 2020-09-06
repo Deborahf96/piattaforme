@@ -14,13 +14,13 @@ class CreateClienteTable extends Migration
     public function up()
     {
         Schema::create('cliente', function (Blueprint $table) {
+            $table->string('email')->primary();
             $table->string('nome');
             $table->string('cognome');
             $table->date('data_nascita');
             $table->string('luogo_nascita');
             $table->string('indirizzo');
             $table->integer('telefono');
-            $table->string('email')->primary();
             $table->string('password');
             $table->string('metodo_pagamento')->nullable();
             //$table->timestamps();
