@@ -14,9 +14,9 @@
                     <thead>
                         <tr>
                             <th>Numero</th>
-                            <th>Disponibilità</th>
-                            <th>Numero letti</th>
                             <th>Piano</th>
+                            <th>Numero letti</th>
+                            <th>Costo a notte</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -27,13 +27,13 @@
                                     {{ $camera->numero }}
                                 </td>
                                 <td width=20%>
-                                    {{ $camera->disponibilità }}
+                                    {{ $camera->piano }}
                                 </td>
                                 <td width=20%>
                                     {{ $camera->numero_letti }}
                                 </td>
                                 <td width=20%>
-                                    {{ $camera->piano }}
+                                    {{ $camera->costo_a_notte }}
                                 </td>
                                 <td width=20%>
                                     <div class="d-flex justify-content-around">

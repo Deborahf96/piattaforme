@@ -15,8 +15,8 @@ class CreateCameraTable extends Migration
     {
         Schema::create('camera', function (Blueprint $table) {
             $table->integer('numero')->primary();
-            $table->string('disponibilità');
             $table->integer('numero_letti');
+            $table->integer('costo_a_notte');
             $table->string('piano');
             $table->string('descrizione');
         });

@@ -102,7 +102,7 @@
     {!! Form::open(['action' => ['DittaEsternaController@destroy', $ditta_esterna->partita_iva], 'method' => 'POST', 'class'
     => 'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
-    {{ Form::submit('Elimina', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questa ditta? $ditta_esterna->nome ')"]) }}
+    {{ Form::submit('Elimina', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questa ditta? ')"]) }}
     {!! Form::close() !!}
     <hr>
 

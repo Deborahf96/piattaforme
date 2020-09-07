@@ -12,15 +12,15 @@
             <div class="row">
                 <div class="col-md-2"><b>Numero</b></div>
                 <div class="col-md-3 col-md-offset-1">{{ $camera->numero }}</div>
-                <div class="col-md-2"><b>Disponibilità</b></div>
-                <div class="col-md-3 col-md-offset-1">{{ $camera->disponibilità }}</div>
+                <div class="col-md-2"><b>Piano</b></div>
+                <div class="col-md-3 col-md-offset-1">{{ $camera->piano }}</div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-2"><b>Numero letti</b></div>
                 <div class="col-md-3 col-md-offset-1">{{ $camera->numero_letti }}</div>
-                <div class="col-md-2"><b>Piano</b></div>
-                <div class="col-md-3 col-md-offset-1">{{ $camera->piano }}</div>
+                <div class="col-md-2"><b>Costo a notte</b></div>
+                <div class="col-md-3 col-md-offset-1">{{ $camera->costo_a_notte }}</div>
             </div>
             <hr>
             <div class="row">
@@ -35,7 +35,7 @@
 {!! Form::open(['action' => ['CameraController@destroy', $camera->numero], 'method' => 'POST', 'class' =>
 'float-right']) !!}
 {{ Form::hidden('_method', 'DELETE') }}
-{{ Form::submit('Elimina', [ 'class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questa camera? $camera->numero ')"] )  }}
+{{ Form::submit('Elimina', [ 'class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questa camera? ')"] )  }}
 {!! Form::close() !!}
 <hr>
 

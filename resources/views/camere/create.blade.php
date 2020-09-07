@@ -23,8 +23,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('disponibilità', 'Disponibilità')}}}
-                                {{{Form::select('disponibilità', $camera_disponibilità_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona disponibilità' ])}}}
+                                {{{Form::label('piano', 'Piano')}}}
+                                {{{Form::select('piano', $camera_piano_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un piano' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -35,8 +35,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('piano', 'Piano')}}}
-                                {{{Form::select('piano', $camera_piano_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un piano' ])}}}
+                                {{{Form::label('costo_a_notte', 'Costo a notte')}}}
+                                {{{Form::number('costo_a_notte', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">

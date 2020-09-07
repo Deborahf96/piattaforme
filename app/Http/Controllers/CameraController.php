@@ -19,7 +19,6 @@ class CameraController extends Controller
     public function create()
     {
         $data = [
-            'camera_disponibilità_enum' => Enums::camera_disponibilità_enum(),
             'camera_piano_enum' => Enums::camera_piano_enum()
         ];
         return view('camere.create', $data);
@@ -47,7 +46,6 @@ class CameraController extends Controller
         $camera = Camera::where('numero', $numero)->first();
         $data = [
             'camera' => $camera,
-            'camera_disponibilità_enum' => Enums::camera_disponibilità_enum(),
             'camera_piano_enum' => Enums::camera_piano_enum()
         ];
         return view('camere.edit', $data);
@@ -72,17 +70,18 @@ class CameraController extends Controller
     {
         $rules = [                              
             'numero' => 'required|numeric',
-            'disponibilità' => 'required',
             'numero_letti' => 'required|numeric',
+            'costo_a_notte' => 'required|numeric',
             'piano' => 'required',
             'descrizione' => 'required|max:255',
         ];
         $customMessages = [
             'numero.required' => "E' necessario inserire il parametro 'Numero'",
             'numero.numeric' => "Il campo 'Numero' deve contenere solo numeri",
-            'disponibilità.required' => "E' necessario inserire il parametro 'Disponibilità'",
             'numero_letti.required' => "E' necessario inserire il parametro 'Numero letti'",
             'numero_letti.numeric' => "Il campo 'Numero letti' deve contenere solo numeri",
+            'costo_a_notte.required' => "E' necessario inserire il parametro 'Costo a notte'",
+            'costo_a_notte.numeric' => "Il campo 'Costo a notte' deve contenere solo numeri",
             'piano.required' => "E' necessario inserire il parametro 'Piano'",
             'descrizione.required' => "E' necessario inserire il parametro 'Descrizione'",
             'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
@@ -94,17 +93,19 @@ class CameraController extends Controller
     {
         $rules = [                             
             'numero' => 'required|numeric|unique:camera',
-            'disponibilità' => 'required',
             'numero_letti' => 'required|numeric',
+            'costo_a_notte' => 'required|numeric',
             'piano' => 'required',
             'descrizione' => 'required|max:255',
         ];
         $customMessages = [
             'numero.required' => "E' necessario inserire il parametro 'Numero'",
             'numero.numeric' => "Il campo 'Numero' deve contenere solo numeri",
-            'disponibilità.required' => "E' necessario inserire il parametro 'Disponibilità'",
+            'numero.unique' => "Il valore inserito nel parametro 'Numero' esiste già",
             'numero_letti.required' => "E' necessario inserire il parametro 'Numero letti'",
             'numero_letti.numeric' => "Il campo 'Numero letti' deve contenere solo numeri",
+            'costo_a_notte.required' => "E' necessario inserire il parametro 'Costo a notte'",
+            'costo_a_notte.numeric' => "Il campo 'Costo a notte' deve contenere solo numeri",
             'piano.required' => "E' necessario inserire il parametro 'Piano'",
             'descrizione.required' => "E' necessario inserire il parametro 'Descrizione'",
             'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
@@ -115,8 +116,8 @@ class CameraController extends Controller
     private function salva_camera(Request $request, $camera)              
     {
         $camera->numero = $request->input('numero');          
-        $camera->disponibilità = $request->input('disponibilità');
         $camera->numero_letti = $request->input('numero_letti');
+        $camera->costo_a_notte = $request->input('costo_a_notte');
         $camera->piano = $request->input('piano');
         $camera->descrizione = $request->input('descrizione');
         $camera->save();                                                 
