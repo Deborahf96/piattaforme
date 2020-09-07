@@ -119,6 +119,9 @@
     </div>
 
     <a href="/dipendenti/{{ $dipendente->user_id }}/edit" class="btn btn-primary">Modifica</a>
+    <a class="btn btn-info">Visualizza turni</a>
+    <a class="btn btn-info">Visualizza piano ferie</a>
+    <a class="btn btn-info">Visualizza buste paga</a>
     {!! Form::open(['action' => ['DipendenteController@destroy', $dipendente->user_id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
