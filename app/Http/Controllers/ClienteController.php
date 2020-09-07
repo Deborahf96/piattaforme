@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends Controller
 {
-    public function index()
+    public function index() //lato dipendente
     {
         $clienti = Cliente::all();
         $data = [
@@ -24,10 +24,10 @@ class ClienteController extends Controller
         $data = [
             'cliente' => $cliente
         ];
-        return view('cliente.show', $data);
+        return view('clienti.show', $data);
     }
 
-    public function edit($user_id)
+    public function edit($user_id)  //lato cliente
     {
         $cliente = Cliente::where('user_id', $user_id)->first();
         $data = [
@@ -43,7 +43,14 @@ class ClienteController extends Controller
         $cliente = Cliente::where('user_id', $user_id)->first();
         $this->valida_richiesta($request, $user_id);
         $this->salva_cliente($request, $cliente, $user);
-        return redirect('/clienti.show')->with('success', 'Profilo modificato con successo');
+        return redirect('/clienti/'.$cliente->user_id)->with('success', 'Profilo modificato con successo');
+    }
+
+    public function destroy($user_id)   //lato cliente
+    {
+        $cliente = Cliente::where('user_id', $user_id)->first();
+        $cliente->delete();
+        return redirect('/')->with('success', 'Account eliminato con successo');
     }
 
     private function valida_richiesta(Request $request, $user_id)
