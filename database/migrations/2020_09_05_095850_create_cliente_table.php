@@ -15,13 +15,6 @@ class CreateClienteTable extends Migration
     {
         Schema::create('cliente', function (Blueprint $table) {
             $table->bigInteger('user_id')->unsigned()->primary();
-            $table->string('nome');
-            $table->string('cognome');
-            $table->date('data_nascita');
-            $table->string('luogo_nascita');
-            $table->string('indirizzo');
-            $table->integer('telefono');
-            $table->string('password');
             $table->string('metodo_pagamento')->nullable();
                     
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

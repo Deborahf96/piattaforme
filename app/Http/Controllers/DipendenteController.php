@@ -111,6 +111,7 @@ class DipendenteController extends Controller
             'telefono.max' => "Il numero massimo di caratteri consentito per 'Telefono' è 10",
             'email.required' => "E' necessario inserire il parametro 'Email'",
             'email.email' => "Formato email errato",
+            'email.unique' => "Il valore inserito in 'Email' esiste già",
             'iban.required' => "E' necessario inserire il parametro 'IBAN'",
             'iban.min' => "Il numero minimo di caratteri consentito per 'IBAN' è 27",
             'iban.max' => "Il numero massimo di caratteri consentito per 'IBAN' è 27",

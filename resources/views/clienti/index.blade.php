@@ -14,7 +14,6 @@
                         <tr>
                             <th>Nome</th>
                             <th>Cognome</th>
-                            <th>Indirizzo</th>
                             <th>Email</th>
                             <th></th>
                         </tr>
@@ -22,19 +21,16 @@
                     <tbody>
                         @foreach ($clienti as $cliente)
                             <tr>
-                                <td width=20%>
-                                    {{ $cliente->nome }}
+                                <td width=30%>
+                                    {{ $cliente->utente->name }}
                                 </td>
-                                <td width=20%>
-                                    {{ $cliente->cognome }}
+                                <td width=30%>
+                                    {{ $cliente->utente->cognome }}
                                 </td>
-                                <td width=20%>
-                                    {{ $cliente->indirizzo }}
+                                <td width=30%>
+                                    {{ $cliente->utente->email }}
                                 </td>
-                                <td width=20%>
-                                    {{ $cliente->email }}
-                                </td>
-                                <td width=20%>
+                                <td width=10%>
                                     <div class="d-flex justify-content-around">
                                         <a button href="/clienti/{{ $cliente->user_id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
