@@ -99,6 +99,8 @@
     </div>
 
     <a href="/ditte_esterne/{{ $ditta_esterna->partita_iva }}/edit" class="btn btn-primary">Modifica</a>
+    <a class="btn btn-info">Visualizza attività</a>
+    <a class="btn btn-info">Visualizza fatture</a>
     {!! Form::open(['action' => ['DittaEsternaController@destroy', $ditta_esterna->partita_iva], 'method' => 'POST', 'class'
     => 'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
