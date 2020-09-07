@@ -16,7 +16,7 @@ class Prenotazione extends Model
 
     public function cliente()
     {
-        return $this->belongsTo('App\Cliente', 'cliente_email');
+        return $this->belongsTo('App\Cliente', 'cliente_user_id');
     }
 }
 

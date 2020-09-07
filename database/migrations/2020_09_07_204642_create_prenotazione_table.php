@@ -18,7 +18,8 @@ class CreatePrenotazioneTable extends Migration
             $table->integer('camera_numero');
             $table->date('data_checkin');
             $table->date('data_checkout');
-            $table->string('cliente_email');   //modifica il nome inserendo la chiave di cliente
+            //$table->string('cliente_user_id')->nullable;
+            $table->string('cliente')->nullable;  
             $table->integer('num_persone');
             $table->integer('importo');
             $table->string('metodo_pagamento');
@@ -27,8 +28,8 @@ class CreatePrenotazioneTable extends Migration
             $table->foreign('camera_numero')->references('numero')->on('camera')->onDelete('cascade');
             $table->unique(['camera_numero', 'data_checkin', 'data_checkout'], 'camera_datain_dataout');
             
-            $table->foreign('cliente_email')->references('email')->on('cliente')->onDelete('set_null');
-           //valutare se mettere cascade oppure set_null
+            //$table->foreign('cliente_user_id')->references('user_id')->on('cliente')->onDelete('set null');
+           
         });
     }
 
