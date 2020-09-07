@@ -36,7 +36,7 @@
                                 </td>
                                 <td width=20%>
                                     <div class="d-flex justify-content-around">
-                                        <a button href="/camere/{{ $cliente->email }}"
+                                        <a button href="/clienti/{{ $cliente->user_id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
                                             class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
                                     </div>

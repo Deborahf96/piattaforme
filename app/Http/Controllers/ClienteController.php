@@ -16,9 +16,9 @@ class ClienteController extends Controller
         return view('clienti.index',$data);
     }
    
-    public function show($email)
+    public function show($user_id)
     {
-        $cliente = Cliente::where('email', $email)->first();
+        $cliente = Cliente::where('user_id', $user_id)->first();
         $data = [
             'cliente' => $cliente
         ];

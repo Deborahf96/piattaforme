@@ -8,6 +8,11 @@ class Cliente extends Model
 {
     protected $table = 'cliente';
     public $timestamps = false;
-    protected $primaryKey = 'email';
+    protected $primaryKey = 'user_id';
     public $incrementing = false;
+
+    public function utente()
+    {
+        return $this->belongTo('App\User', 'user_id');
+    }
 }

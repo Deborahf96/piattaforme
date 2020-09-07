@@ -39,7 +39,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-2"><b>Metodo di pagamento</b></div>
-                <div class="col-md-8 col-md-offset-1">{{ $camera->descrizione }}</div>
+                <div class="col-md-8 col-md-offset-1">{{ $cliente->metodo_pagamento }}</div>
             </div>
         </div>
     </div>

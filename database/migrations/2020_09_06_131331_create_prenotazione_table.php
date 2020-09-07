@@ -27,7 +27,7 @@ class CreatePrenotazioneTable extends Migration
             $table->foreign('camera_numero')->references('numero')->on('camera')->onDelete('cascade');
             $table->unique(['camera_numero', 'data_checkin', 'data_checkout'], 'camera_datain_dataout');
             
-            $table->foreign('cliente_email')->references('email')->on('cliente')->onDelete('cascade');
+            $table->foreign('cliente_email')->references('email')->on('cliente')->onDelete('set_null');
            //valutare se mettere cascade oppure set_null
         });
     }

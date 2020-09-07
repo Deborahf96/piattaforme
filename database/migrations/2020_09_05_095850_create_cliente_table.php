@@ -14,7 +14,7 @@ class CreateClienteTable extends Migration
     public function up()
     {
         Schema::create('cliente', function (Blueprint $table) {
-            $table->string('email')->primary();
+            $table->bigInteger('user_id')->unsigned()->primary();
             $table->string('nome');
             $table->string('cognome');
             $table->date('data_nascita');
@@ -23,7 +23,8 @@ class CreateClienteTable extends Migration
             $table->integer('telefono');
             $table->string('password');
             $table->string('metodo_pagamento')->nullable();
-            //$table->timestamps();
+                    
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
