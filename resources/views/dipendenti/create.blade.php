@@ -67,6 +67,12 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                {{{Form::label('ore_settimanali', 'Ore settimanali')}}}
+                                {{{Form::number('ore_settimanali', '', [ 'class' => 'form-control' ])}}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 {{{Form::label('data_inizio', 'Data inizio')}}}
                                 {{{Form::date('data_inizio', '', [ 'class' => 'form-control' ])}}}
                             </div>
@@ -75,12 +81,6 @@
                             <div class="form-group">
                                 {{{Form::label('data_fine', 'Data fine')}}}
                                 {{{Form::date('data_fine', '', [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('ore_settimanali', 'Ore settimanali')}}}
-                                {{{Form::number('ore_settimanali', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
