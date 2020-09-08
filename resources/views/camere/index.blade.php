@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+<title> Thousand Sunny B&B | Camere </title>
+
 @section('thousand_sunny_content')
     <a href="/" class="btn btn-outline-secondary">Indietro</a>
     <br>
