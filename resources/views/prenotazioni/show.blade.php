@@ -20,7 +20,8 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-2"><b>Data checkin</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ \Carbon\Carbon::parse($prenotazione->_checkout)->format('d/m/Y') }}
+                    <div class="col-md-3 col-md-offset-1">
+                        {{ \Carbon\Carbon::parse($prenotazione->data_checkin)->format('d/m/Y') }}
                     </div>
                     <div class="col-md-2"><b>Cliente</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $prenotazione->cliente }}</div>
@@ -28,10 +29,18 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-2"><b>Data checkout</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ \Carbon\Carbon::parse($prenotazione->data_checkout)->format('d/m/Y') }}
+                    <div class="col-md-3 col-md-offset-1">
+                        {{ \Carbon\Carbon::parse($prenotazione->data_checkout)->format('d/m/Y') }}
                     </div>
                     <div class="col-md-2"><b>Metodo di pagamento</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $prenotazione->metodo_pagamento }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2"><b>Conferma avvenuto pernottamento</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ $prenotazione->check_pernottamento }}</div>
+                    <div class="col-md-2"><b>Importo</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ $prenotazione->importo }}</div>
                 </div>
             </div>
         </div>

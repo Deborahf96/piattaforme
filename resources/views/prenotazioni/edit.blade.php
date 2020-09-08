@@ -6,6 +6,28 @@
 <a href="/prenotazioni/{{$prenotazione->id}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
 <br>
 <br>
+<div class="col-md-4">
+    <div class="form-group" div style = 'text-align: right'>
+        {{{Form::label('check_pernottamento', 'Conferma avvenuto pernottamento')}}}
+        {{{Form::checkbox('check_pernottamento', true, $prenotazione->check_pernottamento, [ 'class' => 'form-control' ])}}}
+        
+        Si {!! Form::checkbox('check_pernottamento', 'si', true) !!}
+        No {!! Form::checkbox('check_pernottamento', 'no') !!}
+        {!! Form::submit('invia') !!}
+
+    </div>
+</div>
+
+<form action="">
+    <div class="icheckbox_flat-green disabled" div style = 'text-align: right'>
+        <input name="html" type="checkbox" value="html" />
+        <label>
+            Conferma avvenuto pernottamento
+        </label>
+        <div class="col-md-3 col-md-offset-1">{{ $prenotazione->check_pernottamento }}</div>
+    </div>
+</form>
+
 {!! Form::open(['action' => ['PrenotazioneController@update', $prenotazione->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="col-12">
     <!-- Custom Tabs -->
@@ -44,7 +66,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('cliente', 'Nome e cognome')}}}
-                                {{{Form::text('cliente', $attivita->destinazione, [ 'class' => 'form-control' ])}}}
+                                {{{Form::text('cliente', $prenotazione->cliente, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">

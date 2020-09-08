@@ -23,7 +23,7 @@ class PrenotazioneController extends Controller
     {
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
-            'camere' => Camera::all()->pluck("camera", "numero")->sort(),
+            'camere' => Camera::all()->pluck("numero", "numero")->sort(),
             //'clienti' => Cliente::all()->pluck("cliente", "user_id")->sort(),
         ];
         return view('prenotazioni.create', $data);
@@ -52,7 +52,7 @@ class PrenotazioneController extends Controller
         $data = [
             'prenotazione' => $prenotazione,
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
-            'camere' => Camera::all()->pluck("camera", "numero")->sort(),
+            'camere' => Camera::all()->pluck("numero", "numero")->sort(),
             //'clienti' => Cliente::all()->pluck("cliente", "user_id")->sort(),
         ];
         return view('prenotazioni.edit', $data);
@@ -78,7 +78,7 @@ class PrenotazioneController extends Controller
         $rules = [
             'camera_numero' => 'required|unique_camera_datain_dataout:'.$request->data_checkin.','.$request->data_checkout.','.$id,
             'data_checkin' => 'required|date',
-            'data_checkout'=> 'required|date',
+            'data_checkout'=> 'required|date|date_greater_than:'.$request->data_checkin. ','.$request->data_checkout,
             //'cliente_user_id' => 'required',
             //va inserito l'attributo cliente (quello nome e cognome)
             'num_persone' => 'required|numeric',
