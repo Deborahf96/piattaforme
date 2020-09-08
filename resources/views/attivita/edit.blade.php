@@ -45,12 +45,6 @@
                                 {{{Form::text('destinazione', $attivita->destinazione, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('tipologia', 'Tipologia')}}}
-                                {{{Form::select('tipologia', $attivita_tipologia_enum, $attivita->tipologia, [ 'class' => 'form-control', 'placeholder' => 'Seleziona una tipologia' ])}}}
-                            </div>
-                        </div>
                     </div>
                 </div><!-- /.tab-pane -->
             </div><!-- /.tab-content -->

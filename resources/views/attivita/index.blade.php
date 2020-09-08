@@ -38,9 +38,9 @@
                     <thead>
                         <tr>
                             <th>Ditta esterna</th>
+                            <th>Tipologia</th>
                             <th>Data</th>
                             <th>Ora</th>
-                            <th>Tipologia</th>
                             <th>Destinazione</th>
                             <th></th>
                         </tr>
@@ -51,14 +51,14 @@
                                 <td width=20%>
                                     {{ $singola_attivita->ditta_esterna->nome }}
                                 </td>
+                                <td width=20%>
+                                    {{ $singola_attivita->tipologia }}
+                                </td>
                                 <td width=15%>
                                     {{ $singola_attivita->data }}
                                 </td>
                                 <td width=10%>
                                     {{ \Carbon\Carbon::parse($singola_attivita->ora)->format('H:i') }}
-                                </td>
-                                <td width=20%>
-                                    {{ $singola_attivita->tipologia }}
                                 </td>
                                 <td width=20%>
                                     {{ $singola_attivita->destinazione }}
