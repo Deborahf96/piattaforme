@@ -81,7 +81,6 @@ class DipendenteController extends Controller
     {
         $rules = [
             'nome' => 'required|max:255',
-            'cognome' => 'required|max:255',
             'data_nascita' => 'required|date',
             'luogo_nascita' => 'required|max:255',
             'indirizzo' => 'required|max:255',
@@ -96,10 +95,8 @@ class DipendenteController extends Controller
             'ore_settimanali' => 'required|numeric',
         ];
         $customMessages = [
-            'nome.required' => "E' necessario inserire il parametro 'Nome'",
-            'nome.max' => "Il numero massimo di caratteri consentito per 'Nome' è 255",
-            'cognome.required' => "E' necessario inserire il parametro 'Cognome'",
-            'cognome.max' => "Il numero massimo di caratteri consentito per 'Cognome' è 255",
+            'nome.required' => "E' necessario inserire il parametro 'Nome completo'",
+            'nome.max' => "Il numero massimo di caratteri consentito per 'Nome completo' è 255",
             'data_nascita.required' => "E' necessario inserire il parametro 'Data di nascita'",
             'data_nascita.date' => "E' necessario inserire una data per il campo 'Data di nascita'",
             'luogo_nascita.required' => "E' necessario inserire il parametro 'Luogo di nascita'",
@@ -145,7 +142,6 @@ class DipendenteController extends Controller
     private function salva_utente(Request $request, $user)
     {
         $user->name = $request->input('nome');
-        $user->cognome = $request->input('cognome');
         $user->data_nascita = $request->input('data_nascita');
         $user->luogo_nascita = $request->input('luogo_nascita');
         $user->indirizzo = $request->input('indirizzo');

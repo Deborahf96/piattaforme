@@ -19,14 +19,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('nome', 'Nome')}}}
+                                {{{Form::label('nome', 'Nome completo')}}}
                                 {{{Form::text('nome', $dipendente->utente->name, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('cognome', 'Cognome')}}}
-                                {{{Form::text('cognome', $dipendente->utente->cognome, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">

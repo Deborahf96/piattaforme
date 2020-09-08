@@ -57,7 +57,6 @@ class ClienteController extends Controller
     {
         $rules = [
             'nome' => 'required|max:255',
-            'cognome' => 'required|max:255',
             'data_nascita' => 'nullable|date',
             'luogo_nascita' => 'nullable|max:255',
             'indirizzo' => 'nullable|max:255',
@@ -66,10 +65,8 @@ class ClienteController extends Controller
             'metodo_pagamento' => 'nullable',
         ];
         $customMessages = [
-            'nome.required' => "E' necessario inserire il parametro 'Nome'",
-            'nome.max' => "Il numero massimo di caratteri consentito per 'Nome' è 255",
-            'cognome.required' => "E' necessario inserire il parametro 'Cognome'",
-            'cognome.max' => "Il numero massimo di caratteri consentito per 'Cognome' è 255",
+            'nome.required' => "E' necessario inserire il parametro 'Nome completo'",
+            'nome.max' => "Il numero massimo di caratteri consentito per 'Nome completo' è 255",
             'data_nascita.date' => "E' necessario inserire una data per il campo 'Data di nascita'",
             'luogo_nascita.max' => "Il numero massimo di caratteri consentito per 'Luogo di nascita' è 255",
             'indirizzo.max' => "Il numero massimo di caratteri consentito per 'Indirizzo' è 255",
@@ -93,7 +90,6 @@ class ClienteController extends Controller
     private function salva_utente(Request $request, $user)
     {
         $user->name = $request->input('nome');
-        $user->cognome = $request->input('cognome');
         $user->data_nascita = $request->input('data_nascita');
         $user->luogo_nascita = $request->input('luogo_nascita');
         $user->indirizzo = $request->input('indirizzo');

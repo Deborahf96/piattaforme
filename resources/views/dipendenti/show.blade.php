@@ -15,13 +15,8 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-5"><b>Nome</b></div>
+                                <div class="col-md-5"><b>Nome completo</b></div>
                                 <div class="col-md-7 col-md-offset-1">{{ $dipendente->utente->name }}</div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-5"><b>Cognome</b></div>
-                                <div class="col-md-7 col-md-offset-1">{{ $dipendente->utente->cognome }}</div>
                             </div>
                             <hr>
                             <div class="row">

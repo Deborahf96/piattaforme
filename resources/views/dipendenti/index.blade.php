@@ -39,8 +39,7 @@
                 <table id="" class="display table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Cognome</th>
+                            <th>Nome completo</th>
                             <th>Ruolo</th>
                             <th>Email</th>
                             <th></th>
@@ -49,16 +48,13 @@
                     <tbody>
                         @foreach ($dipendenti as $dipendente)
                             <tr>
-                                <td width=20%>
+                                <td width=30%>
                                     {{ $dipendente->utente->name }}
-                                </td>
-                                <td width=20%>
-                                    {{ $dipendente->utente->cognome }}
                                 </td>
                                 <td width=20%>
                                     {{ $dipendente->ruolo }}
                                 </td>
-                                <td width=20%>
+                                <td width=30%>
                                     {{ $dipendente->utente->email }}
                                 </td>
                                 <td width=20%>
@@ -69,7 +65,7 @@
                                         <a button href="/dipendenti/{{ $dipendente->user_id }}/edit"
                                             data-toggle="tooltip" data-placement="top" title="Modifica"
                                             class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
-                                        @php $username = $dipendente->utente->name.' '.$dipendente->utente->cognome @endphp
+                                        @php $username = $dipendente->utente->name @endphp
                                         {!! Form::open(['action' => ['DipendenteController@destroy',
                                         $dipendente->user_id], 'method' => 'POST']) !!}
                                         {{ Form::hidden('_method', 'DELETE') }}
