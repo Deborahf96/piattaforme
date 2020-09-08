@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-<title> Thousand Sunny B&B | Ditte esterne </title>
-
 @section('thousand_sunny_content')
     <a href="/ditte_esterne" class="btn btn-outline-secondary">Torna a ditte</a>
     <hr>

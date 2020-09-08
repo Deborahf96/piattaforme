@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-<title> Thousand Sunny B&B | Clienti </title>
-
 @section('thousand_sunny_content')
     @php $url_previous = URL::previous() @endphp
     @if ($url_previous === 'http://localhost:8080/clienti')

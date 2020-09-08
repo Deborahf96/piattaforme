@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-<title> Thousand Sunny B&B | Prenotazioni </title>
-
 @section('thousand_sunny_content')
     <a href="/prenotazioni" class="btn btn-outline-secondary">Torna a prenotazioni</a>
     <hr>
