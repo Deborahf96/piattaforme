@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
-<title> Thousand Sunny B&B | Prenotazioni </title> 
-
 @section('thousand_sunny_content')
     <a href="/" class="btn btn-outline-secondary">Indietro</a>
-    <hr>
+    <br>
+    <br>
     <a href="/prenotazioni/create" class="btn btn-primary float-right">Aggiungi una nuova prenotazione</a>
-    <h1>Elenco Prenotazioni</h1>
+    <h1>Elenco prenotazioni</h1>
     <br>
     @if (count($prenotazioni) > 0)
         <div class="card">
@@ -15,9 +14,9 @@
                     <thead>
                         <tr>
                             <th>Camera</th>
-                            <th>Data checkin</th>
-                            <th>Data checkout</th>
-                            <th>Numero di persone</th>
+                            <th>Data check-in</th>
+                            <th>Data check-out</th>
+                            <th>Importo</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -27,16 +26,16 @@
                                 <td width=20%>
                                     {{ $prenotazione->camera->numero }}
                                 </td>
-                                <td width=15%>
+                                <td width=20%>
                                     {{ $prenotazione->data_checkin }}
                                 </td>
-                                <td width=15%>
+                                <td width=20%>
                                     {{ $prenotazione->data_checkout }}
                                 </td>
                                 <td width=20%>
-                                    {{ $prenotazione->num_persone }}
+                                    {{ $prenotazione->importo }}
                                 </td>
-                                <td width=15%>
+                                <td width=20%>
                                     <div class="d-flex justify-content-around">
                                         <a button href="/prenotazioni/{{ $prenotazione->id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
@@ -65,7 +64,7 @@
             </div>
         </div>
     @else
-        <p>Nessuna prenotazione effettuata</p>
+        <p>Nessuna prenotazione inserita</p>
     @endif
 
 @endsection

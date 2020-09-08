@@ -24,7 +24,7 @@ class PrenotazioneController extends Controller
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'camere' => Camera::all()->pluck("numero", "numero")->sort(),
-            //'clienti' => Cliente::all()->pluck("cliente", "user_id")->sort(),
+            'clienti' => Cliente::all()->pluck("user_id", "user_id")->sort(),
         ];
         return view('prenotazioni.create', $data);
     }
@@ -49,11 +49,12 @@ class PrenotazioneController extends Controller
     public function edit($id)
     {
         $prenotazione = Prenotazione::find($id);
+        
         $data = [
             'prenotazione' => $prenotazione,
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'camere' => Camera::all()->pluck("numero", "numero")->sort(),
-            //'clienti' => Cliente::all()->pluck("cliente", "user_id")->sort(),
+            'clienti' => Cliente::all()->pluck("user_id", "user_id")->sort(),
         ];
         return view('prenotazioni.edit', $data);
     }
@@ -79,22 +80,21 @@ class PrenotazioneController extends Controller
             'camera_numero' => 'required|unique_camera_datain_dataout:'.$request->data_checkin.','.$request->data_checkout.','.$id,
             'data_checkin' => 'required|date',
             'data_checkout'=> 'required|date|date_greater_than:'.$request->data_checkin. ','.$request->data_checkout,
-            //'cliente_user_id' => 'required',
-            //va inserito l'attributo cliente (quello nome e cognome)
+            'cliente_user_id' => 'nullable',
+            'cliente' => 'nullable|max:255',
             'num_persone' => 'required|numeric',
             'metodo_pagamento' => 'required',
         ];
         $customMessages = [
             'camera_numero.required' => "E' necessario inserire il parametro 'Camera'",
-            'camera_numero.numeric' => "Il campo 'Camera' può contenere solo numeri",
             'data_checkin.required' => "E' necessario inserire il parametro 'Data checkin'",
             'data_checkin.date' => "E' necessario inserire una data per il campo 'Data checkin'",
             'data_checkout.required' => "E' necessario inserire il parametro 'Data checkout'",
             'data_checkout.date' => "E' necessario inserire una data per il campo 'Data checkout'",
-            //'cliente_user_id.required' => "E' necessario inserire il parametro 'Cliente'",
+            'cliente.max' => "Il numero massimo di caratteri consentito per 'Cliente' è 255",
             'num_persone.required' => "E' necessario inserire il parametro 'Numero persone'",
             'num_persone.numeric' => "Il campo 'Numero persone' può contenere solo numeri",
-            'metodo_pagamento' => "E' necessario inserire il parametro 'Metodo di pagamento'",
+            'metodo_pagamento.required' => "E' necessario inserire il parametro 'Metodo di pagamento'",
         ];
 
         $this->validate($request, $rules, $customMessages);
@@ -105,7 +105,7 @@ class PrenotazioneController extends Controller
         $prenotazione->camera_numero = $request->input('camera_numero');
         $prenotazione->data_checkin = $request->input('data_checkin');
         $prenotazione->data_checkout = $request->input('data_checkout');
-        //$prenotazione->cliente_user_id = $request->input('cliente_user_id');
+        $prenotazione->cliente_user_id = $request->input('cliente_user_id');
         $prenotazione->cliente = $request->input('cliente');
         $prenotazione->num_persone = $request->input('num_persone');
         $prenotazione->metodo_pagamento = $request->input('metodo_pagamento');

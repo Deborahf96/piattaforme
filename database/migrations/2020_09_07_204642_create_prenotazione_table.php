@@ -18,18 +18,16 @@ class CreatePrenotazioneTable extends Migration
             $table->integer('camera_numero');
             $table->date('data_checkin');
             $table->date('data_checkout');
-            //$table->string('cliente_user_id')->nullable;
-            $table->string('cliente')->nullable;  
+            $table->bigInteger('cliente_user_id')->unsigned()->nullable();
+            $table->string('cliente')->nullable();  
             $table->integer('num_persone');
             $table->integer('importo')->nullable(); //messo nullable togliere
             $table->string('metodo_pagamento');
             $table->boolean('check_pernottamento')->nullable(); //messo nullable togliere
 
             $table->foreign('camera_numero')->references('numero')->on('camera')->onDelete('cascade');
+            $table->foreign('cliente_user_id')->references('user_id')->on('cliente')->onDelete('set null');
             $table->unique(['camera_numero', 'data_checkin', 'data_checkout'], 'camera_datain_dataout');
-            
-            //$table->foreign('cliente_user_id')->references('user_id')->on('cliente')->onDelete('set null');
-           
         });
     }
 

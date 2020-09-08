@@ -25,14 +25,20 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('data_checkin', 'Data checkin')}}}
+                                {{{Form::label('data_checkin', 'Data check-in')}}}
                                 {{{Form::date('data_checkin', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('data_checkout', 'Data checkout')}}}
+                                {{{Form::label('data_checkout', 'Data check-out')}}}
                                 {{{Form::date('data_checkout', '', [ 'class' => 'form-control' ])}}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{{Form::label('cliente', 'Nuovo cliente')}}}
+                                {{{Form::text('cliente', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -43,14 +49,14 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('cliente', 'Nome e cognome')}}}
-                                {{{Form::text('cliente', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::label('metodo_pagamento', 'Metodo di pagamento')}}}
+                                {{{Form::select('metodo_pagamento', $metodo_pagamento_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un metodo di pagamento' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('metodo_pagamento', 'Metodo di pagamento')}}}
-                                {{{Form::select('metodo_pagamento', $metodo_pagamento_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un metodo di pagamento' ])}}}
+                                {{{Form::label('cliente_user_id', 'Cliente già registrato')}}}
+                                {{{Form::select('cliente_user_id', $clienti, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un cliente già registrato' ])}}}
                             </div>
                         </div>
                     </div>
