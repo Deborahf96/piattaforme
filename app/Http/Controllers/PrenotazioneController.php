@@ -24,7 +24,7 @@ class PrenotazioneController extends Controller
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'camere' => Camera::all()->pluck("numero", "numero")->sort(),
-            'clienti' => Cliente::all()->pluck("user_id", "user_id")->sort(),
+            'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
         ];
         return view('prenotazioni.create', $data);
     }
@@ -54,7 +54,7 @@ class PrenotazioneController extends Controller
             'prenotazione' => $prenotazione,
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'camere' => Camera::all()->pluck("numero", "numero")->sort(),
-            'clienti' => Cliente::all()->pluck("user_id", "user_id")->sort(),
+            'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
         ];
         return view('prenotazioni.edit', $data);
     }
