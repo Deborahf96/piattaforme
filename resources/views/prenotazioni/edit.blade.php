@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-<title> Thousand Sunny B&B | Prenotazioni </title>
-
 @section('thousand_sunny_content')
 <a href="/prenotazioni/{{$prenotazione->id}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
 <br>
