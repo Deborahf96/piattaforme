@@ -78,8 +78,8 @@ class PrenotazioneController extends Controller
     {
         $rules = [
             'camera_numero' => 'required|unique_camera_datain_dataout:'.$request->data_checkin.','.$request->data_checkout.','.$id,
-            'data_checkin' => 'required|date|date_current_greater_than:'.$request->data_checkin,
-            'data_checkout'=> 'required|date|date_greater_than:'.$request->data_checkin. ','.$request->data_checkout,
+            'data_checkin' => 'required|date|current_date_greater_than:'.$request->data_checkin,
+            'data_checkout'=> 'required|date|date_greater_than:'.$request->data_checkin,
             'cliente_user_id' => 'nullable',
             'cliente' => 'nullable|max:255',
             'num_persone' => 'required|numeric',

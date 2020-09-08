@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->date_greater_than();
-        $this->date_current_greater_than();
+        $this->current_date_greater_than();
         $this->unique_ditta_data_ora();
         $this->unique_camera_datain_dataout();
     }
@@ -42,13 +42,13 @@ class AppServiceProvider extends ServiceProvider
         }, "La data di fine deve essere maggiore della data di inizio");
     }
 
-    private function date_current_greater_than()
+    private function current_date_greater_than()
     {
-        Validator::extend('date_current_greater_than', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('current_date_greater_than', function ($attribute, $value, $parameters, $validator) {
             $first = Carbon::parse($value);
             $second = Carbon::parse(date('m/d/Y h:i:s a', time()));   //inserire un ulteriore controllo, se le date sono uguali confrontare l'orario
             return $first->greaterThan($second);
-        }, "La data di oggi non può essere maggiore della data scelta per l'attività");
+        }, "La data inserita non è valida. Inserire una data maggiore rispetto alla data odierna");
     }
 
     private function unique_ditta_data_ora()

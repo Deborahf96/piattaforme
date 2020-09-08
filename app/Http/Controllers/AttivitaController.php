@@ -83,7 +83,7 @@ class AttivitaController extends Controller
     {
         $rules = [
             'ditta_esterna_partita_iva' => 'required|unique_ditta_data_ora:'.$request->data.','.$request->ora.','.$id,
-            'data' => 'required|date|date_current_greater_than:'.$request->data,
+            'data' => 'required|date|current_date_greater_than:',
             'ora' => 'required|date_format:"H:i"',
             'max_persone' => 'required|numeric',
             'destinazione' => 'required|max:255',
