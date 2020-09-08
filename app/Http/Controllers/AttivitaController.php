@@ -26,7 +26,10 @@ class AttivitaController extends Controller
     {
         $data = [
             'attivita_tipologia_enum' => Enums::attivita_tipologia_enum(),
-            'ditte_esterne' => DittaEsterna::all()->pluck("nome", "partita_iva")->sort(),
+            'ditte_esterne' => DittaEsterna::where('categoria', '=', 'Servizio navetta')
+                                            ->orwhere('categoria', '=', 'Tour operator')
+                                            ->get()->pluck("nome", "partita_iva")->sort(),
+            
         ];
         return view('attivita.create', $data);
     }
@@ -54,7 +57,9 @@ class AttivitaController extends Controller
         $data = [
             'attivita' => $attivita,
             'attivita_tipologia_enum' => Enums::attivita_tipologia_enum(),
-            'ditte_esterne' => DittaEsterna::all()->pluck("nome", "partita_iva")->sort(),
+            'ditte_esterne' => DittaEsterna::where('categoria', '=', 'Servizio navetta')
+                                            ->orwhere('categoria', '=', 'Tour operator')
+                                            ->get()->pluck("nome", "partita_iva")->sort(),
         ];
         return view('attivita.edit', $data);
     }
@@ -78,7 +83,7 @@ class AttivitaController extends Controller
     {
         $rules = [
             'ditta_esterna_partita_iva' => 'required|unique_ditta_data_ora:'.$request->data.','.$request->ora.','.$id,
-            'data' => 'required|date',
+            'data' => 'required|date|date_current_greater_than:'.$request->data,
             'ora' => 'required|date_format:"H:i"',
             'max_persone' => 'required|numeric',
             'destinazione' => 'required|max:255',
