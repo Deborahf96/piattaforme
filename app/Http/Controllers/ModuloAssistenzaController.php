@@ -4,26 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\ModuloAssistenza;
+use App\User;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ModuloAssistenzaController extends Controller
 {
+
+    public function index() 
+    {
+        $user_id = Auth::user()->id;
+        $data = [
+            'moduli_assistenza' => ModuloAssistenza::where('cliente_user_id', $user_id)->get()
+        ];
+        return view('moduli_assistenza.index',$data);
+    }
    
     public function create()
     {
         $data = [
             'tipo_assistenza_enum' => Enums::tipo_assistenza_enum(),
-            'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
         ];
-        return view('modulo_assistenza.create', $data);
+        return view('moduli_assistenza.create', $data);
     }
 
     public function store(Request $request)
     {
         $assistenza = new ModuloAssistenza();
+        $user_id = Auth::user()->id;
         $this->valida_richiesta($request, $assistenza->id);
-        $this->salva_richiesta($request, $assistenza);
-        return redirect('/modulo_assistenza')->with('success','Richiesta inviata con successo');
+        $this->salva_richiesta($request, $assistenza, $user_id);
+        return redirect('/moduli_assistenza')->with('success','Richiesta inviata con successo');
     //forse mettere /modulo_assistenza/create
     }
 
@@ -35,8 +47,8 @@ class ModuloAssistenzaController extends Controller
     private function valida_richiesta(Request $request, $id)
     {
         $rules = [
-            'cliente_user_id' => 'nullable',
-            'tipologia' => 'required'     
+            'tipologia' => 'required',   
+            'messaggio' => 'required'
         ];
         $customMessages = [
             'tipologia.required' => "E' necessario inserire il tipo di assistenza'",
@@ -45,12 +57,11 @@ class ModuloAssistenzaController extends Controller
         $this->validate($request, $rules, $customMessages);
     }
 
-    private function salva_richiesta(Request $request, $assistenza)
+    private function salva_richiesta(Request $request, $assistenza, $user_id)
     {
-        $assistenza->cliente_user_id = $request->input('cliente_user_id');
+        $assistenza->cliente_user_id = $user_id;
         $assistenza->tipologia = $request->input('tipologia');
-        $assistenza->data = date('m/d/Y h:i:s a', time());
-        $assistenza->ora = time();
+        $assistenza->messaggio = $request->input('messaggio');
         $assistenza->save();
     }
 

@@ -330,6 +330,13 @@ return [
             'url'     => '/clienti',
             'icon'    => 'fa fa-users',
         ],
+        [
+            'text'    => 'Richiesta di assistenza',
+            'url'     => '/moduli_assistenza',
+            'icon'    => 'fa fa-question-circle',
+        ],
+        
+       
     ],
 
     /*
