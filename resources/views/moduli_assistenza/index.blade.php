@@ -14,22 +14,26 @@
                     <thead>
                         <tr>
                             <th>Tipologia di assistenza</th>
-                            <th>Messaggio</th>
+                            <th>Oggetto</th>
+                            <th>Data</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($moduli_assistenza as $modulo_assistenza)
                             <tr>
-                                <td width=50%>
+                                <td width=30%>
                                     {{ $modulo_assistenza->tipologia }}
                                 </td>
                                 <td width=30%>
-                                    {{ $modulo_assistenza->messaggio }}
+                                    {{ $modulo_assistenza->oggetto }}
                                 </td>
-                                <td width=20%>
+                                <td width=30%>
+                                    {{ \Carbon\Carbon::parse($modulo_assistenza->created_at)->format('Y/m/d H:i') }}
+                                </td>
+                                <td width=10%>
                                     <div class="d-flex justify-content-around">
-                                        <a button href="/moduli_assistenza/{{ $modulo_assistenza->cliente_user_id }}"
+                                        <a button href="/moduli_assistenza/{{ $modulo_assistenza->id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
                                             class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
                                     </div>
