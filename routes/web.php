@@ -26,8 +26,13 @@ Route::resource('/camere', 'CameraController');
 Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
 Route::resource('/attivita', 'AttivitaController');
 Route::resource('/dipendenti', 'DipendenteController');
-Route::resource('/prenotazioni', 'PrenotazioneController');
 Route::resource('/modulo_assistenza', 'ModuloAssistenzaController');
+
+Route::get('/prenotazioni/prenota', 'PrenotazioneController@prenota');
+Route::resource('/prenotazioni', 'PrenotazioneController');
+
+Route::get('/prenotazioni_cliente/storico', 'PrenotazioneClienteController@storico');
+Route::resource('/prenotazioni_cliente', 'PrenotazioneClienteController');
 
 // Cliente
 Route::get('/clienti_latoCliente', 'ClienteClienteController@show');
