@@ -14,19 +14,26 @@
         <div class="card-body">
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                        
-                        <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 {{{Form::label('tipologia', 'Tipologia di assistenza')}}}
-                                {{{Form::select('tipologia', $tipo_assistenza_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona una tipologia di assistenza' ])}}}
+                                {{{Form::select('tipologia', $assistenza_tipologia_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona una tipologia di assistenza' ])}}}
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{{Form::label('oggetto', 'Oggetto')}}}
+                                {{{Form::text('oggetto', '', [ 'class' => 'form-control' ])}}}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
                             <div class="form-group">
                                 {{{Form::label('messaggio', 'Messaggio')}}}
                                 {{{Form::textarea('messaggio', '', [ 'class' => 'form-control', 'placeholder' => 'Inserisci un messaggio ...' ])}}}
                             </div>
                         </div>
+                    </div>
                 </div><!-- /.tab-pane -->
             </div><!-- /.tab-content -->
         </div><!-- /.card-body -->

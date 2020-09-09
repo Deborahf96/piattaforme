@@ -17,6 +17,7 @@ class CreateModuloAssistenzaTable extends Migration
             $table->id();
             $table->bigInteger('cliente_user_id')->unsigned();
             $table->string('tipologia');
+            $table->string('oggetto');
             $table->text('messaggio');
             $table->timestamps();
             

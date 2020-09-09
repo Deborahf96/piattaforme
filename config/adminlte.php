@@ -256,7 +256,7 @@ return [
                 ],
                 [
                     'text' => 'Aggiungi',
-                    'url'  => '/prenotazioni/create',
+                    'url'  => '/prenotazioni/prenota',
                     'icon' => 'fa fa-plus',
                 ],
             ],
@@ -330,11 +330,6 @@ return [
             'url'     => '/clienti_latoDipendente',
             'icon'    => 'fa fa-users',
         ],
-        [
-            'text'    => 'Richiesta di assistenza',
-            'url'     => '/moduli_assistenza',
-            'icon'    => 'fa fa-question-circle',
-        ],
         [       
             'text'    => 'Profilo',
             'icon'    => 'fa fa-user',
@@ -348,6 +343,38 @@ return [
                     'text' => 'Modifica',
                     'url'  => '/clienti_latoCliente/edit',
                     'icon' => 'fa fa-edit',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Prenotazioni',
+            'icon' => 'fa fa-bell',
+            'submenu' => [
+                [
+                    'text' => 'Visualizza storico',
+                    'url'  => '/prenotazioni_cliente/storico',
+                    'icon' => 'fa fa-search-plus',
+                ],
+                [
+                    'text' => 'Prenota',
+                    'url'  => '/prenotazioni_cliente',
+                    'icon' => 'fa fa-plus',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Area assistenza',
+            'icon'    => 'fa fa-question-circle',
+            'submenu' => [
+                [
+                    'text' => 'Visualizza richieste',
+                    'url'  => '/moduli_assistenza',
+                    'icon' => 'fa fa-search-plus',
+                ],
+                [
+                    'text' => 'Invia una richiesta',
+                    'url'  => '/moduli_assistenza/create',
+                    'icon' => 'fa fa-share',
                 ],
             ],
         ],
