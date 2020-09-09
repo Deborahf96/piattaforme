@@ -27,4 +27,5 @@ Route::resource('/clienti', 'ClienteController');
 Route::resource('/attivita', 'AttivitaController');
 Route::resource('/dipendenti', 'DipendenteController');
 Route::resource('/prenotazioni', 'PrenotazioneController');
+Route::resource('/modulo_assistenza', 'ModuloAssistenzaController');
 
