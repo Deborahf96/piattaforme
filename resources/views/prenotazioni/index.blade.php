@@ -51,8 +51,8 @@
                                                 'class' => 'btn btn-danger btn-sm',
                                                 'data-toggle' => 'tooltip',
                                                 'data-placement' => 'top',
-                                                'title' => 'Elimina',
-                                                'onclick' => "return confirm('Confermi di voler eliminare questa prenotazione?')",
+                                                'title' => 'Annulla',
+                                                'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')",
                                             ]) }}
                                         {!! Form::close() !!}
                                     </div>

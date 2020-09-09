@@ -113,10 +113,10 @@
         </div>
     </div>
 
-    <a href="/dipendenti/{{ $dipendente->user_id }}/edit" class="btn btn-primary">Modifica</a>
-    <a class="btn btn-info">Visualizza turni</a>
-    <a class="btn btn-info">Visualizza piano ferie</a>
-    <a class="btn btn-info">Visualizza buste paga</a>
+    <a href="/dipendenti/{{ $dipendente->user_id }}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
+    <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza turni</button>
+    <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza piano ferie</button>
+    <button type="button" class="btn btn-info disabled">Visualizza buste paga</button>
     {!! Form::open(['action' => ['DipendenteController@destroy', $dipendente->user_id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}

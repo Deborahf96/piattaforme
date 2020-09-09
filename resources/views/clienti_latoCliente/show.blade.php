@@ -6,7 +6,7 @@
     <div class="col-md-12 d-flex align-items-stretch">
         <div class="card card-primary card-outline" style="width: 100%">
             <div class="card-header">
-                <h5 class="card-title m-0"><b>Cliente</b></h5>
+                <h5 class="card-title m-0"><b>Profilo</b></h5>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -45,8 +45,8 @@
             </div>
         </div>
     </div>
-    <a href="/clienti_latoCliente/edit" class="btn btn-primary">Modifica</a>
-    <a class="btn btn-info">Visualizza prenotazioni</a>
+    <a href="/clienti_latoCliente/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
+    <button type="button" class="btn btn-info disabled">Visualizza prenotazioni</button>
     {!! Form::open(['action' => ['ClienteClienteController@destroy', $cliente->user_id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}

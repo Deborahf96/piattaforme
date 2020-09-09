@@ -36,7 +36,7 @@
     </div>
     
     @php $ditta = $attivita->ditta_esterna->partita_iva @endphp
-    <a href="/attivita/{{ $attivita->id }}/edit" class="btn btn-primary">Modifica</a>
+    <a href="/attivita/{{ $attivita->id }}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
     <a href="/ditte_esterne/{{ $ditta }}"  class="btn btn-info">Visualizza ditta esterna</a>
     {!! Form::open(['action' => ['AttivitaController@destroy', $attivita->id], 'method' => 'POST', 'class' =>
     'float-right']) !!}

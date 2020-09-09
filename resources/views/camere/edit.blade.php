@@ -15,34 +15,34 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {{{Form::label('numero', 'Numero')}}}
                                 {{{Form::number('numero', $camera->numero, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('piano', 'Piano')}}}
-                                {{{Form::select('piano', $camera_piano_enum, $camera->piano, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un piano' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {{{Form::label('numero_letti', 'Numero letti')}}}
                                 {{{Form::number('numero_letti', $camera->numero_letti, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{{Form::label('piano', 'Piano')}}}
+                                {{{Form::select('piano', $camera_piano_enum, $camera->piano, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un piano' ])}}}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {{{Form::label('costo_a_notte', 'Costo a notte')}}}
                                 {{{Form::number('costo_a_notte', $camera->costo_a_notte, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 {{{Form::label('descrizione', 'Descrizione')}}}
-                                {{{Form::text('descrizione', $camera->descrizione, [ 'class' => 'form-control' ])}}}
+                                {{{Form::textarea('descrizione', $camera->descrizione, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                     </div>

@@ -33,7 +33,7 @@
                                     {{ $camera->numero_letti }}
                                 </td>
                                 <td width=20%>
-                                    {{ $camera->costo_a_notte }}
+                                    {{ $camera->costo_a_notte }} €
                                 </td>
                                 <td width=20%>
                                     <div class="d-flex justify-content-around">

@@ -6,7 +6,7 @@
     <div class="col-md-12 d-flex align-items-stretch">
         <div class="card card-primary card-outline" style="width: 100%">
             <div class="card-header">
-                <h5 class="card-title m-0"><b>Prenotazioni</b></h5>
+                <h5 class="card-title m-0"><b>Prenotazione</b></h5>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -54,7 +54,7 @@
     {!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
-    {{ Form::submit('Elimina', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questa prenotazione?')"]) }}
+    {{ Form::submit('Annulla', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')"]) }}
     {!! Form::close() !!}
     <hr>
 

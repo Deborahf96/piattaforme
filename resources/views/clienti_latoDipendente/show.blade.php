@@ -45,5 +45,5 @@
             </div>
         </div>
     </div>
-    <a class="btn btn-info">Visualizza prenotazioni</a>
+    <button type="button" class="btn btn-info disabled">Visualizza prenotazioni</button>
 @endsection

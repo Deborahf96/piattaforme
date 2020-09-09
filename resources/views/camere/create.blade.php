@@ -15,34 +15,34 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {{{Form::label('numero', 'Numero')}}}
                                 {{{Form::number('numero', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('piano', 'Piano')}}}
-                                {{{Form::select('piano', $camera_piano_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un piano' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {{{Form::label('numero_letti', 'Numero letti')}}}
                                 {{{Form::number('numero_letti', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{{Form::label('piano', 'Piano')}}}
+                                {{{Form::select('piano', $camera_piano_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un piano' ])}}}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {{{Form::label('costo_a_notte', 'Costo a notte')}}}
                                 {{{Form::number('costo_a_notte', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 {{{Form::label('descrizione', 'Descrizione')}}}
-                                {{{Form::text('descrizione', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::textarea('descrizione', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                     </div>
