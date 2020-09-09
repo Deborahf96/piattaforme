@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Prenotazione;
 use App\Camera;
-use App\Cliente;
-use App\User;
+use App\Prenotazione;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class PrenotazioneController extends Controller
+class PrenotazioneClienteController extends Controller
 {
-   
-    public function index()
+    public function storico()
     {
-        $prenotazioni = Prenotazione::all();
+        $user_id = Auth::user()->id;
+        $prenotazioni = Prenotazione::where('cliente_user_id', $user_id)->get();
         $data = [
             'prenotazioni' => $prenotazioni
         ];
-        return view('prenotazioni.index', $data);
+        return view('prenotazioni_cliente.storico', $data);
     }
 
-    public function prenota(Request $request)
+    public function index(Request $request)
     {
         $data_checkin = $request->input('data_checkin');
         $data_checkout = $request->input('data_checkout');
@@ -32,7 +31,7 @@ class PrenotazioneController extends Controller
             'data_checkout' => $data_checkout,
             'num_persone' => $num_persone
         ];
-        return view('prenotazioni.prenota', $data);
+        return view('prenotazioni_cliente.index', $data);
     }
     
     public function create()
@@ -40,9 +39,8 @@ class PrenotazioneController extends Controller
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'camere' => Camera::all()->pluck("numero", "numero")->sort(),
-            'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
         ];
-        return view('prenotazioni.create', $data);
+        return view('prenotazioni_cliente.create', $data);
     }
 
     public function store(Request $request)
@@ -50,18 +48,16 @@ class PrenotazioneController extends Controller
         $prenotazione = new Prenotazione;
         $this->valida_richiesta($request, $prenotazione->id);
         $this->salva_prenotazione($request, $prenotazione);
-        return redirect('/prenotazioni')->with('success', 'Prenotazione inserita con successo');
+        return redirect('/prenotazioni_cliente')->with('success', 'Prenotazione effettuata con successo');
     }
 
     public function show($id)
     {
         $prenotazione = Prenotazione::find($id);
-        $cliente_name = User::where('id', $id)->value('name');
         $data = [
             'prenotazione' => $prenotazione,
-            'cliente_name' => $cliente_name,
         ];
-        return view ('prenotazioni.show', $data);
+        return view ('prenotazioni_cliente.show', $data);
     }
 
     public function edit($id)
@@ -70,10 +66,8 @@ class PrenotazioneController extends Controller
         $data = [
             'prenotazione' => $prenotazione,
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
-            'camere' => Camera::all()->pluck("numero", "numero")->sort(),
-            'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
         ];
-        return view('prenotazioni.edit', $data);
+        return view('prenotazioni_cliente.edit', $data);
     }
 
     public function update(Request $request, $id)
@@ -81,14 +75,14 @@ class PrenotazioneController extends Controller
         $prenotazione = Prenotazione::find($id);
         $this->valida_richiesta($request, $id);
         $this->salva_prenotazione($request, $prenotazione);
-        return redirect('/prenotazioni')->with('success','Prenotazione modificata con successo');
+        return redirect('/prenotazioni_cliente')->with('success','Prenotazione modificata con successo');
     }
 
     public function destroy($id)
     {        
         $prenotazione = Prenotazione::find($id);
         $prenotazione->delete();
-        return redirect('/prenotazioni')->with('success', 'Prenotazione annullata con successo');
+        return redirect('/prenotazioni_cliente')->with('success', 'Prenotazione annullata con successo');
     }
 
     private function valida_richiesta(Request $request, $id)
@@ -97,8 +91,6 @@ class PrenotazioneController extends Controller
             'camera_numero' => 'required|unique_camera_datain_dataout:'.$request->data_checkin.','.$request->data_checkout.','.$id,
             'data_checkin' => 'required|date|current_date_greater_than:',
             'data_checkout'=> 'required|date|date_greater_than:'.$request->data_checkin,
-            'cliente_user_id' => 'nullable',
-            'cliente' => 'nullable|max:255',
             'num_persone' => 'required|numeric',
             'metodo_pagamento' => 'required',
         ];
@@ -108,7 +100,6 @@ class PrenotazioneController extends Controller
             'data_checkin.date' => "E' necessario inserire una data per il campo 'Data checkin'",
             'data_checkout.required' => "E' necessario inserire il parametro 'Data checkout'",
             'data_checkout.date' => "E' necessario inserire una data per il campo 'Data checkout'",
-            'cliente.max' => "Il numero massimo di caratteri consentito per 'Cliente' è 255",
             'num_persone.required' => "E' necessario inserire il parametro 'Numero persone'",
             'num_persone.numeric' => "Il campo 'Numero persone' può contenere solo numeri",
             'metodo_pagamento.required' => "E' necessario inserire il parametro 'Metodo di pagamento'",
@@ -119,14 +110,12 @@ class PrenotazioneController extends Controller
 
     private function salva_prenotazione(Request $request, $prenotazione)
     {
+        $prenotazione->cliente = Auth::user()->name;
         $prenotazione->camera_numero = $request->input('camera_numero');
         $prenotazione->data_checkin = $request->input('data_checkin');
         $prenotazione->data_checkout = $request->input('data_checkout');
-        $prenotazione->cliente_user_id = $request->input('cliente_user_id');
-        $prenotazione->cliente = $request->input('cliente');
         $prenotazione->num_persone = $request->input('num_persone');
         $prenotazione->metodo_pagamento = $request->input('metodo_pagamento');
         $prenotazione->save();
     }
-
 }
