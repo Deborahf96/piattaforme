@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Prenotazione;
 use App\Camera;
 use App\Cliente;
+use App\User;
 use Illuminate\Http\Request;
 
 class PrenotazioneController extends Controller
@@ -40,8 +41,10 @@ class PrenotazioneController extends Controller
     public function show($id)
     {
         $prenotazione = Prenotazione::find($id);
+        $cliente_name = User::where('id', $id)->value('name');
         $data = [
-            'prenotazione' => $prenotazione
+            'prenotazione' => $prenotazione,
+            'cliente_name' => $cliente_name,
         ];
         return view ('prenotazioni.show', $data);
     }
@@ -49,7 +52,6 @@ class PrenotazioneController extends Controller
     public function edit($id)
     {
         $prenotazione = Prenotazione::find($id);
-        
         $data = [
             'prenotazione' => $prenotazione,
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),

@@ -12,8 +12,8 @@ class AttivitaController extends Controller
     {
         $tipologia_corrente = $request->input('tipologia');
         $attivita = Attivita::when(isset($tipologia_corrente), function ($query) use ($tipologia_corrente) {
-                        return $query->where('tipologia', $tipologia_corrente);
-                     })->get();
+                            return $query->where('tipologia', $tipologia_corrente);
+                            })->get();
         $data = [
             'attivita' => $attivita,
             'attivita_tipologia_enum' => Enums::attivita_tipologia_enum(),
@@ -29,7 +29,7 @@ class AttivitaController extends Controller
             'ditte_esterne' => DittaEsterna::where('categoria', '=', 'Servizio navetta')
                                             ->orwhere('categoria', '=', 'Tour operator')
                                             ->get()->pluck("nome", "partita_iva")->sort(),
-            
+
         ];
         return view('attivita.create', $data);
     }
@@ -69,7 +69,7 @@ class AttivitaController extends Controller
         $attivita = Attivita::find($id);
         $this->valida_richiesta($request, $id);
         $this->salva_attivita($request, $attivita);
-        return redirect('/attivita')->with('success','Attività modificata con successo');
+        return redirect('/attivita')->with('success', 'Attività modificata con successo');
     }
 
     public function destroy($id)
@@ -82,12 +82,11 @@ class AttivitaController extends Controller
     private function valida_richiesta(Request $request, $id)
     {
         $rules = [
-            'ditta_esterna_partita_iva' => 'required|unique_ditta_data_ora:'.$request->data.','.$request->ora.','.$id,
+            'ditta_esterna_partita_iva' => 'required|unique_ditta_data_ora:' . $request->data . ',' . $request->ora . ',' . $id,
             'data' => 'required|date|current_date_greater_than:',
             'ora' => 'required|date_format:"H:i"',
             'max_persone' => 'required|numeric',
             'destinazione' => 'required|max:255',
-            'tipologia' => 'required',
         ];
         $customMessages = [
             'ditta_esterna_partita_iva.required' => "E' necessario inserire il parametro 'Ditta esterna'",
@@ -99,7 +98,6 @@ class AttivitaController extends Controller
             'max_persone.numeric' => "Il campo 'Numero massimo di partecipanti' può contenere solo numeri",
             'destinazione.required' => "E' necessario inserire il parametro 'Luogo di destinazione'",
             'destinazione.max' => "Il numero massimo di caratteri consentito per 'Luogo di destinazione' è 255",
-            'tipologia.required' => "E' necessario inserire il parametro 'Tipologia'",
         ];
         $this->validate($request, $rules, $customMessages);
     }
@@ -111,7 +109,11 @@ class AttivitaController extends Controller
         $attivita->ora = $request->input('ora');
         $attivita->max_persone = $request->input('max_persone');
         $attivita->destinazione = $request->input('destinazione');
-        $attivita->tipologia = $request->input('tipologia');
+        if ($attivita->ditta_esterna->categoria=="Tour operator") {
+            $attivita->tipologia = 'Visita guidata';
+        } else {
+            $attivita->tipologia = $attivita->ditta_esterna->categoria;
+        }
         $attivita->save();
     }
 }

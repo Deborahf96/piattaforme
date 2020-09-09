@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-2"><b>Cliente</b></div>
                     <div class="col-md-3 col-md-offset-1">
-                        {{ isset($prenotazione->cliente) ? $prenotazione->cliente : $prenotazione->cliente_user_id }}
+                        {{ isset($prenotazione->cliente) ? $prenotazione->cliente : $cliente_name }}
                     </div>
                     <div class="col-md-2"><b>Camera</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $prenotazione->camera->numero }}</div>
