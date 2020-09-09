@@ -4,8 +4,8 @@
     <a href="/" class="btn btn-outline-secondary">Indietro</a>
     <br>
     <br>
-    <a href="/prenotazioni/prenota" class="btn btn-primary float-right">Aggiungi una nuova prenotazione</a>
-    <h1>Elenco prenotazioni</h1>
+    <a href="/prenotazioni_cliente/create" class="btn btn-primary float-right">Effettua una nuova prenotazione</a>
+    <h1>Storico prenotazioni</h1>
     <br>
     @if (count($prenotazioni) > 0)
         <div class="card">
@@ -37,10 +37,10 @@
                                 </td>
                                 <td width=20%>
                                     <div class="d-flex justify-content-around">
-                                        <a button href="/prenotazioni/{{ $prenotazione->id }}"
+                                        <a button href="/prenotazioni_cliente/{{ $prenotazione->id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
                                             class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
-                                        {!! Form::open(['action' => ['PrenotazioneController@destroy',
+                                        {!! Form::open(['action' => ['PrenotazioneClienteController@destroy',
                                         $prenotazione->id], 'method' => 'POST']) !!}
                                         {{ Form::hidden('_method', 'DELETE') }}
                                         {{ Form::button('<i class="fa fa-trash"></i>', [
@@ -61,7 +61,7 @@
             </div>
         </div>
     @else
-        <p>Nessuna prenotazione inserita</p>
+        <p>Nessuna prenotazione effettuata</p>
     @endif
 
 @endsection

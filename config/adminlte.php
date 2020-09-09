@@ -327,16 +327,34 @@ return [
         ],
         [
             'text'    => 'Clienti',
-            'url'     => '/clienti',
+            'url'     => '/clienti_latoDipendente',
             'icon'    => 'fa fa-users',
         ],
         [
+<<<<<<< HEAD
             'text'    => 'Richiesta di assistenza',
             'url'     => '/moduli_assistenza',
             'icon'    => 'fa fa-question-circle',
         ],
         
        
+=======
+            'text'    => 'Profilo',
+            'icon'    => 'fa fa-user',
+            'submenu' => [
+                [
+                    'text' => 'Visualizza',
+                    'url'  => '/clienti_latoCliente',
+                    'icon' => 'fa fa-search-plus',
+                ],
+                [
+                    'text' => 'Modifica',
+                    'url'  => '/clienti_latoCliente/edit',
+                    'icon' => 'fa fa-edit',
+                ],
+            ],
+        ],
+>>>>>>> 665f5797349fccfdff5086df8d2c4e83348969a3
     ],
 
     /*

@@ -98,9 +98,9 @@
         </div>
     </div>
 
-    <a href="/ditte_esterne/{{ $ditta_esterna->partita_iva }}/edit" class="btn btn-primary">Modifica</a>
-    <a class="btn btn-info">Visualizza attività</a>
-    <a class="btn btn-info">Visualizza fatture</a>
+    <a href="/ditte_esterne/{{ $ditta_esterna->partita_iva }}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
+    <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza attività</button>
+    <button type="button" class="btn btn-info disabled">Visualizza fatture</button>
     {!! Form::open(['action' => ['DittaEsternaController@destroy', $ditta_esterna->partita_iva], 'method' => 'POST', 'class'
     => 'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}

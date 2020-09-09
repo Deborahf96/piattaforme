@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/clienti/{{$cliente->user_id}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+<a href="/clienti_latoCliente/{{$cliente->user_id}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
 <br>
 <br>
-{!! Form::open(['action' => ['ClienteController@update', $cliente->user_id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => ['ClienteClienteController@update', $cliente->user_id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="col-12">
     <!-- Custom Tabs -->
     <div class="card">

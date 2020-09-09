@@ -5,52 +5,48 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ClienteController extends Controller
+class ClienteClienteController extends Controller
 {
-    public function index() //lato dipendente
+    public function show() 
     {
-        $clienti = Cliente::all();
-        $data = [
-            'clienti' => $clienti
-        ];
-        return view('clienti.index',$data);
-    }
-   
-    public function show($user_id)
-    {
+        $user_id = Auth::user()->id;
         $cliente = Cliente::where('user_id', $user_id)->first();
         $data = [
             'cliente' => $cliente
         ];
-        return view('clienti.show', $data);
+        return view('clienti_latoCliente.show', $data);
     }
 
-    public function edit($user_id)  //lato cliente
+    public function edit()
     {
+        $user_id = Auth::user()->id;
         $cliente = Cliente::where('user_id', $user_id)->first();
         $data = [
             'cliente' => $cliente,
             'cliente_metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
         ];
-        return view('clienti.edit', $data);
+        return view('clienti_latoCliente.edit', $data);
     }
 
-    public function update(Request $request, $user_id) //lato cliente
+    public function update(Request $request)
     {
-        $user = User::find($user_id);
+        $user_id = Auth::user()->id;
         $cliente = Cliente::where('user_id', $user_id)->first();
         $this->valida_richiesta($request, $user_id);
-        $this->salva_cliente($request, $cliente, $user);
-        return redirect('/clienti/'.$cliente->user_id)->with('success', 'Profilo modificato con successo');
+        $this->salva_cliente($request, $cliente);
+        return redirect('/clienti_latoCliente')->with('success', 'Profilo modificato con successo');
     }
 
-    public function destroy($user_id)   //lato cliente
+    public function destroy()
     {
+        $user_id = Auth::user()->id;
         $cliente = Cliente::where('user_id', $user_id)->first();
         $cliente->delete();
-        return redirect('/')->with('success', 'Account eliminato con successo');
+        Auth::logout();
+        return redirect('/login')->with('success', 'Account eliminato con successo');
     }
 
     private function valida_richiesta(Request $request, $user_id)
@@ -79,10 +75,9 @@ class ClienteController extends Controller
         $this->validate($request, $rules, $customMessages);
     }
 
-    private function salva_cliente(Request $request, $cliente, $user)
+    private function salva_cliente(Request $request, $cliente)
     {
-        $this->salva_utente($request, $user);
-        $cliente->user_id = $user->id;
+        $this->salva_utente($request, $cliente->utente);
         $cliente->metodo_pagamento = $request->input('metodo_pagamento');
         $cliente->save();
     }

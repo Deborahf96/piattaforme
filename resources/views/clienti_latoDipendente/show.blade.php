@@ -1,12 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    @php $url_previous = URL::previous() @endphp
-    @if ($url_previous === 'http://localhost:8080/clienti')
-        <a href="/clienti" class="btn btn-outline-secondary">Torna a clienti</a>
-    @else
-        <a href="/" class="btn btn-outline-secondary">Indietro</a>
-    @endif
+    <a href="/clienti_latoDipendente" class="btn btn-outline-secondary">Torna a clienti</a>
     <hr>
     <div class="col-md-12 d-flex align-items-stretch">
         <div class="card card-primary card-outline" style="width: 100%">
@@ -50,14 +45,5 @@
             </div>
         </div>
     </div>
-    @if ($url_previous === 'http://localhost:8080/clienti')
-    @else
-        <a href="/clienti/{{ $cliente->user_id }}/edit" class="btn btn-primary">Modifica</a>
-        <a class="btn btn-info">Visualizza prenotazioni</a>
-        {!! Form::open(['action' => ['ClienteController@destroy', $cliente->user_id], 'method' => 'POST', 'class' =>
-        'float-right']) !!}
-        {{ Form::hidden('_method', 'DELETE') }}
-        {{ Form::submit('Elimina', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questo account? ')"]) }}
-        {!! Form::close() !!}
-    @endif
+    <button type="button" class="btn btn-info disabled">Visualizza prenotazioni</button>
 @endsection
