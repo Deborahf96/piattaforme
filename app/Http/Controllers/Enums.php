@@ -61,4 +61,12 @@ class Enums
         ];
     }
 
+    public static function tipo_assistenza_enum()
+    {
+        return [
+            'Inviare un reclamo' => 'Inviare un reclamo',
+            'Richiedere informazioni' => 'Richiedere informazioni',
+        ];
+    }
+
 }

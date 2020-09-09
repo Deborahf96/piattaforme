@@ -18,7 +18,7 @@ class CreateCameraTable extends Migration
             $table->integer('numero_letti');
             $table->integer('costo_a_notte');
             $table->string('piano');
-            $table->string('descrizione');
+            $table->text('descrizione');
         });
     }
 
