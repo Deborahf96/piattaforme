@@ -327,8 +327,24 @@ return [
         ],
         [
             'text'    => 'Clienti',
-            'url'     => '/clienti',
+            'url'     => '/clienti_latoDipendente',
             'icon'    => 'fa fa-users',
+        ],
+        [
+            'text'    => 'Profilo',
+            'icon'    => 'fa fa-user',
+            'submenu' => [
+                [
+                    'text' => 'Visualizza',
+                    'url'  => '/clienti_latoCliente',
+                    'icon' => 'fa fa-search-plus',
+                ],
+                [
+                    'text' => 'Modifica',
+                    'url'  => '/clienti_latoCliente/edit',
+                    'icon' => 'fa fa-edit',
+                ],
+            ],
         ],
     ],
 

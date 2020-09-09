@@ -23,8 +23,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/ditte_esterne', 'DittaEsternaController');
 Route::resource('/camere', 'CameraController');
-Route::resource('/clienti', 'ClienteController');
+Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
 Route::resource('/attivita', 'AttivitaController');
 Route::resource('/dipendenti', 'DipendenteController');
 Route::resource('/prenotazioni', 'PrenotazioneController');
+
+// Cliente
+Route::get('/clienti_latoCliente', 'ClienteClienteController@show');
+Route::get('/clienti_latoCliente/edit', 'ClienteClienteController@edit');
+Route::match(['put','patch'], '/clienti_latoCliente', 'ClienteClienteController@update');
+Route::delete('/clienti_latoCliente', 'ClienteClienteController@destroy');
 
