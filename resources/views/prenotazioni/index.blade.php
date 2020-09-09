@@ -40,9 +40,6 @@
                                         <a button href="/prenotazioni/{{ $prenotazione->id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
                                             class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
-                                        <a button href="/prenotazioni/{{ $prenotazione->id }}/edit"
-                                            data-toggle="tooltip" data-placement="top" title="Modifica"
-                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
                                         {!! Form::open(['action' => ['PrenotazioneController@destroy',
                                         $prenotazione->id], 'method' => 'POST']) !!}
                                         {{ Form::hidden('_method', 'DELETE') }}

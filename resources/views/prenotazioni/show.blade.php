@@ -50,7 +50,6 @@
         </div>
     </div>
 
-    <a href="/prenotazioni/{{ $prenotazione->id }}/edit" class="btn btn-primary">Modifica</a>
     {!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}

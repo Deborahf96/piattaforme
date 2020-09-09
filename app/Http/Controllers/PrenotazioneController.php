@@ -64,26 +64,6 @@ class PrenotazioneController extends Controller
         return view ('prenotazioni.show', $data);
     }
 
-    public function edit($id)
-    {
-        $prenotazione = Prenotazione::find($id);
-        $data = [
-            'prenotazione' => $prenotazione,
-            'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
-            'camere' => Camera::all()->pluck("numero", "numero")->sort(),
-            'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
-        ];
-        return view('prenotazioni.edit', $data);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $prenotazione = Prenotazione::find($id);
-        $this->valida_richiesta($request, $id);
-        $this->salva_prenotazione($request, $prenotazione);
-        return redirect('/prenotazioni')->with('success','Prenotazione modificata con successo');
-    }
-
     public function destroy($id)
     {        
         $prenotazione = Prenotazione::find($id);

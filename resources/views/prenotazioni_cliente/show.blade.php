@@ -39,7 +39,6 @@
         </div>
     </div>
 
-    <a href="/prenotazioni_cliente/edit" class="btn btn-primary">Modifica</a>
     {!! Form::open(['action' => ['PrenotazioneClienteController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
