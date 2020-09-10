@@ -1,0 +1,40 @@
+
+$camere_escluse = Prenotazione::join('camera', 'prenotazione.camera_numero', '=', 'camera.numero')
+                ->where(function ($query) use ($data_checkin, $data_checkout, $num_persone) {
+                    ->where('camera.numero_letti', '>=', $num_persone)
+                    ->where('data_checkout', '>', $data_checkin)
+                    ->where(function ($query) use ($data_checkout) {
+                        $query->where(function ($query) use ($data_checkout) {
+                            $query->where('data_checkin', '<', $data_checkout)->where('data_checkout', '>=', $data_checkout);
+                        })->orWhere('data_checkout', '<', $data_checkout);
+                    })
+                })->orWhere('camera.numero_letti', '<', $num_persone);
+                ->get(); dd($camere_escluse);
+                //pluck('numero');
+
+
+
+
+
+
+
+Prenotazione::join('camera', 'prenotazione.camera_numero', '=', 'camera.numero')
+->where('camera.num_letti', '<', $posti_letto)
+->where('data_checkout', '>', $check_in)                                         
+->where(function ($query) use ($parameters) {                                            
+     $query->where(function ($query) use ($parameters) {                                                 
+         $query->where('data_checkin', '<', $check_out)->where('data_checkout', '>=', $check_out);                                             
+          })->orWhere('data_checkout', '<', $check_out);                                         
+          })
+          ->get()                                      
+        ->pluck('numero');
+
+
+
+->where('14', '>', $8)                                         
+->where(function ($query) use ($parameters) {                                            
+     $query->where(function ($query) use ($parameters) {                                                 
+         $query->where('10', '<', $15)->where('14', '>=', $15);                                             
+          })->orWhere('14', '<', $15);                                         
+          })                                        
+          ->count();

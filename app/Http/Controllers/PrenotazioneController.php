@@ -25,7 +25,13 @@ class PrenotazioneController extends Controller
         $data_checkin = $request->input('data_checkin');
         $data_checkout = $request->input('data_checkout');
         $num_persone = $request->input('num_persone');
-        $camere = Camera::all();
+        if (!isset($data_checkin) || !isset($data_checkout) || !isset($num_persone)) {
+            $camere = [];
+        } else {
+            $camere_escluse = $this->camere_escluse($data_checkin, $data_checkout, $num_persone);
+            $camere = Camera::whereNotIn('numero', $camere_escluse)->get();
+        }
+
         $data = [
             'camere' => $camere,
             'data_checkin' => $data_checkin,
@@ -129,7 +135,7 @@ class PrenotazioneController extends Controller
             'check_pernottamento' => 'nullable'
         ];
         $customMessages = [
-           // 'check_pernottamento.accepted' => "Il campo 'Conferma di avvenuto pagamento' non è stato spuntato"
+            // 'check_pernottamento.accepted' => "Il campo 'Conferma di avvenuto pagamento' non è stato spuntato"
         ];
         $this->validate($request, $rules, $customMessages);
     }
@@ -143,5 +149,19 @@ class PrenotazioneController extends Controller
             $prenotazione->check_pernottamento = '0';
         }
         $prenotazione->save();
+    }
+
+    public function camere_escluse($data_checkin, $data_checkout, $num_persone){
+        return Prenotazione::join('camera', 'prenotazione.camera_numero', '=', 'camera.numero')
+                ->where(function ($query) use ($data_checkin, $data_checkout, $num_persone) {
+                    $query->where('camera.numero_letti', '>=', $num_persone)
+                        ->where('data_checkout', '>', $data_checkin)
+                        ->where(function ($query) use ($data_checkout) {
+                            $query->where(function ($query) use ($data_checkout) {
+                                $query->where('data_checkin', '<', $data_checkout)->where('data_checkout', '>=', $data_checkout);
+                            })->orWhere('data_checkout', '<', $data_checkout);
+                        });
+                })->orWhere('camera.numero_letti', '<', $num_persone)
+                ->get()->pluck('numero');
     }
 }
