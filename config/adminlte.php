@@ -352,12 +352,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Visualizza storico',
-                    'url'  => '/prenotazioni_cliente/storico',
+                    'url'  => '/prenotazioni_cliente',
                     'icon' => 'fa fa-search-plus',
                 ],
                 [
                     'text' => 'Prenota',
-                    'url'  => '/prenotazioni_cliente',
+                    'url'  => '/prenotazioni_cliente/prenota',
                     'icon' => 'fa fa-plus',
                 ],
             ],
