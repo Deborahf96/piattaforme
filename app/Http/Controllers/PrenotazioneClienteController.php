@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Camera;
+use App\Cliente;
 use App\Prenotazione;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -43,10 +44,13 @@ class PrenotazioneClienteController extends Controller
 
     public function create(Request $request)
     {
+        $user_id = Auth::user()->id;
+        $pagamento_default = Cliente::where('user_id', $user_id)->first()->metodo_pagamento;
         $camera_numero = $request->input('camera_numero');
         $data_checkin = $request->input('data_checkin');
         $data_checkout = $request->input('data_checkout');
         $num_persone = $request->input('num_persone');
+        $costo_totale = $request->input('costo_totale');
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'camere' => Camera::all()->pluck("numero", "numero")->sort(),
@@ -54,6 +58,8 @@ class PrenotazioneClienteController extends Controller
             'data_checkin' => $data_checkin,
             'data_checkout' => $data_checkout,
             'num_persone' => $num_persone,
+            'costo_totale' => $costo_totale,
+            'pagamento_default' => isset($pagamento_default) ? $pagamento_default : ''
         ];
         return view('prenotazioni_cliente.create', $data);
     }
@@ -98,9 +104,15 @@ class PrenotazioneClienteController extends Controller
 
     private function salva_prenotazione(Request $request, $prenotazione)
     {
-        $prenotazione->cliente = Auth::user()->name;
+        $prenotazione->cliente_user_id = Auth::user()->id;
+        $prenotazione->camera_numero = $request->input('camera_numero');
+        $prenotazione->data_checkin = $request->input('data_checkin');
+        $prenotazione->data_checkout = $request->input('data_checkout');
+        $prenotazione->num_persone = $request->input('num_persone');
         $prenotazione->camera_numero = $request->input('camera_numero');
         $prenotazione->metodo_pagamento = $request->input('metodo_pagamento');
+        $prenotazione->importo = $request->input('costo_totale');  
+        $prenotazione->check_pernottamento = "Non confermato";
         $prenotazione->save();
     }
 

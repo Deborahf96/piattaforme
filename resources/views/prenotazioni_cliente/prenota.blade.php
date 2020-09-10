@@ -34,6 +34,7 @@
     @if (count($camere) > 0)
         <div class="row">
             @foreach ($camere as $camera)
+            @php $costo_totale = (\Carbon\Carbon::parse($data_checkin)->diffinDays(\Carbon\Carbon::parse($data_checkout), false))*$camera->costo_a_notte @endphp
                 <div class="col-md-4">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
@@ -42,7 +43,7 @@
                                     alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">Camera {{ $camera->numero }}</h3>
-
+                            
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Piano</b> <a class="float-right">{{ $camera->piano }}</a>
@@ -52,6 +53,9 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Costo a notte</b> <a class="float-right">{{ $camera->costo_a_notte }} €</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Costo totale</b> <a class="float-right">{{ $costo_totale}} € </a>
                                 </li>
                             </ul>
                             <a href="/camere/{{ $camera->numero }}"
@@ -63,6 +67,7 @@
                             {{ Form::hidden('data_checkin', $data_checkin, ['class' => 'form-control']) }}
                             {{ Form::hidden('data_checkout', $data_checkout, ['class' => 'form-control']) }}
                             {{ Form::hidden('num_persone', $num_persone, ['class' => 'form-control']) }}
+                            {{ Form::hidden('costo_totale', $costo_totale, ['class' => 'form-control']) }}
                             {{ Form::submit('Prenota', ['class' => 'btn btn-success btn-block', 'style' => 'margin-top: 10px']) }}
                             {!! Form::close() !!}
                         </div>
