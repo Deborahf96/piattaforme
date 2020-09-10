@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                {{{Form::label('numero_letti', 'Numero letti')}}}
+                                {{{Form::label('numero_letti', 'Posti letto')}}}
                                 {{{Form::number('numero_letti', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>

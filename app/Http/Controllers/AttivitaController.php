@@ -85,8 +85,9 @@ class AttivitaController extends Controller
             'ditta_esterna_partita_iva' => 'required|unique_ditta_data_ora:' . $request->data . ',' . $request->ora . ',' . $id,
             'data' => 'required|date|current_date_greater_than:',
             'ora' => 'required|date_format:"H:i"',
-            'max_persone' => 'required|numeric',
+            'max_persone' => 'required|numeric|gt:0',
             'destinazione' => 'required|max:255',
+            'costo' => 'required|numeric|gt:0',
         ];
         $customMessages = [
             'ditta_esterna_partita_iva.required' => "E' necessario inserire il parametro 'Ditta esterna'",
@@ -96,8 +97,12 @@ class AttivitaController extends Controller
             'ora.date_format' => "Il formato di 'Ora' non è valido. Formato richiesto: hh:mm",
             'max_persone.required' => "E' necessario inserire il parametro 'Numero massimo di partecipanti'",
             'max_persone.numeric' => "Il campo 'Numero massimo di partecipanti' può contenere solo numeri",
+            'max_persone.gt' => "Il campo 'Numero massimo di partecipanti' deve essere maggiore di zero",
             'destinazione.required' => "E' necessario inserire il parametro 'Luogo di destinazione'",
             'destinazione.max' => "Il numero massimo di caratteri consentito per 'Luogo di destinazione' è 255",
+            'costo.required' => "E' necessario inserire il parametro 'Costo'",
+            'costo.numeric' => "Il campo 'Costo' può contenere solo numeri",
+            'costo.gt' => "Il campo 'Costo' deve essere maggiore di zero",
         ];
         $this->validate($request, $rules, $customMessages);
     }
@@ -109,6 +114,7 @@ class AttivitaController extends Controller
         $attivita->ora = $request->input('ora');
         $attivita->max_persone = $request->input('max_persone');
         $attivita->destinazione = $request->input('destinazione');
+        $attivita->costo = $request->input('costo');
         if ($attivita->ditta_esterna->categoria=="Tour operator") {
             $attivita->tipologia = 'Visita guidata';
         } else {

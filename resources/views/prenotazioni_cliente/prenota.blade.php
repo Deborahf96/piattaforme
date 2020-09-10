@@ -39,7 +39,8 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img src="vendor/adminlte/dist/img/prova.png" alt="Immagine camera" width = "10" height = "10">
+                                <img class="profile-user-img img-fluid img-circle" src="/vendor/adminlte/dist/img/camera1.png"
+                                    alt="Immagine camera">
                             </div>
                             <h3 class="profile-username text-center">Camera {{ $camera->numero }}</h3>
                             
@@ -48,7 +49,7 @@
                                     <b>Piano</b> <a class="float-right">{{ $camera->piano }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Numero letti</b> <a class="float-right">{{ $camera->numero_letti }} €</a>
+                                    <b>Posti letto</b> <a class="float-right">{{ $camera->numero_letti }}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Costo a notte</b> <a class="float-right">{{ $camera->costo_a_notte }} €</a>

@@ -81,19 +81,22 @@ class CameraController extends Controller
     private function valida_richiesta_update(Request $request)
     {
         $rules = [
-            'numero' => 'required|numeric',
-            'numero_letti' => 'required|numeric',
-            'costo_a_notte' => 'required|numeric',
+            'numero' => 'required|numeric|gt:0',
+            'numero_letti' => 'required|numeric|gt:0',
+            'costo_a_notte' => 'required|numeric|gt:0',
             'piano' => 'required',
             'descrizione' => 'required|max:255',
         ];
         $customMessages = [
             'numero.required' => "E' necessario inserire il parametro 'Numero'",
             'numero.numeric' => "Il campo 'Numero' deve contenere solo numeri",
-            'numero_letti.required' => "E' necessario inserire il parametro 'Numero letti'",
-            'numero_letti.numeric' => "Il campo 'Numero letti' deve contenere solo numeri",
+            'numero.gt' => "Il campo 'Numero' deve essere maggiore di zero",
+            'numero_letti.required' => "E' necessario inserire il parametro 'Posti letto'",
+            'numero_letti.numeric' => "Il campo 'Posti letto' deve contenere solo numeri",
+            'numero_letti.gt' => "Il campo 'Posti letto' deve essere maggiore di zero",
             'costo_a_notte.required' => "E' necessario inserire il parametro 'Costo a notte'",
             'costo_a_notte.numeric' => "Il campo 'Costo a notte' deve contenere solo numeri",
+            'costo_a_notte.gt' => "Il campo 'Costo a notte' deve essere maggiore di zero",
             'piano.required' => "E' necessario inserire il parametro 'Piano'",
             'descrizione.required' => "E' necessario inserire il parametro 'Descrizione'",
             'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
@@ -104,20 +107,23 @@ class CameraController extends Controller
     private function valida_richiesta_store(Request $request)
     {
         $rules = [
-            'numero' => 'required|numeric|unique:camera',
-            'numero_letti' => 'required|numeric',
-            'costo_a_notte' => 'required|numeric',
+            'numero' => 'required|numeric|gt:0|unique:camera',
+            'numero_letti' => 'required|numeric|gt:0',
+            'costo_a_notte' => 'required|numeric|gt:0',
             'piano' => 'required',
             'descrizione' => 'required|max:255',
         ];
         $customMessages = [
             'numero.required' => "E' necessario inserire il parametro 'Numero'",
             'numero.numeric' => "Il campo 'Numero' deve contenere solo numeri",
+            'numero.gt' => "Il campo 'Numero' deve essere maggiore di zero",
             'numero.unique' => "Il valore inserito nel parametro 'Numero' esiste già",
-            'numero_letti.required' => "E' necessario inserire il parametro 'Numero letti'",
-            'numero_letti.numeric' => "Il campo 'Numero letti' deve contenere solo numeri",
+            'numero_letti.required' => "E' necessario inserire il parametro 'Posti letto'",
+            'numero_letti.numeric' => "Il campo 'Posti letto' deve contenere solo numeri",
+            'numero_letti.gt' => "Il campo 'Posti letto' deve essere maggiore di zero",
             'costo_a_notte.required' => "E' necessario inserire il parametro 'Costo a notte'",
             'costo_a_notte.numeric' => "Il campo 'Costo a notte' deve contenere solo numeri",
+            'costo_a_notte.gt' => "Il campo 'Costo a notte' deve essere maggiore di zero",
             'piano.required' => "E' necessario inserire il parametro 'Piano'",
             'descrizione.required' => "E' necessario inserire il parametro 'Descrizione'",
             'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",

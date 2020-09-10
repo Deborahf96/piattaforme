@@ -139,7 +139,7 @@ class PrenotazioneClienteController extends Controller
         $customMessages = [
             'data_checkin.date' => "E' necessario inserire una data per il campo 'Data checkin'",
             'data_checkout.date' => "E' necessario inserire una data per il campo 'Data checkout'",
-            'num_persone.numeric' => "Il campo 'Numero persone' può contenere solo numeri",
+            'num_persone.numeric' => "Il campo 'Posti letto' può contenere solo numeri",
             'num_persone.gt' => "Il campo 'Posti letto' deve essere maggiore di zero",
         ];
 

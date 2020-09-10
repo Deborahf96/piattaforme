@@ -66,7 +66,7 @@ class PrenotazioneController extends Controller
     public function show($id)
     {
         $prenotazione = Prenotazione::find($id);
-        $cliente_name = User::where('id', $id)->value('name');
+        $cliente_name = User::where('id', $prenotazione->cliente_user_id)->value('name');
         $data = [
             'prenotazione' => $prenotazione,
             'cliente_name' => $cliente_name,
@@ -139,7 +139,7 @@ class PrenotazioneController extends Controller
         $customMessages = [
             'data_checkin.date' => "E' necessario inserire una data per il campo 'Data checkin'",
             'data_checkout.date' => "E' necessario inserire una data per il campo 'Data checkout'",
-            'num_persone.numeric' => "Il campo 'Numero persone' può contenere solo numeri",
+            'num_persone.numeric' => "Il campo 'Posti letto' può contenere solo numeri",
             'num_persone.gt' => "Il campo 'Posti letto' deve essere maggiore di zero",
         ];
 

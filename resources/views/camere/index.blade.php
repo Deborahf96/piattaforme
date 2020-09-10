@@ -15,7 +15,7 @@
                         <tr>
                             <th>Numero</th>
                             <th>Piano</th>
-                            <th>Numero letti</th>
+                            <th>Posti letto</th>
                             <th>Costo a notte</th>
                             <th></th>
                         </tr>

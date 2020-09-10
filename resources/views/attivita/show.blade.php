@@ -31,6 +31,11 @@
                     <div class="col-md-2"><b>Tipologia</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $attivita->tipologia }}</div>
                 </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2"><b>Costo</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ $attivita->costo }} €</div>
+                </div>
             </div>
         </div>
     </div>

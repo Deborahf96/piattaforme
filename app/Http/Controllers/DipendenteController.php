@@ -92,7 +92,7 @@ class DipendenteController extends Controller
             'stipendio' => 'required|max:255',
             'data_inizio' => 'required|date',
             'data_fine' => 'nullable|date|date_greater_than:'.$request->data_inizio,
-            'ore_settimanali' => 'required|numeric',
+            'ore_settimanali' => 'required|numeric|gt:0',
         ];
         $customMessages = [
             'nome.required' => "E' necessario inserire il parametro 'Nome completo'",
@@ -121,6 +121,7 @@ class DipendenteController extends Controller
             'data_fine.date' => "E' necessario inserire una data per il campo 'Data fine'",
             'ore_settimanali.required' => "E' necessario inserire il parametro 'Ore settimanali'",
             'ore_settimanali.numeric' => "Il campo 'Ore settimanali' deve contenere solo numeri",
+            'ore_settimanali.gt' => "Il campo 'Ore settimanali' deve essere maggiore di zero",
         ];
         $this->validate($request, $rules, $customMessages);
     }

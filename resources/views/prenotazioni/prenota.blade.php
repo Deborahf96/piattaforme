@@ -48,7 +48,7 @@
                                 <b>Piano</b> <a class="float-right">{{ $camera->piano }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Numero letti</b> <a class="float-right">{{ $camera->numero_letti }}</a>
+                                <b>Posti letto</b> <a class="float-right">{{ $camera->numero_letti }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Costo a notte</b> <a class="float-right">{{ $camera->costo_a_notte }} €</a>

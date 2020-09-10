@@ -45,6 +45,12 @@
                                 {{{Form::text('destinazione', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{{Form::label('costo', 'Costo')}}}
+                                {{{Form::number('costo', '', [ 'class' => 'form-control' ])}}}
+                            </div>
+                        </div>
                     </div>
                 </div><!-- /.tab-pane -->
             </div><!-- /.tab-content -->

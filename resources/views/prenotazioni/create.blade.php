@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('num_persone', 'Numero di persone')}}}
+                                {{{Form::label('num_persone', 'Posti letto')}}}
                                 {{{Form::number('num_persone', '', [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>

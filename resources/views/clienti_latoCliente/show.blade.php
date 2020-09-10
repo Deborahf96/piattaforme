@@ -46,7 +46,6 @@
         </div>
     </div>
     <a href="/clienti_latoCliente/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
-    <button type="button" class="btn btn-info disabled">Visualizza prenotazioni</button>
     {!! Form::open(['action' => ['ClienteClienteController@destroy', $cliente->user_id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}

@@ -16,6 +16,7 @@ class CreateAttivitaTable extends Migration
             $table->integer('max_persone');
             $table->string('destinazione');
             $table->string('tipologia');
+            $table->integer('costo');
 
             $table->foreign('ditta_esterna_partita_iva')->references('partita_iva')->on('ditta_esterna')->onDelete('cascade');
             $table->unique(['ditta_esterna_partita_iva', 'data', 'ora'], 'ditta_data_ora');

@@ -17,7 +17,7 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-2"><b>Numero letti</b></div>
+                <div class="col-md-2"><b>Posti letto</b></div>
                 <div class="col-md-3 col-md-offset-1">{{ $camera->numero_letti }}</div>
                 <div class="col-md-2"><b>Costo a notte</b></div>
                 <div class="col-md-3 col-md-offset-1">{{ $camera->costo_a_notte }} €</div>
@@ -33,7 +33,7 @@
 
 <a href="/camere/{{$camera->numero}}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
 
-@if ($dipendente_check)) 
+@if ($dipendente_check)
     @if ($pren_camera_num)
         <a href="/prenotazioni/{{$prenotazione_id}}" class="btn btn-primary" style="margin-right: 10px">Visualizza prenotazione attuale</a>
     @else

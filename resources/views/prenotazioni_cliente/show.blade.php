@@ -10,7 +10,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-2"><b>Numero di persone</b></div>
+                    <div class="col-md-2"><b>Posti letto</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $prenotazione->num_persone }}</div>
                     <div class="col-md-2"><b>Camera</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $prenotazione->camera->numero }}</div>
