@@ -236,14 +236,14 @@ return [
             'url' => '/login',
             'icon'    => '',
             'topnav_right' => true,
-
+            'can' => 'non_loggato',
         ],
         [
             'text' => 'Registrati',
             'url' => '/register',
             'icon'    => '',
             'topnav_right' => true,
-
+            'can' => 'non_loggato',
         ],
         [
             'text' => 'Prenotazioni',

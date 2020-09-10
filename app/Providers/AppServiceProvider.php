@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Attivita;
 use App\Prenotazione;
-use App\ModuloAssistenza;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->post_register_policies();
         $this->date_greater_than();
         $this->current_date_greater_than();
         $this->current_date_greater_than_equals();
@@ -58,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('current_date_greater_than_equals', function ($attribute, $value, $parameters, $validator) {
             $first = Carbon::parse($value);
             $second = Carbon::now();
-            return $first->diffinDays($second, false)<=0;
+            return $first->diffinDays($second, false) <= 0;
         }, "La data inserita non è valida. Inserire una data maggiore o uguale rispetto alla data odierna");
     }
 
@@ -66,10 +69,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('unique_ditta_data_ora', function ($attribute, $value, $parameters, $validator) {
             $count = Attivita::where('ditta_esterna_partita_iva', $value)
-                             ->where('data', $parameters[0])
-                             ->where('ora', $parameters[1])
-                             ->where('id', '!=', $parameters[2])
-                             ->count();
+                ->where('data', $parameters[0])
+                ->where('ora', $parameters[1])
+                ->where('id', '!=', $parameters[2])
+                ->count();
             return $count === 0;
         }, "La combinazione di attributi 'Ditta esterna, data, ora' esiste già");
     }
@@ -78,12 +81,18 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('unique_camera_datain_dataout', function ($attribute, $value, $parameters, $validator) {
             $count = Prenotazione::where('camera_numero', $value)
-                             ->where('data_checkin', $parameters[0])
-                             ->where('data_checkout', $parameters[1])
-                             ->where('id', '!=', $parameters[2])
-                             ->count();
+                ->where('data_checkin', $parameters[0])
+                ->where('data_checkout', $parameters[1])
+                ->where('id', '!=', $parameters[2])
+                ->count();
             return $count === 0;
         }, "La combinazione di attributi 'Camera, data checkin, data checkout' esiste già");
     }
 
+    public function post_register_policies()
+    {
+        Gate::define('non_loggato', function (?User $user) {
+            return Auth::guest();
+        });
+    }
 }
