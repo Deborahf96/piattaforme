@@ -76,17 +76,4 @@ class AppServiceProvider extends ServiceProvider
         }, "La combinazione di attributi 'Camera, data checkin, data checkout' esiste già");
     }
 
-    private function unique_cliente_data_ora()
-    {
-        Validator::extend('unique_cliente_data_ora', function ($attribute, $value, $parameters, $validator) {
-            $count = ModuloAssistenza::where('cliente_user_id', $value)
-                             ->where('data', $parameters[0])
-                             ->where('ora', $parameters[1])
-                             ->where('id', '!=', $parameters[2])
-                             ->count();
-            return $count === 0;
-        }, "Non si può inviare nello stesso istante un modulo di assistenza");
-            //modificare il testo
-    }
-
 }
