@@ -18,25 +18,30 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('camera_numero', 'Camera')}}}
-                                {{{Form::select('camera_numero', $camere, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona una camera' ])}}}
+                                <br>
+                                {{{Form::label('camera_numero', $camera_numero)}}}
+                                {{{Form::hidden('camera_numero', $camera_numero, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('data_checkin', 'Data check-in')}}}
-                                {{{Form::date('data_checkin', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::label('data_checkin', $data_checkin)}}}
+                                {{{Form::hidden('data_checkin', $data_checkin, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('data_checkout', 'Data check-out')}}}
-                                {{{Form::date('data_checkout', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::label('data_checkout', $data_checkout)}}}
+                                {{{Form::hidden('data_checkout', $data_checkout, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('num_persone', 'Numero di persone')}}}
-                                {{{Form::number('num_persone', '', [ 'class' => 'form-control' ])}}}
+                                {{{Form::label('num_persone', $num_persone)}}}
+                                {{{Form::hidden('num_persone', $num_persone, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
