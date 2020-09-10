@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 class PrenotazioneController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('dipendenti');
+    }
 
     public function index()
     {
