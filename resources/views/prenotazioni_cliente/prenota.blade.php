@@ -39,8 +39,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="vendor/adminlte/dist/img/bb.png"
-                                    alt="User profile picture">
+                                <img src="vendor/adminlte/dist/img/prova.png" alt="Immagine camera" width = "10" height = "10">
                             </div>
                             <h3 class="profile-username text-center">Camera {{ $camera->numero }}</h3>
                             
