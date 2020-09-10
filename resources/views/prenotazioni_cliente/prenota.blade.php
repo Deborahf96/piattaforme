@@ -32,36 +32,45 @@
     </script>
     <hr>
     @if (count($camere) > 0)
-    <div class="row">
-        @foreach ($camere as $camera)
-            <div class="col-md-4">
-                <div class="card card-primary card-outline">
-                    <div class="card-body box-profile">
-                        <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="vendor/adminlte/dist/img/bb.png"
-                                alt="User profile picture">
-                        </div>
-                        <h3 class="profile-username text-center">Camera {{ $camera->numero }}</h3>
+        <div class="row">
+            @foreach ($camere as $camera)
+                <div class="col-md-4">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="vendor/adminlte/dist/img/bb.png"
+                                    alt="User profile picture">
+                            </div>
+                            <h3 class="profile-username text-center">Camera {{ $camera->numero }}</h3>
 
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>Piano</b> <a class="float-right">{{ $camera->piano }}</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Numero letti</b> <a class="float-right">{{ $camera->numero_letti }}</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Costo a notte</b> <a class="float-right">{{ $camera->costo_a_notte }}</a>
-                            </li>
-                        </ul>
-                        <a href="/camere/{{ $camera->numero }}" class="btn btn-primary btn-block"><b>Caratteristiche</b></a>
-                        <a href="#" class="btn btn-success btn-block"><b>Prenota</b></a>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Piano</b> <a class="float-right">{{ $camera->piano }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Numero letti</b> <a class="float-right">{{ $camera->numero_letti }} €</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Costo a notte</b> <a class="float-right">{{ $camera->costo_a_notte }} €</a>
+                                </li>
+                            </ul>
+                            <a href="/camere/{{ $camera->numero }}"
+                                class="btn btn-primary btn-block">Caratteristiche</a>
+                            
+                            {!! Form::open(['action' => ['PrenotazioneClienteController@create'], 'method' => 'GET',
+                            'enctype' => 'multipart/form-data']) !!}
+                            {{ Form::hidden('camera_numero', $camera->numero, ['class' => 'form-control']) }}
+                            {{ Form::hidden('data_checkin', $data_checkin, ['class' => 'form-control']) }}
+                            {{ Form::hidden('data_checkout', $data_checkout, ['class' => 'form-control']) }}
+                            {{ Form::hidden('num_persone', $num_persone, ['class' => 'form-control']) }}
+                            {{ Form::submit('Prenota', ['class' => 'btn btn-success btn-block', 'style' => 'margin-top: 10px']) }}
+                            {!! Form::close() !!}
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
                 </div>
-            </div>
-        @endforeach
-    </div>
+            @endforeach
+        </div>
     @else
         <p>Nessuna camera disponibile</p>
     @endif
