@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Attivita;
+use App\Cliente;
+use App\Dipendente;
 use App\Prenotazione;
 use App\User;
 use Illuminate\Support\ServiceProvider;
@@ -93,6 +95,16 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::define('non_loggato', function (?User $user) {
             return Auth::guest();
+        });
+        Gate::define('dipendenti', function (?User $user) {
+            if (auth()->user() == null) return false;
+            $dipendente = Dipendente::where('user_id', auth()->user()->id)->first();
+            return $dipendente == null ? false : true;
+        });
+        Gate::define('clienti', function (?User $user) {
+            if (auth()->user() == null) return false;
+            $cliente = Cliente::where('user_id', auth()->user()->id)->first();
+            return $cliente == null ? false : true;
         });
     }
 }

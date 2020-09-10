@@ -248,6 +248,7 @@ return [
         [
             'text' => 'Prenotazioni',
             'icon' => 'fa fa-bell',
+            'can'  => 'dipendenti',
             'submenu' => [
                 [
                     'text' => 'Visualizza',
@@ -264,6 +265,7 @@ return [
         [
             'text' => 'Camere',
             'icon' => 'fa fa-bed',
+            'can'  => 'dipendenti',
             'submenu' => [
                 [
                     'text' => 'Visualizza',
@@ -280,6 +282,7 @@ return [
         [
             'text' => 'Attività',
             'icon' => 'fa fa-briefcase',
+            'can'  => 'dipendenti',
             'submenu' => [
                 [
                     'text' => 'Visualizza',
@@ -296,6 +299,7 @@ return [
         [
             'text'    => 'Ditte esterne',
             'icon'    => 'fa fa-handshake',
+            'can'     => 'dipendenti',
             'submenu' => [
                 [
                     'text' => 'Visualizza',
@@ -312,6 +316,7 @@ return [
         [
             'text'    => 'Dipendenti',
             'icon'    => 'fa fa-user',
+            'can'     => 'dipendenti',
             'submenu' => [
                 [
                     'text' => 'Visualizza',
@@ -328,11 +333,13 @@ return [
         [
             'text'    => 'Clienti',
             'url'     => '/clienti_latoDipendente',
+            'can'     => 'dipendenti',
             'icon'    => 'fa fa-users',
         ],
-        [       
+        [
             'text'    => 'Profilo',
             'icon'    => 'fa fa-user',
+            'can'     => 'clienti',
             'submenu' => [
                 [
                     'text' => 'Visualizza',
@@ -349,6 +356,7 @@ return [
         [
             'text' => 'Prenotazioni',
             'icon' => 'fa fa-bell',
+            'can'  => 'clienti',
             'submenu' => [
                 [
                     'text' => 'Visualizza storico',
@@ -365,6 +373,7 @@ return [
         [
             'text'    => 'Area assistenza',
             'icon'    => 'fa fa-question-circle',
+            'can'     => 'clienti',
             'submenu' => [
                 [
                     'text' => 'Visualizza richieste',
