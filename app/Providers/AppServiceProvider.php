@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->date_greater_than();
         $this->current_date_greater_than();
+        $this->current_date_greater_than_equals();
         $this->unique_ditta_data_ora();
         $this->unique_camera_datain_dataout();
     }
@@ -47,9 +48,18 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('current_date_greater_than', function ($attribute, $value, $parameters, $validator) {
             $first = Carbon::parse($value);
-            $second = Carbon::parse(date('m/d/Y h:i:s a', time()));   //inserire un ulteriore controllo, se le date sono uguali confrontare l'orario
+            $second = Carbon::now();
             return $first->greaterThan($second);
         }, "La data inserita non è valida. Inserire una data maggiore rispetto alla data odierna");
+    }
+
+    private function current_date_greater_than_equals()
+    {
+        Validator::extend('current_date_greater_than_equals', function ($attribute, $value, $parameters, $validator) {
+            $first = Carbon::parse($value);
+            $second = Carbon::now();
+            return $first->diffinDays($second, false)<=0;
+        }, "La data inserita non è valida. Inserire una data maggiore o uguale rispetto alla data odierna");
     }
 
     private function unique_ditta_data_ora()

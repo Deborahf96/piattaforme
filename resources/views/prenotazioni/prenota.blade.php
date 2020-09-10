@@ -51,7 +51,10 @@
                                 <b>Numero letti</b> <a class="float-right">{{ $camera->numero_letti }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Costo a notte</b> <a class="float-right">{{ $camera->costo_a_notte }}</a>
+                                <b>Costo a notte</b> <a class="float-right">{{ $camera->costo_a_notte }} €</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Costo totale</b> <a class="float-right">{{(\Carbon\Carbon::parse($data_checkin)->diffinDays(\Carbon\Carbon::parse($data_checkout), false))*$camera->costo_a_notte}} € </a>
                             </li>
                         </ul>
                         <a href="/camere/{{ $camera->numero }}" class="btn btn-primary btn-block"><b>Caratteristiche</b></a>
