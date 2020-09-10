@@ -31,9 +31,7 @@
                     <div class="col-md-2"><b>Metodo di pagamento</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $prenotazione->metodo_pagamento }}</div>
                     <div class="col-md-2"><b>Importo</b></div>
-                    <div class="col-md-3 col-md-offset-1">
-                        {{ isset($prenotazione->importo) ? $prenotazione->importo : '-' }}
-                    </div>
+                    <div class="col-md-3 col-md-offset-1">{{ $prenotazione->importo }} €</div>
                 </div>
             </div>
         </div>

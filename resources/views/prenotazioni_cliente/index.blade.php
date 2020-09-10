@@ -33,7 +33,7 @@
                                     {{ $prenotazione->data_checkout }}
                                 </td>
                                 <td width=20%>
-                                    {{ $prenotazione->importo }}
+                                    {{ $prenotazione->importo }} €
                                 </td>
                                 <td width=20%>
                                     <div class="d-flex justify-content-around">
