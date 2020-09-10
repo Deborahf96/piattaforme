@@ -9,7 +9,7 @@
     <!-- Custom Tabs -->
     <div class="card">
         <div class="card-header d-flex p-0">
-            <h3 class="card-title p-3">Aggiungi una nuova prenotazione</h3>
+            <h3 class="card-title p-3">Inserisci dati prenotazione</h3>
         </div><!-- /.card-header -->
         <div class="card-body">
             <div class="tab-content">
