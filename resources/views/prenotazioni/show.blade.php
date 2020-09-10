@@ -1,10 +1,16 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/prenotazioni" class="btn btn-outline-secondary">Torna a prenotazioni</a>
+    <div class="d-flex justify-content-between">
+        <a href="/prenotazioni" class="btn btn-outline-secondary">Torna a prenotazioni</a>
+        <div>
+            {!! Form::open(['action' => ['PrenotazioneController@conferma_annulla_check', $prenotazione->id], 'method' =>
+            'POST', 'enctype' => 'multipart/form-data']) !!}
+            {{ Form::submit($prenotazione->check_pernottamento == 'Confermato' ? 'Annulla pernottamento' : 'Conferma pernottamento', ['class' => 'btn btn-primary float-right', 'style' => 'margin-right: 10px']) }}
+            {!! Form::close() !!}
+        </div>
+    </div>
     <hr>
-    {!! Form::open(['action' => ['PrenotazioneController@update', $prenotazione->id], 'method' => 'POST', 'enctype' =>
-    'multipart/form-data']) !!}
     <div class="col-md-12 d-flex align-items-stretch">
         <div class="card card-primary card-outline" style="width: 100%">
             <div class="card-header">
@@ -40,28 +46,19 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-2"><b>Importo</b></div>
-                    <div class="col-md-3 col-md-offset-1">
-                        {{ isset($prenotazione->importo) ? $prenotazione->importo : '-' }}
-                    </div>
-                    <div class="col-md-2"><b>Conferma di avvenuto pernottamento</b></div>
-                    <div class="col-md-3 col-md-offset-1">
-                        {{ Form::checkbox('check_pernottamento', $prenotazione->check_pernottamento, $valore) }}
-                    </div>
+                    <div class="col-md-3 col-md-offset-1">{{ $prenotazione->importo }} €</div>
+                    <div class="col-md-2"><b>Conferma avvenuto pernottamento</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ $prenotazione->check_pernottamento }}</div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-14">
-        {{ Form::hidden('_method', 'PUT') }}
-        {{ Form::submit('Salva', ['class' => 'btn btn-primary', 'style' => 'margin-right: 10px']) }}
-        {!! Form::close() !!}
-
-        {!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
-        'float-right']) !!}
-        {{ Form::hidden('_method', 'DELETE') }}
-        {{ Form::submit('Annulla', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')"]) }}
-        {!! Form::close() !!}
-    </div>
+    {!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
+    'float-right']) !!}
+    {{ Form::hidden('_method', 'DELETE') }}
+    {{ Form::submit('Annulla', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')"]) }}
+    {!! Form::close() !!}
+    <br>
+    <br>
     <hr>
-
 @endsection

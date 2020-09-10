@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Auth;
 
 class PrenotazioneClienteController extends Controller
 {
-    public function storico()
+    public function index()
     {
         $user_id = Auth::user()->id;
         $prenotazioni = Prenotazione::where('cliente_user_id', $user_id)->get();
         $data = [
             'prenotazioni' => $prenotazioni
         ];
-        return view('prenotazioni_cliente.storico', $data);
+        return view('prenotazioni_cliente.index', $data);
     }
 
-    public function index(Request $request)
+    public function prenota(Request $request)
     {
         $data_checkin = $request->input('data_checkin');
         $data_checkout = $request->input('data_checkout');
@@ -31,7 +31,7 @@ class PrenotazioneClienteController extends Controller
             'data_checkout' => $data_checkout,
             'num_persone' => $num_persone
         ];
-        return view('prenotazioni_cliente.index', $data);
+        return view('prenotazioni_cliente.prenota', $data);
     }
     
     public function create()
