@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class PrenotazioneController extends Controller
 {
-   
+
     public function index()
     {
         $prenotazioni = Prenotazione::all();
@@ -24,7 +24,7 @@ class PrenotazioneController extends Controller
     {
         $data_checkin = $request->input('data_checkin');
         $data_checkout = $request->input('data_checkout');
-        $num_persone = $request->input('num_persone');      
+        $num_persone = $request->input('num_persone');
         $camere = Camera::all();
         $data = [
             'camere' => $camere,
@@ -34,7 +34,7 @@ class PrenotazioneController extends Controller
         ];
         return view('prenotazioni.prenota', $data);
     }
-    
+
     public function create()
     {
         $data = [
@@ -57,15 +57,29 @@ class PrenotazioneController extends Controller
     {
         $prenotazione = Prenotazione::find($id);
         $cliente_name = User::where('id', $id)->value('name');
+        if ($prenotazione->check_pernottamento == '1') {
+            $valore = '1';
+        } else {
+            $valore = '0';
+        }
         $data = [
             'prenotazione' => $prenotazione,
             'cliente_name' => $cliente_name,
+            'valore' => $valore
         ];
-        return view ('prenotazioni.show', $data);
+        return view('prenotazioni.show', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $prenotazione = Prenotazione::find($id);
+        $this->valida_check($request);
+        $this->salva_check($request, $prenotazione);
+        return redirect('/prenotazioni')->with('success', 'Pernottamento modificato con successo');
     }
 
     public function destroy($id)
-    {        
+    {
         $prenotazione = Prenotazione::find($id);
         $prenotazione->delete();
         return redirect('/prenotazioni')->with('success', 'Prenotazione annullata con successo');
@@ -74,9 +88,9 @@ class PrenotazioneController extends Controller
     private function valida_richiesta(Request $request, $id)
     {
         $rules = [
-            'camera_numero' => 'required|unique_camera_datain_dataout:'.$request->data_checkin.','.$request->data_checkout.','.$id,
+            'camera_numero' => 'required|unique_camera_datain_dataout:' . $request->data_checkin . ',' . $request->data_checkout . ',' . $id,
             'data_checkin' => 'required|date|current_date_greater_than:',
-            'data_checkout'=> 'required|date|date_greater_than:'.$request->data_checkin,
+            'data_checkout' => 'required|date|date_greater_than:' . $request->data_checkin,
             'cliente_user_id' => 'nullable',
             'cliente' => 'nullable|max:255',
             'num_persone' => 'required|numeric',
@@ -109,4 +123,25 @@ class PrenotazioneController extends Controller
         $prenotazione->save();
     }
 
+    public function valida_check(Request $request)
+    {
+        $rules = [
+            'check_pernottamento' => 'nullable'
+        ];
+        $customMessages = [
+           // 'check_pernottamento.accepted' => "Il campo 'Conferma di avvenuto pagamento' non è stato spuntato"
+        ];
+        $this->validate($request, $rules, $customMessages);
+    }
+
+    public function salva_check(Request $request, $prenotazione)
+    {
+        //dd($request->input('check_pernottamento'));
+        if ($request->input('check_pernottamento') == "0") {
+            $prenotazione->check_pernottamento = '1';
+        } else {
+            $prenotazione->check_pernottamento = '0';
+        }
+        $prenotazione->save();
+    }
 }
