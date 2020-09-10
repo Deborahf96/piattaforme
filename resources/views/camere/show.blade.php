@@ -33,8 +33,8 @@
 
 <a href="/camere/{{$camera->numero}}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
 
-@if (isset($pren_camera_num))
-    <a href="/prenotazioni/{{$camera->numero}}" class="btn btn-primary" style="margin-right: 10px">Visualizza prenotazione attuale</a>
+@if ($pren_camera_num)
+    <a href="/prenotazioni/{{$prenotazione_id}}" class="btn btn-primary" style="margin-right: 10px">Visualizza prenotazione attuale</a>
 @else
     <button type="button" class="btn btn-info disabled">Visualizza prenotazione attuale</button>
 @endif

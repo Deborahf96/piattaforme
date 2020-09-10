@@ -38,26 +38,15 @@ class CameraController extends Controller
     {
         $camera = Camera::where('numero', $numero)->first();
 
-        $data_attuale = Carbon::now();
-        $prenotazioni = Prenotazione::where('camera_numero', '=', $camera->numero); //->get();   //si potrebbe fare anche $numero perché è passato come parametro
-        //dd($prenotazioni);
-        $pren_camera_num = new Prenotazione();
-        if ($prenotazioni != null) {
-            foreach ($prenotazioni as $prenotazione) {
-                $pren_camera_num = $prenotazione->where($prenotazioni->data_checkin, '=', $data_attuale)
-                    ->orWhere($prenotazioni->data_checkin, '<', $data_attuale)
-                    ->where($prenotazioni->data_checkout, '!=', $data_attuale)
-                    ->get()->pluck('camera_numero');
-                //dd($pren_camera_num);
-            }
-        } else {
-                $pren_camera_num = null;
-        };
+        $prenotazione = Prenotazione::where('camera_numero', $camera->numero)  
+                                    ->where('data_checkin', '<=', Carbon::now())
+                                    ->where('data_checkout', '>', Carbon::now())
+                                    ->first(); 
 
         $data = [
             'camera' => $camera,
-            //'prenotazione' => $prenotazioni
-            'pren_camera_num' => $pren_camera_num,
+            'pren_camera_num' => $prenotazione == null ? false : true,
+            'prenotazione_id' => $prenotazione == null ? ' ' : $prenotazione->id
         ];
         return view('camere.show', $data);
     }
