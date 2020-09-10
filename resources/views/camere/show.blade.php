@@ -32,7 +32,13 @@
 </div>
 
 <a href="/camere/{{$camera->numero}}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
-<button type="button" class="btn btn-info disabled">Visualizza prenotazione attuale</button>
+
+@if (isset($pren_camera_num))
+    <a href="/prenotazioni/{{$camera->numero}}" class="btn btn-primary" style="margin-right: 10px">Visualizza prenotazione attuale</a>
+@else
+    <button type="button" class="btn btn-info disabled">Visualizza prenotazione attuale</button>
+@endif
+
 {!! Form::open(['action' => ['CameraController@destroy', $camera->numero], 'method' => 'POST', 'class' =>
 'float-right']) !!}
 {{ Form::hidden('_method', 'DELETE') }}

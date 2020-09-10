@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Camera;
+use App\Prenotazione;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CameraController extends Controller
@@ -35,8 +37,27 @@ class CameraController extends Controller
     public function show($numero)
     {
         $camera = Camera::where('numero', $numero)->first();
+
+        $data_attuale = Carbon::now();
+        $prenotazioni = Prenotazione::where('camera_numero', '=', $camera->numero); //->get();   //si potrebbe fare anche $numero perché è passato come parametro
+        //dd($prenotazioni);
+        $pren_camera_num = new Prenotazione();
+        if ($prenotazioni != null) {
+            foreach ($prenotazioni as $prenotazione) {
+                $pren_camera_num = $prenotazione->where($prenotazioni->data_checkin, '=', $data_attuale)
+                    ->orWhere($prenotazioni->data_checkin, '<', $data_attuale)
+                    ->where($prenotazioni->data_checkout, '!=', $data_attuale)
+                    ->get()->pluck('camera_numero');
+                //dd($pren_camera_num);
+            }
+        } else {
+                $pren_camera_num = null;
+        };
+
         $data = [
-            'camera' => $camera
+            'camera' => $camera,
+            //'prenotazione' => $prenotazioni
+            'pren_camera_num' => $pren_camera_num,
         ];
         return view('camere.show', $data);
     }
@@ -68,7 +89,7 @@ class CameraController extends Controller
 
     private function valida_richiesta_update(Request $request)
     {
-        $rules = [                              
+        $rules = [
             'numero' => 'required|numeric',
             'numero_letti' => 'required|numeric',
             'costo_a_notte' => 'required|numeric',
@@ -91,7 +112,7 @@ class CameraController extends Controller
 
     private function valida_richiesta_store(Request $request)
     {
-        $rules = [                             
+        $rules = [
             'numero' => 'required|numeric|unique:camera',
             'numero_letti' => 'required|numeric',
             'costo_a_notte' => 'required|numeric',
@@ -113,13 +134,13 @@ class CameraController extends Controller
         $this->validate($request, $rules, $customMessages);
     }
 
-    private function salva_camera(Request $request, $camera)              
+    private function salva_camera(Request $request, $camera)
     {
-        $camera->numero = $request->input('numero');          
+        $camera->numero = $request->input('numero');
         $camera->numero_letti = $request->input('numero_letti');
         $camera->costo_a_notte = $request->input('costo_a_notte');
         $camera->piano = $request->input('piano');
         $camera->descrizione = $request->input('descrizione');
-        $camera->save();                                                 
+        $camera->save();
     }
 }
