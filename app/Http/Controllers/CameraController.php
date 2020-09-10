@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Camera;
+use App\Dipendente;
 use App\Prenotazione;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class CameraController extends Controller
     public function show($numero)
     {
         $camera = Camera::where('numero', $numero)->first();
-
+        $dipendente = Dipendente::where('user_id', auth()->user()->id)->first();
         $prenotazione = Prenotazione::where('camera_numero', $camera->numero)  
                                     ->where('data_checkin', '<=', Carbon::now())
                                     ->where('data_checkout', '>', Carbon::now())
@@ -46,7 +47,8 @@ class CameraController extends Controller
         $data = [
             'camera' => $camera,
             'pren_camera_num' => $prenotazione == null ? false : true,
-            'prenotazione_id' => $prenotazione == null ? ' ' : $prenotazione->id
+            'prenotazione_id' => $prenotazione == null ? ' ' : $prenotazione->id,
+            'dipendente_check' => $dipendente == null ? false : true
         ];
         return view('camere.show', $data);
     }

@@ -21,6 +21,7 @@
                 </div>
             </div>
         </div>
+        <img src="vendor/adminlte/dist/img/Benvenuto.png" alt="Logo Thousand Sunny" width="745" height="500">
     </div>
 </div>
 @endsection

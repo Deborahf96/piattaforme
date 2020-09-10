@@ -33,10 +33,12 @@
 
 <a href="/camere/{{$camera->numero}}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
 
-@if ($pren_camera_num)
-    <a href="/prenotazioni/{{$prenotazione_id}}" class="btn btn-primary" style="margin-right: 10px">Visualizza prenotazione attuale</a>
-@else
-    <button type="button" class="btn btn-info disabled">Visualizza prenotazione attuale</button>
+@if ($dipendente_check)) 
+    @if ($pren_camera_num)
+        <a href="/prenotazioni/{{$prenotazione_id}}" class="btn btn-primary" style="margin-right: 10px">Visualizza prenotazione attuale</a>
+    @else
+        <button type="button" class="btn btn-info disabled">Visualizza prenotazione attuale</button>
+    @endif
 @endif
 
 {!! Form::open(['action' => ['CameraController@destroy', $camera->numero], 'method' => 'POST', 'class' =>
