@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PrenotazioneClienteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('clienti');
+    }
+
     public function index()
     {
         $user_id = Auth::user()->id;
@@ -53,7 +58,7 @@ class PrenotazioneClienteController extends Controller
         $costo_totale = $request->input('costo_totale');
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
-            'camere' => Camera::all()->pluck("numero", "numero")->sort(),
+            'camere' => Camera::all()->pluck('numero')->sort(),
             'camera_numero' => $camera_numero,
             'data_checkin' => $data_checkin,
             'data_checkout' => $data_checkout,

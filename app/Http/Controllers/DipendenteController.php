@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class DipendenteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('dipendenti');
+    }
+
     public function index(Request $request)
     {
         $ruolo_corrente = $request->input('ruolo');

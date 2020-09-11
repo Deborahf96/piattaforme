@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/camere" class="btn btn-outline-secondary">Torna a camere</a>
+@if ($dipendente_check)
+    <a href="/camere" class="btn btn-outline-secondary">Torna a camere</a>
+@else
+    <a href="javascript:history.go(-1)" 
+    onMouseOver="self.status=document.referrer;return true" class="btn btn-outline-secondary">Indietro</a>
+@endif
 <hr>
 <div class="col-md-12 d-flex align-items-stretch">
     <div class="card card-primary card-outline" style="width: 100%">
@@ -31,21 +36,18 @@
     </div>
 </div>
 
-<a href="/camere/{{$camera->numero}}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
-
 @if ($dipendente_check)
+    <a href="/camere/{{$camera->numero}}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
     @if ($pren_camera_num)
         <a href="/prenotazioni/{{$prenotazione_id}}" class="btn btn-primary" style="margin-right: 10px">Visualizza prenotazione attuale</a>
     @else
         <button type="button" class="btn btn-info disabled">Visualizza prenotazione attuale</button>
     @endif
-@endif
-
-{!! Form::open(['action' => ['CameraController@destroy', $camera->numero], 'method' => 'POST', 'class' =>
-'float-right']) !!}
-{{ Form::hidden('_method', 'DELETE') }}
-{{ Form::submit('Elimina', [ 'class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questa camera? ')"] )  }}
-{!! Form::close() !!}
+    {!! Form::open(['action' => ['CameraController@destroy', $camera->numero], 'method' => 'POST', 'class' =>
+    'float-right']) !!}
+    {{ Form::hidden('_method', 'DELETE') }}
+    {{ Form::submit('Elimina', [ 'class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler eliminare questa camera? ')"] )  }}
+    {!! Form::close() !!}
 <hr>
-
+@endif
 @endsection

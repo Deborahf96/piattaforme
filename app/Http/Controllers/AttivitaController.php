@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AttivitaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('dipendenti', ['except' => ['show']]);
+    }
+
     public function index(Request $request)
     {
         $tipologia_corrente = $request->input('tipologia');

@@ -9,6 +9,11 @@ use function GuzzleHttp\Promise\all;
 
 class DittaEsternaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('dipendenti');
+    }
+
     public function index(Request $request)
     {
         /*visualizzare le ditte. è un metodo che ci porta alla pagina per visualizzare tutte le ditte.

@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ModuloAssistenzaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('clienti');
+    }
 
     public function index()
     {

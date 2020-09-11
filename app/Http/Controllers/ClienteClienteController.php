@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Hash;
 
 class ClienteClienteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('clienti');
+    }
+
     public function show() 
     {
         $user_id = Auth::user()->id;

@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class CameraController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('dipendenti', ['except' => ['show']]);
+    }
+
     public function index()
     {
         $camere = Camera::all();
