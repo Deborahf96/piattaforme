@@ -46,11 +46,24 @@ class PrenotazioneController extends Controller
         return view('prenotazioni.prenota', $data);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $cliente = $request->input('cliente');
+        $camera_numero = $request->input('camera_numero');
+        $data_checkin = $request->input('data_checkin');
+        $data_checkout = $request->input('data_checkout');
+        $num_persone = $request->input('num_persone');
+        $costo_totale = $request->input('costo_totale');
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
+            'cliente' => $cliente,
+            'camere' => Camera::all()->pluck('numero')->sort(),
+            'camera_numero' => $camera_numero,
+            'data_checkin' => $data_checkin,
+            'data_checkout' => $data_checkout,
+            'num_persone' => $num_persone,
+            'costo_totale' => $costo_totale,
         ];
         return view('prenotazioni.create', $data);
     }
@@ -112,6 +125,10 @@ class PrenotazioneController extends Controller
         $prenotazione->camera_numero = $request->input('camera_numero');
         $prenotazione->cliente_user_id = $request->input('cliente_user_id');
         $prenotazione->cliente = $request->input('cliente');
+        $prenotazione->data_checkin = $request->input('data_checkin');
+        $prenotazione->data_checkout = $request->input('data_checkout');
+        $prenotazione->num_persone = $request->input('num_persone');
+        $prenotazione->importo = $request->input('costo_totale');  
         $prenotazione->metodo_pagamento = $request->input('metodo_pagamento');
         $prenotazione->save();
     }

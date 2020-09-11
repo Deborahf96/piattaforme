@@ -34,11 +34,12 @@
     @if (count($camere) > 0)
     <div class="row">
         @foreach ($camere as $camera)
+        @php $costo_totale = (\Carbon\Carbon::parse($data_checkin)->diffinDays(\Carbon\Carbon::parse($data_checkout), false))*$camera->costo_a_notte @endphp
             <div class="col-md-4">
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="vendor/adminlte/dist/img/bb.png"
+                            <img class="profile-user-img img-fluid img-circle" src="/vendor/adminlte/dist/img/camera1.png"
                                 alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center">Camera {{ $camera->numero }}</h3>
@@ -54,11 +55,20 @@
                                 <b>Costo a notte</b> <a class="float-right">{{ $camera->costo_a_notte }} €</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Costo totale</b> <a class="float-right">{{(\Carbon\Carbon::parse($data_checkin)->diffinDays(\Carbon\Carbon::parse($data_checkout), false))*$camera->costo_a_notte}} € </a>
+                                <b>Costo totale</b> <a class="float-right">{{ $costo_totale }} € </a>
                             </li>
                         </ul>
                         <a href="/camere/{{ $camera->numero }}" class="btn btn-primary btn-block"><b>Caratteristiche</b></a>
-                        <a href="#" class="btn btn-success btn-block"><b>Prenota</b></a>
+                        
+                        {!! Form::open(['action' => ['PrenotazioneController@create'], 'method' => 'GET',
+                            'enctype' => 'multipart/form-data']) !!}
+                            {{ Form::hidden('camera_numero', $camera->numero, ['class' => 'form-control']) }}
+                            {{ Form::hidden('data_checkin', $data_checkin, ['class' => 'form-control']) }}
+                            {{ Form::hidden('data_checkout', $data_checkout, ['class' => 'form-control']) }}
+                            {{ Form::hidden('num_persone', $num_persone, ['class' => 'form-control']) }}
+                            {{ Form::hidden('costo_totale', $costo_totale, ['class' => 'form-control']) }}
+                            {{ Form::submit('Prenota', ['class' => 'btn btn-success btn-block', 'style' => 'margin-top: 10px']) }}
+                            {!! Form::close() !!}
                     </div>
                     <!-- /.card-body -->
                 </div>
