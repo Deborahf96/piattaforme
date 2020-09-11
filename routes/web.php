@@ -24,6 +24,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/ditte_esterne', 'DittaEsternaController');
 Route::resource('/camere', 'CameraController');
 Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
+Route::get('/clienti_latoDipendente/{c}/prenotazioni', 'ClienteDipendenteController@prenotazioni');
+
 Route::resource('/attivita', 'AttivitaController');
 Route::resource('/dipendenti', 'DipendenteController');
 Route::resource('/moduli_assistenza', 'ModuloAssistenzaController');

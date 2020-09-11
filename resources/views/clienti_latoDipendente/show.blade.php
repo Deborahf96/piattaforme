@@ -45,5 +45,5 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-info disabled">Visualizza prenotazioni</button>
+    <a href="/clienti_latoDipendente/{{ $cliente->user_id }}/prenotazioni" class="btn btn-info" style="margin-right: 10px">Visualizza prenotazioni</a>
 @endsection
