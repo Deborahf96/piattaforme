@@ -49,18 +49,17 @@
                     {{{Form::select('metodo_pagamento', $metodo_pagamento_enum, $pagamento_default, [ 'class' => 'form-control', 'placeholder' => 'Seleziona metodo di pagamento' ])}}}
                 </div>
             </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-2"><b>Importo finale</b></div>
-                <div class="col-md-3 col-md-offset-1">
-                    {{{ $costo_totale }}} €
-                    {{{Form::hidden('costo_totale', $costo_totale, [ 'class' => 'form-control' ])}}}
-                </div>
-            </div>
         </div>
     </div>
 </div>
-
-{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right: 10px']) }}
+<br>
+<div class = 'float-right' style = 'margin-right: 10px'><b>Importo finale:</b>
+    {{{ $costo_totale }}} €
+    {{{Form::hidden('costo_totale', $costo_totale, [ 'class' => 'form-control' ])}}}
+</div>
+<br>
+<br>
+{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right:10px']) }}
 {!! Form::close() !!}
+
 @endsection
