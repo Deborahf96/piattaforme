@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/prenotazioni/prenota" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+<a href="{{ URL::previous() }}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
 <br>
 <br>
 {!! Form::open(['action' => ['PrenotazioneController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
@@ -82,7 +82,7 @@
 </div>
 <br>
 <br>
-{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right:10px']) }}
+{{ Form::submit('Avanti', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right:10px']) }}
 {!! Form::close() !!}
 
 @endsection

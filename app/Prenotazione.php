@@ -18,6 +18,11 @@ class Prenotazione extends Model
     {
         return $this->belongsTo('App\Cliente', 'cliente_user_id');
     }
+
+    public function attivita()
+    {
+        return $this->belongsToMany('App\Attivita', 'prenotazione_attivita', 'prenotazione_id', 'attivita_id');
+    }
 }
 
 

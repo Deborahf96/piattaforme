@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attivita;
 use App\Prenotazione;
 use App\Camera;
 use App\Cliente;
@@ -71,7 +72,14 @@ class PrenotazioneController extends Controller
         $prenotazione = new Prenotazione;
         $this->valida_richiesta($request, $prenotazione->id);
         $this->salva_prenotazione($request, $prenotazione);
-        return redirect('/prenotazioni')->with('success', 'Prenotazione inserita con successo');
+        $attivita = Attivita::where('data', '>', $prenotazione->data_checkin)
+                            ->where('data', '<=', $prenotazione->data_checkout)
+                            ->get();
+        $data = [
+            'attivita' => $attivita,
+            'prenotazione_id' => $prenotazione->id,
+        ];
+        return view("prenotazioni.attivita.seleziona_attivita", $data);
     }
 
     public function show($id)

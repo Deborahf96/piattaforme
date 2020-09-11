@@ -15,13 +15,13 @@ class CreateDipendenteTable extends Migration
     {
         Schema::create('dipendente', function (Blueprint $table) {
             $table->bigInteger('user_id')->unsigned()->primary();
-            $table->string('iban');
-            $table->string('ruolo');
-            $table->string('tipo_contratto');
-            $table->string('stipendio');
-            $table->date('data_inizio');
+            $table->string('iban')->nullable();
+            $table->string('ruolo')->nullable();
+            $table->string('tipo_contratto')->nullable();
+            $table->string('stipendio')->nullable();
+            $table->date('data_inizio')->nullable();
             $table->date('data_fine')->nullable();
-            $table->integer('ore_settimanali');
+            $table->integer('ore_settimanali')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

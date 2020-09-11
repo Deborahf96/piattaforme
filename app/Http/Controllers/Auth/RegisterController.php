@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Cliente;
+use App\Dipendente;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -70,9 +71,15 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $cliente = new Cliente;
-        $cliente->user_id = $utente->id;
-        $cliente->save();
+        if (Dipendente::all()->count() == 0) {
+            $dipendente = new Dipendente;
+            $dipendente->user_id = $utente->id;
+            $dipendente->save();
+        } else {
+            $cliente = new Cliente;
+            $cliente->user_id = $utente->id;
+            $cliente->save();
+        }
         return $utente;
     }
 }

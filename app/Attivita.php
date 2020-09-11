@@ -13,4 +13,9 @@ class Attivita extends Model
     {
         return $this->belongsTo('App\DittaEsterna', 'ditta_esterna_partita_iva');
     }
+
+    public function prenotazioni()
+    {
+        return $this->belongsToMany('App\Prenotazione', 'prenotazione_attivita', 'attivita_id', 'prenotazione_id');
+    }
 }
