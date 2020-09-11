@@ -58,7 +58,7 @@
                                 <b>Costo totale</b> <a class="float-right">{{ $costo_totale }} € </a>
                             </li>
                         </ul>
-                        <a href="/camere/{{ $camera->numero }}" class="btn btn-primary btn-block"><b>Caratteristiche</b></a>
+                        <a href="/camere/{{ $camera->numero }}" class="btn btn-primary btn-block">Caratteristiche</a>
                         
                         {!! Form::open(['action' => ['PrenotazioneController@create'], 'method' => 'GET',
                             'enctype' => 'multipart/form-data']) !!}

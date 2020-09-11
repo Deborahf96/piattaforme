@@ -76,15 +76,13 @@
         </div>
     </div>
 </div>
-
-
-<div class='float-right' style = 'margin-right: 10 px'><b>Importo finale:</b>
-        {{{ $costo_totale }}} €
-        {{{Form::hidden('costo_totale', $costo_totale, [ 'class' => 'form-control' ])}}}
-</div>      
+<div class = 'float-right' style = 'margin-right: 10px'><b>Importo finale:</b>
+    {{{ $costo_totale }}} €
+    {{{Form::hidden('costo_totale', $costo_totale, [ 'class' => 'form-control' ])}}}
+</div>
 <br>
 <br>
-{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right: 10px']) }}
+{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right:10px']) }}
 {!! Form::close() !!}
 
 @endsection

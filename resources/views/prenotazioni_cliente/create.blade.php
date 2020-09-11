@@ -52,7 +52,6 @@
         </div>
     </div>
 </div>
-<br>
 <div class = 'float-right' style = 'margin-right: 10px'><b>Importo finale:</b>
     {{{ $costo_totale }}} €
     {{{Form::hidden('costo_totale', $costo_totale, [ 'class' => 'form-control' ])}}}
