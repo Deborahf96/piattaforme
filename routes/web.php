@@ -48,3 +48,7 @@ Route::get('/accesso_negato_dipendenti', 'AccessoNegatoController@accesso_negato
 Route::get('/', 'AccessoNegatoController@dashboard');
 Route::get('/info', 'AccessoNegatoController@info');
 
+Route::get('/modifica_password', 'ResettaPasswordController@resetta_password_view');
+Route::post('/modifica_password/{user_id}', 'ResettaPasswordController@cambia_password');
+
+
