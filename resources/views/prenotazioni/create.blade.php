@@ -62,8 +62,8 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group col-md-8">
-                        {{{Form::label('clienti', 'Cliente già registrato')}}}
-                        {{{Form::select('clienti', $clienti, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un cliente' ])}}}
+                        {{{Form::label('cliente_user_id', 'Cliente già registrato')}}}
+                        {{{Form::select('cliente_user_id', $clienti, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un cliente' ])}}}
                     </div>
                 </div>
                 <div class="col-md-5">
