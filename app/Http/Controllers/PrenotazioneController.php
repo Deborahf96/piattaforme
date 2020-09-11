@@ -48,7 +48,6 @@ class PrenotazioneController extends Controller
 
     public function create(Request $request)
     {
-        $cliente = $request->input('cliente');
         $camera_numero = $request->input('camera_numero');
         $data_checkin = $request->input('data_checkin');
         $data_checkout = $request->input('data_checkout');
@@ -57,7 +56,6 @@ class PrenotazioneController extends Controller
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
-            'cliente' => $cliente,
             'camere' => Camera::all()->pluck('numero')->sort(),
             'camera_numero' => $camera_numero,
             'data_checkin' => $data_checkin,
