@@ -337,6 +337,29 @@ return [
             'icon'    => 'fa fa-users',
         ],
         [
+            'text'    => 'Gestione fatture',
+            'url'     => '/',
+            'can'     => 'dipendenti',
+            'icon'    => 'fa fa-shopping-bag',
+        ],
+        [
+            'text'    => 'Gestione marketing',
+            'url'     => '/',
+            'can'     => 'dipendenti',
+            'icon'    => 'fa fa-book',
+        ],[
+            'text'    => 'Gestione assistenza',
+            'url'     => '/',
+            'can'     => 'dipendenti',
+            'icon'    => 'fa fa-question-circle',
+        ],
+        [
+            'text'    => 'Recensioni',
+            'url'     => '/',
+            'can'     => 'dipendenti',
+            'icon'    => 'fa fa-star',
+        ],
+        [
             'text'    => 'Profilo',
             'icon'    => 'fa fa-user',
             'can'     => 'clienti',
@@ -386,6 +409,12 @@ return [
                     'icon' => 'fa fa-share',
                 ],
             ],
+        ],
+        [
+            'text'    => 'Recensioni',
+            'url'     => '/',
+            'can'     => 'clienti',
+            'icon'    => 'fa fa-star',
         ],
     ],
 
