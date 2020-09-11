@@ -25,4 +25,9 @@ class AccessoNegatoController extends Controller
     {
         return view('welcome');
     }
+
+    public function info()
+    {
+        return view('accesso_negato.info');
+    }
 }

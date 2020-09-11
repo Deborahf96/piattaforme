@@ -1,27 +1,15 @@
 @extends('layouts.app')
 
-@php $cliente=Auth::user()->name
-@endphp
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{__('Benvenuto!')}}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __("Hai eseguito l'accesso come " .$cliente) }}
+@section('thousand_sunny_content')
+    <div class="card card-primary card-outline">
+        <div class="card-body box-profile">
+            <div class="row">
+                <img class="info-box-icon img-fluid" src="/vendor/adminlte/dist/img/camera1.png" alt="Immagine camera"
+                    width="500px" height="500px">
+                <div class="info-box-content">
+                    <span class="info-box-text">&nbsp;Messages</span>
                 </div>
             </div>
         </div>
-        <img src="vendor/adminlte/dist/img/Benvenuto.png" alt="Logo Thousand Sunny" width="745" height="500">
     </div>
-</div>
 @endsection
