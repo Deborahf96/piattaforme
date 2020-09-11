@@ -54,9 +54,13 @@
         </div>
     </div>
     @if($prenotazione->cliente == null)
-        <a href="/clienti_latoDipendente/{{ $prenotazione->cliente_user_id }}"  class="btn btn-info">Visualizza profilo cliente</a>
+        <a href="/clienti_latoDipendente/{{ $prenotazione->cliente_user_id }}"  class="btn btn-info" style="margin-right: 10px">Visualizza profilo cliente</a>
     @endif
-    {!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
+    
+    <a href="/#"  class="btn btn-info disable" style="margin-right: 10px">Visualizza attività</a>
+    <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza fattura</button>
+
+{!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
     {{ Form::submit('Annulla', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')"]) }}
