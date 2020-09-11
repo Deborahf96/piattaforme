@@ -338,24 +338,24 @@ return [
         ],
         [
             'text'    => 'Gestione fatture',
-            'url'     => '/',
+            'url'     => '/info',
             'can'     => 'dipendenti',
             'icon'    => 'fa fa-shopping-bag',
         ],
         [
             'text'    => 'Gestione marketing',
-            'url'     => '/',
+            'url'     => '/info',
             'can'     => 'dipendenti',
             'icon'    => 'fa fa-book',
         ],[
             'text'    => 'Gestione assistenza',
-            'url'     => '/',
+            'url'     => '/info',
             'can'     => 'dipendenti',
             'icon'    => 'fa fa-question-circle',
         ],
         [
             'text'    => 'Recensioni',
-            'url'     => '/',
+            'url'     => '/info',
             'can'     => 'dipendenti',
             'icon'    => 'fa fa-star',
         ],
@@ -412,7 +412,7 @@ return [
         ],
         [
             'text'    => 'Recensioni',
-            'url'     => '/',
+            'url'     => '/info',
             'can'     => 'clienti',
             'icon'    => 'fa fa-star',
         ],

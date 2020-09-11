@@ -46,4 +46,5 @@ Route::delete('/clienti_latoCliente', 'ClienteClienteController@destroy');
 Route::get('/accesso_negato_clienti', 'AccessoNegatoController@accesso_negato_clienti');
 Route::get('/accesso_negato_dipendenti', 'AccessoNegatoController@accesso_negato_dipendenti');
 Route::get('/', 'AccessoNegatoController@dashboard');
+Route::get('/info', 'AccessoNegatoController@info');
 
