@@ -31,6 +31,9 @@
                                         <a button href="/clienti_latoDipendente/{{ $cliente->user_id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
                                             class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
+                                        <a button href="/clienti_latoDipendente/{{ $cliente->user_id }}/prenotazioni"
+                                            data-toggle="tooltip" data-placement="top" title="Prenotazioni"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-bell"></i></button></a>
                                     </div>
                                 </td>
                             </tr>
