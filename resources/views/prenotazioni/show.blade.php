@@ -53,6 +53,9 @@
             </div>
         </div>
     </div>
+    @if($prenotazione->cliente == null)
+        <a href="/clienti_latoDipendente/{{ $prenotazione->cliente_user_id }}"  class="btn btn-info">Visualizza profilo cliente</a>
+    @endif
     {!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
