@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/attivita" class="btn btn-outline-secondary">Torna a attività</a>
+    <a href="{{URL::previous()}}" class="btn btn-outline-secondary">Indietro</a>
     <hr>
     <div class="col-md-12 d-flex align-items-stretch">
         <div class="card card-primary card-outline" style="width: 100%">
@@ -12,27 +12,22 @@
                 <div class="row">
                     <div class="col-md-2"><b>Ditta esterna</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $attivita->ditta_esterna->nome }}</div>
-                    <div class="col-md-2"><b>Numero massimo di partecipanti</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ $attivita->max_persone }}</div>
+                    <div class="col-md-2"><b>Tipologia</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ $attivita->tipologia }}</div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-md-2"><b>Data</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ \Carbon\Carbon::parse($attivita->data)->format('d/m/Y') }}
                     </div>
-                    <div class="col-md-2"><b>Luogo di destinazione</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ $attivita->destinazione }}</div>
-                </div>
-                <hr>
-                <div class="row">
                     <div class="col-md-2"><b>Ora</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ \Carbon\Carbon::parse($attivita->ora)->format('H:i') }}
                     </div>
-                    <div class="col-md-2"><b>Tipologia</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ $attivita->tipologia }}</div>
                 </div>
                 <hr>
                 <div class="row">
+                    <div class="col-md-2"><b>Luogo di destinazione</b></div>
+                    <div class="col-md-3 col-md-offset-1">{{ $attivita->destinazione }}</div>
                     <div class="col-md-2"><b>Costo</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $attivita->costo }} €</div>
                 </div>

@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="javascript:history.go(-1)" 
-    onMouseOver="self.status=document.referrer;return true" class="btn btn-outline-secondary">Indietro</a>
+    <a href="{{URL::previous()}}" class="btn btn-outline-secondary">Indietro</a>
     <hr>
     <div class="col-md-12 d-flex align-items-stretch">
         <div class="card card-primary card-outline" style="width: 100%">

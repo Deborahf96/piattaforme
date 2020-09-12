@@ -35,12 +35,6 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('max_persone', 'Numero massimo di partecipanti')}}}
-                                {{{Form::number('max_persone', '', [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
                                 {{{Form::label('destinazione', 'Luogo di destinazione')}}}
                                 {{{Form::text('destinazione', '', [ 'class' => 'form-control' ])}}}
                             </div>

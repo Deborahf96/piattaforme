@@ -13,7 +13,6 @@ class CreateAttivitaTable extends Migration
             $table->string('ditta_esterna_partita_iva');
             $table->date('data');
             $table->time('ora');
-            $table->integer('max_persone');
             $table->string('destinazione');
             $table->string('tipologia');
             $table->integer('costo');
