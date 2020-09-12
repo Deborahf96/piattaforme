@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Prenotazione;
+use App\User;
 
 class ClienteDipendenteController extends Controller
 {
@@ -35,8 +36,10 @@ class ClienteDipendenteController extends Controller
     public function prenotazioni($user_id)
     {
         $prenotazioni = Prenotazione::where('cliente_user_id', $user_id)->get();
+        $cliente_name = User::where('id', $user_id)->value('name');
         $data = [
-            'prenotazioni' => $prenotazioni
+            'prenotazioni' => $prenotazioni,
+            'cliente_name' => $cliente_name
         ];
         return view('clienti_latoDipendente.prenotazioni', $data);
     }

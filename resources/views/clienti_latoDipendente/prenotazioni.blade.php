@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="javascript:history.go(-1)" 
-    onMouseOver="self.status=document.referrer;return true" class="btn btn-outline-secondary">Indietro</a>
+    <a href="{{URL::previous()}}" class="btn btn-outline-secondary">Indietro</a>
     <br>
-    <br>   
+    <br>
+    <h2>Prenotazioni di: {{$cliente_name}}</h2>
+    <br>
     @if (count($prenotazioni) > 0)
         <div class="card">
-            <div class="card-body">
-                
+            <div class="card-body"> 
                 <table id="" class="display table table-striped table-bordered">
                     <thead>
                         <tr>
