@@ -38,27 +38,80 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-2"><b>Seleziona attività</b></div>
-                <div class="col-md-3 col-md-offset-1">
-                    <a button href="#" data-toggle="tooltip"
-                        data-placement="top" title="Attività" class="btn btn-primary btn-sm"><i
-                            class="fa fa-plus"></i></button></a>
-                </div>
                 <div class="col-md-2"><b>Metodo di pagamento</b></div>
-                <div class="d-flex align-items-center">
+                <div class="col-md-3">               
+                    <div class="d-flex align-items-center">
                     {{{Form::select('metodo_pagamento', $metodo_pagamento_enum, $pagamento_default, [ 'class' => 'form-control', 'placeholder' => 'Seleziona metodo di pagamento' ])}}}
+                    </div>
+                </div>
+                <div class="col-md-2"><b>Importo parziale:</b></div>
+                <div class="col-md-3">
+                    {{{ $costo_totale }}} €
+                    {{{Form::hidden('costo_totale', $costo_totale, [ 'class' => 'form-control' ])}}}
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class = 'float-right' style = 'margin-right: 10px'><b>Importo finale:</b>
-    {{{ $costo_totale }}} €
-    {{{Form::hidden('costo_totale', $costo_totale, [ 'class' => 'form-control' ])}}}
-</div>
+
+@if (count($attivita) > 0)
+    <div class="card card-primary card-outline collapsed-card" style="margin-left: 10px; margin-right: 10px">            
+        <div class="card-header">
+            <h5 class="card-title m-0"><b>Seleziona attività</b></h5>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                </button>
+            </div><!-- /.card-tools -->
+        </div><!-- /.card-header -->
+        <div class="card-body">
+            <table id="" class="display table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Destinazione</th>
+                        <th>Tipologia</th>
+                        <th>Costo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($attivita as $singola_attivita)
+                        <tr>
+                            <td width=15%>
+                                {{ $singola_attivita->data }}
+                            </td>
+                            <td width=15%>
+                                {{ \Carbon\Carbon::parse($singola_attivita->ora)->format('H:i') }}
+                            </td>
+                            <td width=15%>
+                                {{ $singola_attivita->destinazione }}
+                            </td>
+                            <td width=15%>
+                                {{ $singola_attivita->tipologia }}
+                            </td>
+                            <td width=20%>
+                                {{ $singola_attivita->costo }} €
+                            </td>
+                            <td width=20%>
+                                <div class="d-flex justify-content-center">
+                                    {{ Form::checkbox('attivita[]', $singola_attivita->id) }}
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@else
+    <p>Nessuna attività disponibile</p>
+@endif
+
 <br>
 <br>
-{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right:10px']) }}
+<a href="{{URL::previous()}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+{{ Form::submit('Avanti', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right:10px']) }}
 {!! Form::close() !!}
 
 @endsection

@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-2"><b>Cliente</b></div>
                 <div class="col-md-3 col-md-offset-1">
-                    {{ isset($prenotazione->cliente) ? $prenotazione->cliente : $cliente_name }}
+                    {{ $cliente_name }}
                 </div>
                 <div class="col-md-2"><b>Camera</b></div>
                 <div class="col-md-3 col-md-offset-1">{{ $prenotazione->camera_numero }}</div>
@@ -56,9 +56,9 @@
 </h5>
 <br>
 <br>
-<a href="/prenotazioni" class="btn btn-primary float-right" style="margin-left: 10px">Avanti</a>
+<a href="/prenotazioni_cliente" class="btn btn-primary float-right" style="margin-left: 10px">Avanti</a>
 
-{!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
+{!! Form::open(['action' => ['PrenotazioneClienteController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
 {{ Form::hidden('_method', 'DELETE') }}
 {{ Form::submit('Annulla prenotazione', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')"]) }}

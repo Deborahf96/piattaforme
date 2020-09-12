@@ -36,6 +36,8 @@ Route::get('/prenotazioni/prenota', 'PrenotazioneController@prenota');
 Route::post('/prenotazioni/{p}/check', 'PrenotazioneController@conferma_annulla_check');
 Route::resource('/prenotazioni', 'PrenotazioneController');
 
+
+Route::get('/prenotazioni_cliente/{p}/riepilogo', 'PrenotazioneClienteController@riepilogo');
 Route::get('/prenotazioni_cliente/prenota', 'PrenotazioneClienteController@prenota');
 Route::resource('/prenotazioni_cliente', 'PrenotazioneClienteController');
 
