@@ -360,6 +360,12 @@ return [
             'icon'    => 'fa fa-star',
         ],
         [
+            'text'    => 'Modifica password',
+            'url'     => '/modifica_password',
+            'can'     => 'dipendenti',
+            'icon'    => 'fa fa-cog',
+        ],
+        [
             'text'    => 'Profilo',
             'icon'    => 'fa fa-user',
             'can'     => 'clienti',
@@ -373,6 +379,11 @@ return [
                     'text' => 'Modifica',
                     'url'  => '/clienti_latoCliente/edit',
                     'icon' => 'fa fa-edit',
+                ],
+                [
+                    'text' => 'Modifica password',
+                    'url'  => '/modifica_password',
+                    'icon' => 'fa fa-cog',
                 ],
             ],
         ],
