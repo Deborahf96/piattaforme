@@ -37,7 +37,6 @@
         </div>
     </div>
 
-    <a href="/#"  class="btn btn-info" style="margin-right: 10px">Visualizza attività</a>
     <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza fattura</button>
     <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Inserisci recensione</button>
     

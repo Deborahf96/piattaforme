@@ -30,8 +30,8 @@ Route::resource('/attivita', 'AttivitaController');
 Route::resource('/dipendenti', 'DipendenteController');
 Route::resource('/moduli_assistenza', 'ModuloAssistenzaController');
 
-Route::get('/prenotazioni/{p}/seleziona_attivita', 'PrenotazioneAttivitaController@seleziona_attivita');
-Route::get('/prenotazioni/{p}/conferma_attivita', 'PrenotazioneAttivitaController@conferma_attivita');
+
+Route::get('/prenotazioni/{p}/riepilogo', 'PrenotazioneController@riepilogo');
 Route::get('/prenotazioni/prenota', 'PrenotazioneController@prenota');
 Route::post('/prenotazioni/{p}/check', 'PrenotazioneController@conferma_annulla_check');
 Route::resource('/prenotazioni', 'PrenotazioneController');

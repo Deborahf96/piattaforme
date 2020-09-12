@@ -1,13 +1,11 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="{{ URL::previous() }}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
-<br>
 <br>
 <div class="col-md-12 d-flex align-items-stretch">
     <div class="card card-primary card-outline" style="width: 100%">
         <div class="card-header">
-            <h5 class="card-title m-0"><b>Inserisci dati prenotazione</b></h5>
+            <h5 class="card-title m-0"><b>Riepilogo prenotazione effettuata</b></h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -53,9 +51,17 @@
     </div>
 </div>
 
-
+<h5 class = 'float-right' style = 'margin-right: 30px'><b>Importo totale:&nbsp;&nbsp;&nbsp;</b>
+    {{{ $prenotazione->importo }}} €
+</h5>
 <br>
 <br>
-<a href="/prenotazioni/{{$prenotazione->id}}" class="btn btn-primary float-right" style="margin-left: 10px">Conferma prenotazione</a>
+<a href="/prenotazioni/{{$prenotazione->id}}" class="btn btn-primary float-right" style="margin-left: 10px">Avanti</a>
 
-@endsection 
+{!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
+    'float-right']) !!}
+{{ Form::hidden('_method', 'DELETE') }}
+{{ Form::submit('Annulla prenotazione', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')"]) }}
+{!! Form::close() !!}
+
+    @endsection 

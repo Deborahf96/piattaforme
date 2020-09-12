@@ -50,14 +50,27 @@
                     <div class="col-md-2"><b>Conferma avvenuto pernottamento</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $prenotazione->check_pernottamento }}</div>
                 </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2"><b>Attività selezionate</b></div>
+                    <div class="col-md-10 col-md-offset-1">
+                        <ul>
+                            @foreach ($prenotazione->attivita as $singola_attivita)
+                                <li>
+                                    <a href="/attivita/{{$singola_attivita->id}}" class="btn btn-link">
+                                    {{ \Carbon\Carbon::parse($singola_attivita->data)->format("d/m/Y") }}  -  {{ \Carbon\Carbon::parse($singola_attivita->ora)->format("H:i") }}  |  {{ $singola_attivita->destinazione }}  |  {{ $singola_attivita->tipologia }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     @if($prenotazione->cliente == null)
         <a href="/clienti_latoDipendente/{{ $prenotazione->cliente_user_id }}"  class="btn btn-info" style="margin-right: 10px">Visualizza profilo cliente</a>
     @endif
-    
-    <a href="/#"  class="btn btn-info disable" style="margin-right: 10px">Visualizza attività</a>
     <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza fattura</button>
 
 {!! Form::open(['action' => ['PrenotazioneController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>

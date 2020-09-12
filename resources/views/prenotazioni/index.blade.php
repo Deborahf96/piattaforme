@@ -2,8 +2,32 @@
 
 @section('thousand_sunny_content')
     <a href="/" class="btn btn-outline-secondary">Indietro</a>
-    <br>
-    <br>
+    <hr>
+
+    <div class="d-flex justify-content-between" style="margin-left: 10px">
+        <div class="row">
+            {!! Form::open(['action' => ['PrenotazioneController@index'], 'method' => 'GET', 'enctype' =>
+            'multipart/form-data']) !!}
+            <div class="d-flex justify-content-start">
+                <div class="d-flex justitfy-content-between align-items-center">
+                    <div>
+                        <h5 style="margin-block-end: 0px"><b>Seleziona data</b></h5>
+                    </div>
+                    <div style="margin-left: 20px">{!! Form::date('data_corrente', $data_corrente, ['class' => 'form-control']) !!}</div>
+                </div>
+                <div style="margin-left: 20px">{{ Form::submit('Conferma', ['class' => 'btn btn-primary']) }}</div>
+                <a href="/prenotazioni" class="btn btn-primary" style="margin-left: 20px">Reset Filtri</a>
+            </div>
+            {!! Form::close() !!}
+        </div>
+        <script>
+            $('[name="id"]').change(function() {
+                var optionSelected = $("option:selected", this);
+                optionValue = this.value;
+            });
+        </script>
+    </div>
+    <hr>
     <a href="/prenotazioni/prenota" class="btn btn-primary float-right">Aggiungi una nuova prenotazione</a>
     <h1>Elenco prenotazioni</h1>
     <br>

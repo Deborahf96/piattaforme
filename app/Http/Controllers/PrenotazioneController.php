@@ -17,11 +17,16 @@ class PrenotazioneController extends Controller
         $this->middleware('dipendenti');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $prenotazioni = Prenotazione::all();
+        $data_corrente = $request->input('data_corrente');
+        $prenotazioni = Prenotazione::when(isset($data_corrente), function ($query) use ($data_corrente) {
+                                    return $query->where('data_checkin', '<=', $data_corrente)
+                                                ->where('data_checkout', ">=", $data_corrente);
+                                    })->get();
         $data = [
-            'prenotazioni' => $prenotazioni
+            'prenotazioni' => $prenotazioni,
+            'data_corrente' => $data_corrente,
         ];
         return view('prenotazioni.index', $data);
     }
@@ -54,6 +59,9 @@ class PrenotazioneController extends Controller
         $data_checkout = $request->input('data_checkout');
         $num_persone = $request->input('num_persone');
         $costo_totale = $request->input('costo_totale');
+        $attivita = Attivita::where('data', '>', $data_checkin)
+                            ->where('data', '<=', $data_checkout)
+                            ->get();
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
             'clienti' => Cliente::all()->pluck("utente.name", "user_id")->sort(),
@@ -63,6 +71,7 @@ class PrenotazioneController extends Controller
             'data_checkout' => $data_checkout,
             'num_persone' => $num_persone,
             'costo_totale' => $costo_totale,
+            'attivita' => $attivita,
         ];
         return view('prenotazioni.create', $data);
     }
@@ -72,14 +81,19 @@ class PrenotazioneController extends Controller
         $prenotazione = new Prenotazione;
         $this->valida_richiesta($request, $prenotazione->id);
         $this->salva_prenotazione($request, $prenotazione);
-        $attivita = Attivita::where('data', '>', $prenotazione->data_checkin)
-                            ->where('data', '<=', $prenotazione->data_checkout)
-                            ->get();
+        $this->salva_attivita($request, $prenotazione);
+        return redirect("/prenotazioni/$prenotazione->id/riepilogo")->with('success', 'Prenotazione effettuata con successo');
+    }
+
+    public function riepilogo($id)
+    {
+        $prenotazione = Prenotazione::find($id);
+        $cliente_name = User::where('id', $prenotazione->cliente_user_id)->value('name');
         $data = [
-            'attivita' => $attivita,
-            'prenotazione_id' => $prenotazione->id,
+            'prenotazione' => $prenotazione,
+            'cliente_name' => $cliente_name,
         ];
-        return view("prenotazioni.attivita.seleziona_attivita", $data);
+        return view("prenotazioni.riepilogo", $data);
     }
 
     public function show($id)
@@ -167,5 +181,18 @@ class PrenotazioneController extends Controller
         ];
 
         $this->validate($request, $rules, $customMessages);
+    }
+
+    private function salva_attivita($request, $prenotazione)
+    {
+        $lista_attivita = $request->input('attivita');
+        if(isset($lista_attivita))
+            foreach($lista_attivita as $singola_attivita_id)
+            {
+                $attivita = Attivita::find($singola_attivita_id);
+                $prenotazione->attivita()->attach($attivita);
+                $prenotazione->importo = $prenotazione->importo + $attivita->costo;
+                $prenotazione->save();
+            }
     }
 }
