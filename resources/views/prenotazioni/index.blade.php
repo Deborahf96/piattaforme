@@ -37,10 +37,10 @@
                 <table id="" class="display table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Camera</th>
                             <th>Data check-in</th>
                             <th>Data check-out</th>
                             <th>Importo</th>
+                            <th>Camera</th>
                             <th>Check pernottamento</th>
                             <th></th>
                         </tr>
@@ -49,9 +49,6 @@
                         @foreach ($prenotazioni as $prenotazione)
                             <tr>
                                 <td width=15%>
-                                    {{ $prenotazione->camera->numero }}
-                                </td>
-                                <td width=15%>
                                     {{ $prenotazione->data_checkin }}
                                 </td>
                                 <td width=15%>
@@ -59,6 +56,9 @@
                                 </td>
                                 <td width=15%>
                                     {{ $prenotazione->importo }} €
+                                </td>
+                                <td width=15%>
+                                    {{ $prenotazione->camera->numero }}
                                 </td>
                                 <td width=20%>
                                     {{ $prenotazione->check_pernottamento }}

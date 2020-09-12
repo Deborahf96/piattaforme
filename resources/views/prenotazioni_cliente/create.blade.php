@@ -108,8 +108,6 @@
     <p>Nessuna attività disponibile</p>
 @endif
 
-<br>
-<br>
 <a href="{{URL::previous()}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
 {{ Form::submit('Avanti', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right:10px']) }}
 {!! Form::close() !!}

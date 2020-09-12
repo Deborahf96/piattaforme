@@ -13,19 +13,16 @@
                 <table id="" class="display table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Camera</th>
                             <th>Data check-in</th>
                             <th>Data check-out</th>
                             <th>Importo</th>
+                            <th>Camera</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($prenotazioni as $prenotazione)
                             <tr>
-                                <td width=20%>
-                                    {{ $prenotazione->camera->numero }}
-                                </td>
                                 <td width=20%>
                                     {{ $prenotazione->data_checkin }}
                                 </td>
@@ -36,22 +33,26 @@
                                     {{ $prenotazione->importo }} €
                                 </td>
                                 <td width=20%>
+                                    {{ $prenotazione->camera->numero }}
+                                </td>
+                                <td width=20%>
                                     <div class="d-flex justify-content-around">
                                         <a button href="/prenotazioni_cliente/{{ $prenotazione->id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
                                             class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
-                                        {!! Form::open(['action' => ['PrenotazioneClienteController@destroy',
-                                        $prenotazione->id], 'method' => 'POST']) !!}
-                                        {{ Form::hidden('_method', 'DELETE') }}
-                                        {{ Form::button('<i class="fa fa-trash"></i>', [
-                                                'type' => 'submit',
-                                                'class' => 'btn btn-danger btn-sm',
-                                                'data-toggle' => 'tooltip',
-                                                'data-placement' => 'top',
-                                                'title' => 'Annulla',
-                                                'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')",
-                                            ]) }}
-                                        {!! Form::close() !!}
+                                        @php $giorni_di_differenza = (\Carbon\Carbon::now()->diffinDays(\Carbon\Carbon::parse($prenotazione->data_checkout), false)) @endphp
+                                            {!! Form::open(['action' => ['PrenotazioneClienteController@destroy',
+                                            $prenotazione->id], 'method' => 'POST']) !!}
+                                            {{ Form::hidden('_method', 'DELETE') }}
+                                            {{ Form::button('<i class="fa fa-trash"></i>', [
+                                                    'type' => 'submit',
+                                                    'class' => ($giorni_di_differenza>=14) ? 'btn btn-danger btn-sm' : 'btn btn-danger btn-sm disabled',
+                                                    'data-toggle' => 'tooltip',
+                                                    'data-placement' => 'top',
+                                                    'title' => 'Annulla',
+                                                    'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')",
+                                                ]) }}
+                                            {!! Form::close() !!}
                                     </div>
                                 </td>
                             </tr>

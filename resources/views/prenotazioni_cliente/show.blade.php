@@ -52,12 +52,19 @@
 
     <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza fattura</button>
     <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Inserisci recensione</button>
-    
-    {!! Form::open(['action' => ['PrenotazioneClienteController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
-    'float-right']) !!}
-    {{ Form::hidden('_method', 'DELETE') }}
-    {{ Form::submit('Annulla', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')"]) }}
-    {!! Form::close() !!}
+
+    @php $giorni_di_differenza = (\Carbon\Carbon::now()->diffinDays(\Carbon\Carbon::parse($prenotazione->data_checkout), false)) @endphp
+    @if($giorni_di_differenza>=14)
+    <div class="row float-right" style="margin-right: 10px">
+            <h6><i class="fas fa-info"></i><b>&nbsp; Attenzione:</b>
+            Puoi annullare la prenotazione entro {{$giorni_di_differenza-14}} giorni.</h6>
+        {!! Form::open(['action' => ['PrenotazioneClienteController@destroy', $prenotazione->id], 'method' => 'POST', 'class' =>
+        'float-right', 'style' => "margin-left: 20px"]) !!}
+        {{ Form::hidden('_method', 'DELETE') }}
+        {{ Form::submit('Annulla', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')"]) }}
+        {!! Form::close() !!}
+        </div>
+    @endif
     <hr>
 
 @endsection
