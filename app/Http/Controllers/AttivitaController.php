@@ -10,7 +10,7 @@ class AttivitaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('dipendenti', ['except' => ['show']]);
+        $this->middleware('dipendenti');
     }
 
     public function index(Request $request)
