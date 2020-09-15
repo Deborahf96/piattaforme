@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/clienti_latoCliente/{{$cliente->user_id}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+<a href="/clienti_latoCliente" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
 <br>
 <br>
 {!! Form::open(['action' => ['ClienteClienteController@update', $cliente->user_id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
@@ -63,6 +63,8 @@
         </div><!-- /.card-body -->
     </div>
 </div>
+
+<a href="/modifica_password" class="btn btn-primary" style="margin-right: 10px">Modifica password</a>
 
 {{ Form::hidden('_method','PUT' )}}
 {{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right: 10px']) }}
