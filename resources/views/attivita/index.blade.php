@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/" class="btn btn-outline-secondary">Indietro</a>
+    <a href="/home" class="btn btn-outline-secondary">Indietro</a>
     <hr>
     <div class="d-flex justify-content-between" style="margin-left: 10px">
         <div class="row">

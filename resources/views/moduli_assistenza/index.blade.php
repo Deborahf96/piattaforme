@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/" class="btn btn-outline-secondary">Indietro</a>
+    <a href="/home" class="btn btn-outline-secondary">Indietro</a>
     <br>
     <br>    
     <a href="/moduli_assistenza/create" class="btn btn-primary float-right">Invia una richiesta</a>

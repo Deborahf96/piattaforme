@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+<a href="/moduli_assistenza" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
 <br>
 <br>
 {!! Form::open(['action' => ['ModuloAssistenzaController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}

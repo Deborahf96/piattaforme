@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/ditte_esterne" class="btn btn-outline-secondary">Torna a ditte</a>
+    <a href="{{URL::previous()}}" class="btn btn-outline-secondary">Indietro</a>
     <hr>
     <div class="col-12">
         <div class="card">
