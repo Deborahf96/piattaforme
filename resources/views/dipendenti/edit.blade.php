@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/dipendenti/{{$dipendente->user_id}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+<a href="/dipendenti" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a dipendenti</a>
 <br>
 <br>
 {!! Form::open(['action' => ['DipendenteController@update', $dipendente->user_id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/attivita/{{$attivita->id}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+<a href="/attivita" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a attività</a>
 <br>
 <br>
 {!! Form::open(['action' => ['AttivitaController@update', $attivita->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}

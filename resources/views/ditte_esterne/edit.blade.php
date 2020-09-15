@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/ditte_esterne/{{$ditta_esterna->partita_iva}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+<a href="/ditte_esterne" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a ditte</a>
 <br>
 <br>
 {!! Form::open(['action' => ['DittaEsternaController@update', $ditta_esterna->partita_iva], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}

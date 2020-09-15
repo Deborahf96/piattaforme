@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/camere/{{$camera->numero}}" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
+<a href="/camere" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a camere</a>
 <br>
 <br>
 {!! Form::open(['action' => ['CameraController@update', $camera->numero], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
