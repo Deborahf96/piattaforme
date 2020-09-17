@@ -50,6 +50,7 @@
         </div>
     </div>
 
+    <a href="/camere/{{ $prenotazione->camera->numero }}"  class="btn btn-info" style="margin-right: 10px">Visualizza caratteristiche camera</a>
     <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza fattura</button>
     <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Inserisci recensione</button>
 
