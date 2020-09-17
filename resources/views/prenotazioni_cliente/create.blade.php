@@ -84,16 +84,16 @@
                             <td width=15%>
                                 {{ \Carbon\Carbon::parse($singola_attivita->ora)->format('H:i') }}
                             </td>
-                            <td width=15%>
+                            <td width=20%>
                                 {{ $singola_attivita->destinazione }}
                             </td>
-                            <td width=15%>
+                            <td width=20%>
                                 {{ $singola_attivita->tipologia }}
                             </td>
-                            <td width=20%>
+                            <td width=15%>
                                 {{ $singola_attivita->costo }} €
                             </td>
-                            <td width=20%>
+                            <td width=15%>
                                 <div class="d-flex justify-content-center">
                                     {{ Form::checkbox('attivita[]', $singola_attivita->id) }}
                                 </div>
