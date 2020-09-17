@@ -55,13 +55,13 @@
                                 <td width=15%>
                                     {{ $singola_attivita->tipologia }}
                                 </td>
-                                <td width=15%>
+                                <td width=10%>
                                     {{ $singola_attivita->data }}
                                 </td>
                                 <td width=10%>
                                     {{ \Carbon\Carbon::parse($singola_attivita->ora)->format('H:i') }}
                                 </td>
-                                <td width=15%>
+                                <td width=20%>
                                     {{ $singola_attivita->destinazione }}
                                 </td>
                                 <td width=10%>

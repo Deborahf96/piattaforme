@@ -5,7 +5,9 @@
 <div class="d-flex justify-content-center">
     <div class="col-6">
         <div class="card">
-            <div class="card-header"><b>Modifica Password</b></div>
+            <div class="card-header">
+                <h5 class="card-title m-0"><b>Modifica Password</b></h5>
+            </div>
             <div class="card-body">
                 {!! Form::open(['action' => ['ResettaPasswordController@cambia_password', $user->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                 <div class="form-group">
