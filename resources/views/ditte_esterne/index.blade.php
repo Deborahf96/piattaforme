@@ -37,20 +37,17 @@
                 <table id="" class="display table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Partita IVA</th>
                             <th>Nome</th>
                             <th>Indirizzo</th>
                             <th>Email</th>
                             <th>Categoria</th>
+                            <th>Descrizione</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($ditte_esterne as $ditta_esterna)
                             <tr>
-                                <td width=15%>
-                                    {{ $ditta_esterna->partita_iva }}
-                                </td>
                                 <td width=20%>
                                     {{ $ditta_esterna->nome }}
                                 </td>
@@ -62,6 +59,9 @@
                                 </td>
                                 <td width=15%>
                                     {{ $ditta_esterna->categoria }}
+                                </td>
+                                <td width=15%>
+                                    {{ isset($ditta_esterna->descrizione) ? $ditta_esterna->descrizione : '-' }}
                                 </td>
                                 <td width=15%>
                                     <div class="d-flex justify-content-around">

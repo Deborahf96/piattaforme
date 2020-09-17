@@ -41,6 +41,11 @@
                                 <div class="col-md-5"><b>Categoria</b></div>
                                 <div class="col-md-7 col-md-offset-1">{{ $ditta_esterna->categoria }}</div>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-5"><b>Descrizione</b></div>
+                                <div class="col-md-7 col-md-offset-1">{{ isset($ditta_esterna->descrizione) ? $ditta_esterna->descrizione : '-' }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>

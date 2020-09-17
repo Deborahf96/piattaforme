@@ -90,7 +90,7 @@ class CameraController extends Controller
             'numero_letti' => 'required|numeric|gt:0',
             'costo_a_notte' => 'required|numeric|gt:0',
             'piano' => 'required',
-            'descrizione' => 'required|max:255',
+            'descrizione' => 'required|max:65535',
         ];
         $customMessages = [
             'numero.required' => "E' necessario inserire il parametro 'Numero'",
@@ -104,7 +104,7 @@ class CameraController extends Controller
             'costo_a_notte.gt' => "Il campo 'Costo a notte' deve essere maggiore di zero",
             'piano.required' => "E' necessario inserire il parametro 'Piano'",
             'descrizione.required' => "E' necessario inserire il parametro 'Descrizione'",
-            'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
+            'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 65535",
         ];
         $this->validate($request, $rules, $customMessages);
     }
@@ -116,7 +116,7 @@ class CameraController extends Controller
             'numero_letti' => 'required|numeric|gt:0',
             'costo_a_notte' => 'required|numeric|gt:0',
             'piano' => 'required',
-            'descrizione' => 'required|max:255',
+            'descrizione' => 'required|max:65535',
         ];
         $customMessages = [
             'numero.required' => "E' necessario inserire il parametro 'Numero'",
@@ -131,7 +131,7 @@ class CameraController extends Controller
             'costo_a_notte.gt' => "Il campo 'Costo a notte' deve essere maggiore di zero",
             'piano.required' => "E' necessario inserire il parametro 'Piano'",
             'descrizione.required' => "E' necessario inserire il parametro 'Descrizione'",
-            'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
+            'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 65535",
         ];
         $this->validate($request, $rules, $customMessages);
     }

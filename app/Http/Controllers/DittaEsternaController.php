@@ -98,6 +98,7 @@ class DittaEsternaController extends Controller
             'indirizzo' => 'required|max:255',
             'telefono' => 'required|min:9|max:10',
             'email' => 'required|email',
+            'descrizione' => 'nullable|max:255',
             'iban' => 'required|min:27|max:27',
             'categoria' => 'required',
             'tipo_contratto' => 'required',
@@ -119,6 +120,7 @@ class DittaEsternaController extends Controller
             'telefono.max' => "Il numero massimo di caratteri consentito per 'Telefono' è 10",
             'email.required' => "E' necessario inserire il parametro 'Email'",
             'email.email' => "Formato email errato",
+            'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
             'iban.required' => "E' necessario inserire il parametro 'IBAN'",
             'iban.min' => "Il numero minimo di caratteri consentito per 'IBAN' è 27",
             'iban.max' => "Il numero massimo di caratteri consentito per 'IBAN' è 27",
@@ -141,6 +143,7 @@ class DittaEsternaController extends Controller
             'indirizzo' => 'required|max:255',
             'telefono' => 'required|min:9|max:10',
             'email' => 'required|email',
+            'descrizione' => 'nullable|max:255',
             'iban' => 'required|min:27|max:27',
             'categoria' => 'required',
             'tipo_contratto' => 'required',
@@ -161,6 +164,7 @@ class DittaEsternaController extends Controller
             'telefono.max' => "Il numero massimo di caratteri consentito per 'Telefono' è 10",            
             'email.required' => "E' necessario inserire il parametro 'Email'",
             'email.email' => "Formato email errato",
+            'descrizione.max' => "Il numero massimo di caratteri consentito per 'Descrizione' è 255",
             'iban.required' => "E' necessario inserire il parametro 'IBAN'",
             'iban.min' => "Il numero minimo di caratteri consentito per 'IBAN' è 27",
             'iban.max' => "Il numero massimo di caratteri consentito per 'IBAN' è 27",
@@ -184,6 +188,7 @@ class DittaEsternaController extends Controller
         $ditta_esterna->indirizzo = $request->input('indirizzo');
         $ditta_esterna->telefono = $request->input('telefono');
         $ditta_esterna->email = $request->input('email');
+        $ditta_esterna->descrizione = $request->input('descrizione');
         $ditta_esterna->iban = $request->input('iban');
         $ditta_esterna->categoria = $request->input('categoria');
         $ditta_esterna->tipo_contratto = $request->input('tipo_contratto');

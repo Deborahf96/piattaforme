@@ -59,14 +59,20 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {{{Form::label('tipo_contratto', 'Tipo contratto')}}}
-                                {{{Form::select('tipo_contratto', $ditta_esterna_tipo_contratto_enum, $ditta_esterna->tipo_contratto, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un tipo di contratto' ])}}}
+                                {{{Form::label('descrizione', 'Descrizione')}}}
+                                {{{Form::text('descrizione', $ditta_esterna->descrizione, [ 'class' => 'form-control' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 {{{Form::label('paga', 'Paga')}}}
                                 {{{Form::text('paga', $ditta_esterna->paga, [ 'class' => 'form-control' ])}}}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{{Form::label('tipo_contratto', 'Tipo contratto')}}}
+                                {{{Form::select('tipo_contratto', $ditta_esterna_tipo_contratto_enum, $ditta_esterna->tipo_contratto, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un tipo di contratto' ])}}}
                             </div>
                         </div>
                         <div class="col-md-4">
