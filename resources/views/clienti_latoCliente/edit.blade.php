@@ -64,8 +64,6 @@
     </div>
 </div>
 
-<a href="/modifica_password" class="btn btn-primary" style="margin-right: 10px">Modifica password</a>
-
 {{ Form::hidden('_method','PUT' )}}
 {{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right: 10px']) }}
 {!! Form::close() !!}

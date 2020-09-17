@@ -45,7 +45,8 @@
             </div>
         </div>
     </div>
-    <a href="/clienti_latoCliente/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
+    <a href="/clienti_latoCliente/edit" class="btn btn-primary" style="margin-right: 10px">Modifica profilo</a>
+    <a href="/modifica_password" class="btn btn-primary" style="margin-right: 10px">Modifica password</a>
     {!! Form::open(['action' => ['ClienteClienteController@destroy', $cliente->user_id], 'method' => 'POST', 'class' =>
     'float-right']) !!}
     {{ Form::hidden('_method', 'DELETE') }}
