@@ -115,11 +115,8 @@ class AttivitaController extends Controller
         $attivita->ora = $request->input('ora');
         $attivita->destinazione = $request->input('destinazione');
         $attivita->costo = $request->input('costo');
-        if ($attivita->ditta_esterna->categoria=="Tour operator") {
-            $attivita->tipologia = 'Visita guidata';
-        } else {
-            $attivita->tipologia = $attivita->ditta_esterna->categoria;
-        }
+        $attivita->tipologia = $attivita->ditta_esterna->categoria == "Tour operator" ? 
+                                'Visita guidata' : $attivita->ditta_esterna->categoria;
         $attivita->save();
     }
 }

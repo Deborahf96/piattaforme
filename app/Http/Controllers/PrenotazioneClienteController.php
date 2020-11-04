@@ -36,8 +36,8 @@ class PrenotazioneClienteController extends Controller
         if (!isset($data_checkout) || !isset($num_persone)) {
             $camere = [];
         } else {
-            $this->valida_campi($request);
-            $camere_escluse = $this->camere_escluse($data_checkin, $data_checkout, $num_persone);
+            PrenotazioneUtil::valida_campi($request, $this);
+            $camere_escluse = PrenotazioneUtil::camere_escluse($data_checkin, $data_checkout, $num_persone);
             $camere = Camera::whereNotIn('numero', $camere_escluse)->get();
         }
         $data = [
@@ -80,7 +80,7 @@ class PrenotazioneClienteController extends Controller
         $prenotazione = new Prenotazione;
         $this->valida_richiesta($request, $prenotazione->id);
         $this->salva_prenotazione($request, $prenotazione);
-        $this->salva_attivita($request, $prenotazione);
+        PrenotazioneUtil::salva_attivita($request, $prenotazione);
         return redirect("/prenotazioni_cliente/$prenotazione->id/riepilogo")->with('success', 'Prenotazione effettuata con successo');
     }
 
@@ -137,48 +137,5 @@ class PrenotazioneClienteController extends Controller
         $prenotazione->importo = $request->input('costo_totale');  
         $prenotazione->check_pernottamento = "Non confermato";
         $prenotazione->save();
-    }
-
-    private function camere_escluse($data_checkin, $data_checkout, $num_persone){
-        return Prenotazione::join('camera', 'prenotazione.camera_numero', '=', 'camera.numero')
-                ->where(function ($query) use ($data_checkin, $data_checkout, $num_persone) {
-                    $query->where('camera.numero_letti', '>=', $num_persone)
-                        ->where('data_checkout', '>', $data_checkin)
-                        ->where(function ($query) use ($data_checkout) {
-                            $query->where(function ($query) use ($data_checkout) {
-                                $query->where('data_checkin', '<', $data_checkout)->where('data_checkout', '>=', $data_checkout);
-                            })->orWhere('data_checkout', '<', $data_checkout);
-                        });
-                })->orWhere('camera.numero_letti', '<', $num_persone)
-                ->get()->pluck('numero');
-    }
-
-    private function valida_campi(Request $request){
-        $rules = [
-            'data_checkin' => 'nullable|date|current_date_greater_than_equals',
-            'data_checkout' => 'nullable|date|date_greater_than:' . $request->data_checkin,
-            'num_persone' => 'nullable|numeric|gt:0',
-        ];
-        $customMessages = [
-            'data_checkin.date' => "E' necessario inserire una data per il campo 'Data checkin'",
-            'data_checkout.date' => "E' necessario inserire una data per il campo 'Data checkout'",
-            'num_persone.numeric' => "Il campo 'Posti letto' può contenere solo numeri",
-            'num_persone.gt' => "Il campo 'Posti letto' deve essere maggiore di zero",
-        ];
-
-        $this->validate($request, $rules, $customMessages);
-    }
-
-    private function salva_attivita($request, $prenotazione)
-    {
-        $lista_attivita = $request->input('attivita');
-        if(isset($lista_attivita))
-            foreach($lista_attivita as $singola_attivita_id)
-            {
-                $attivita = Attivita::find($singola_attivita_id);
-                $prenotazione->attivita()->attach($attivita);
-                $prenotazione->importo = $prenotazione->importo + $attivita->costo;
-                $prenotazione->save();
-            }
     }
 }

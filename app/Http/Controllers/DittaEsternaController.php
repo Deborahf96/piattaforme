@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\DittaEsterna;
 use Illuminate\Http\Request;
 
-use function GuzzleHttp\Promise\all;
-
 class DittaEsternaController extends Controller
 {
     public function __construct()
@@ -16,15 +14,12 @@ class DittaEsternaController extends Controller
 
     public function index(Request $request)
     {
-        /*visualizzare le ditte. è un metodo che ci porta alla pagina per visualizzare tutte le ditte.
-        Partiamo da una query sul database
-        */
         $categoria_corrente = $request->input('categoria');
         $ditte_esterne = DittaEsterna::when(isset($categoria_corrente), function ($query) use ($categoria_corrente) {
                                     return $query->where('categoria', $categoria_corrente);
-                                    })->get(); //se hai filtrato per categoria, esegui la query filtrata per categoria, altrimenti fai direttamente la get (prendendo tutti gli elementi)
+                                    })->get(); 
         $data = [
-            'ditte_esterne' => $ditte_esterne,           //=> quando si fa chiave->valore (mappa in java)
+            'ditte_esterne' => $ditte_esterne,
             'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum(),
             'categoria_corrente' => $categoria_corrente
         ];
@@ -33,7 +28,6 @@ class DittaEsternaController extends Controller
 
     public function create()
     {
-        //serve per mostrare la pagina in cui vengono aggiunti i dati
         $data = [
             'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum(),
             'ditta_esterna_tipo_contratto_enum' => Enums::tipo_contratto_enum(),
@@ -43,16 +37,14 @@ class DittaEsternaController extends Controller
 
     public function store(Request $request)
     {
-        //store è l'operazione effettiva di add
-        $ditta_esterna = new DittaEsterna;   //non c'è il costruttore in DittaEsterna quindi non c'è bisogno di mettere le parentesi
-        $this->valida_richiesta_store($request);      //request: dati che vengono inseriti nella GUI. Se la validazione non va a buon fine torna nella stessa pagina specificata in redirect ma con un messaggio di errore
-        $this->salva_ditta($request, $ditta_esterna);           //fa la add sul database
+        $ditta_esterna = new DittaEsterna;  
+        $this->valida_richiesta_store($request);      
+        $this->salva_ditta($request, $ditta_esterna);           
         return redirect('/ditte_esterne')->with('success', 'Ditta inserita con successo');
     }
 
     public function show($partita_iva)
     {
-        //pagina di dettaglio (quando apriamo ad esempio una singola ditta esterna)
         $ditta_esterna = DittaEsterna::where('partita_iva', $partita_iva)->first();
         $data = [
             'ditta_esterna' => $ditta_esterna
@@ -62,9 +54,7 @@ class DittaEsternaController extends Controller
 
     public function edit($partita_iva)
     {
-        //mostra la pagina con i dati già pronti
-        $ditta_esterna = DittaEsterna::where('partita_iva', $partita_iva)->first();        //il metodo find funziona solo con l'id di Laravel; cerca nella tabella un elemento con quell'id. Utilizziamo la where
-        //where(nome colonna, valore) //first per dire di prendere il primo elemento e non una lista, proprio perché la where si può fare anche su un attributo non chiave. Per avere la lista bisognava usare la get
+        $ditta_esterna = DittaEsterna::where('partita_iva', $partita_iva)->first();
         $data = [
             'ditta_esterna' => $ditta_esterna,
             'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum(),
@@ -75,16 +65,14 @@ class DittaEsternaController extends Controller
 
     public function update(Request $request, $partita_iva)
     {
-        //salva i dati della modifica
         $ditta_esterna = DittaEsterna::where('partita_iva', $partita_iva)->first();
-        $this->valida_richiesta_update($request);      //request: dati che vengono inseriti nella GUI. Se la validazione non va a buon fine torna nella stessa pagina specificata in redirect ma con un messaggio di errore
-        $this->salva_ditta($request, $ditta_esterna);           //fa la add sul database
+        $this->valida_richiesta_update($request);     
+        $this->salva_ditta($request, $ditta_esterna);           
         return redirect('/ditte_esterne')->with('success', 'Ditta modificata con successo');
     }
 
     public function destroy($partita_iva)
     {
-        //elimina
         $ditta_esterna = DittaEsterna::where('partita_iva', $partita_iva)->first();
         $ditta_esterna->delete();
         return redirect('/ditte_esterne')->with('success', 'Ditta eliminata con successo');
@@ -92,8 +80,8 @@ class DittaEsternaController extends Controller
 
     private function valida_richiesta_store(Request $request)
     {
-        $rules = [                              //unique su un parametro controlla che ci sia un solo valore per quel parametro. Il punto serve per concatenare le stringhe
-            'partita_iva' => 'required|min:11|max:11|unique:ditta_esterna',    //partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
+        $rules = [                              
+            'partita_iva' => 'required|min:11|max:11|unique:ditta_esterna',    
             'nome' => 'required|max:255',
             'indirizzo' => 'required|max:255',
             'telefono' => 'required|min:9|max:10',
@@ -132,13 +120,13 @@ class DittaEsternaController extends Controller
             'data_inizio.date' => "E' necessario inserire una data per il campo 'Data inizio'",
             'data_fine.date' => "E' necessario inserire una data per il campo 'Data fine'",
         ];
-        $this->validate($request, $rules, $customMessages);     //richiesta che arriva dalla GUI, regole: stringa di massimo numero di caratteri ad esempio, messaggio da mostrare
+        $this->validate($request, $rules, $customMessages);   
     }
 
     private function valida_richiesta_update(Request $request)
     {
-        $rules = [                              //unique su un parametro controlla che ci sia un solo valore per quel parametro. Il punto serve per concatenare le stringhe
-            'partita_iva' => 'required|min:11|max:11', //|unique:ditta_esterna,partita_iva,'.$ditta_esterna->partita_iva,            //required = obbligatorio, nullable = opzionale (Per altre validazione vedere documentazione The Basics --> Validation)
+        $rules = [                             
+            'partita_iva' => 'required|min:11|max:11', 
             'nome' => 'required|max:255',
             'indirizzo' => 'required|max:255',
             'telefono' => 'required|min:9|max:10',
@@ -176,14 +164,12 @@ class DittaEsternaController extends Controller
             'data_inizio.date' => "E' necessario inserire una data per il campo 'Data inizio'",
             'data_fine.date' => "E' necessario inserire una data per il campo 'Data fine'",
         ];
-        $this->validate($request, $rules, $customMessages);     //richiesta che arriva dalla GUI, regole: stringa di massimo numero di caratteri ad esempio, messaggio da mostrare
+        $this->validate($request, $rules, $customMessages);   
     }
 
-    private function salva_ditta(Request $request, $ditta_esterna)              //ha bisogno di passargli come parametro il DittaEsterna creato in store
+    private function salva_ditta(Request $request, $ditta_esterna)             
     {
-        //il metodo da errore quando salviamo dei dati che sul database non vanno bene (incompatibilità dei tipi)
-
-        $ditta_esterna->partita_iva = $request->input('partita_iva');           //è l'equivalente dei metodi set in Java
+        $ditta_esterna->partita_iva = $request->input('partita_iva');          
         $ditta_esterna->nome = $request->input('nome');
         $ditta_esterna->indirizzo = $request->input('indirizzo');
         $ditta_esterna->telefono = $request->input('telefono');
@@ -195,6 +181,6 @@ class DittaEsternaController extends Controller
         $ditta_esterna->paga = $request->input('paga');
         $ditta_esterna->data_inizio = $request->input('data_inizio');
         $ditta_esterna->data_fine = $request->input('data_fine');
-        $ditta_esterna->save();                                                 //salva caricando i dati sul database
+        $ditta_esterna->save();                                               
     }
 }
