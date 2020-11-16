@@ -38,7 +38,8 @@ class PrenotazioneClienteController extends Controller
         } else {
             PrenotazioneUtil::valida_campi($request, $this);
             $camere_escluse = PrenotazioneUtil::camere_escluse($data_checkin, $data_checkout, $num_persone);
-            $camere = Camera::whereNotIn('numero', $camere_escluse)->get();
+            $camere = Camera::where('numero_letti', '>=', $num_persone)
+                      ->whereNotIn('numero', $camere_escluse)->get();
         }
         $data = [
             'camere' => $camere,
