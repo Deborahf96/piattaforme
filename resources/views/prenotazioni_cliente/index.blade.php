@@ -41,18 +41,20 @@
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
                                             class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
                                         @php $giorni_di_differenza = (\Carbon\Carbon::now()->diffinDays(\Carbon\Carbon::parse($prenotazione->data_checkout), false)) @endphp
-                                            {!! Form::open(['action' => ['PrenotazioneClienteController@destroy',
+                                        @if($giorni_di_differenza>=14)
+                                        {!! Form::open(['action' => ['PrenotazioneClienteController@destroy',
                                             $prenotazione->id], 'method' => 'POST']) !!}
                                             {{ Form::hidden('_method', 'DELETE') }}
                                             {{ Form::button('<i class="fa fa-trash"></i>', [
                                                     'type' => 'submit',
-                                                    'class' => ($giorni_di_differenza>=14) ? 'btn btn-danger btn-sm' : 'btn btn-danger btn-sm disabled',
+                                                    'class' => 'btn btn-danger btn-sm',
                                                     'data-toggle' => 'tooltip',
                                                     'data-placement' => 'top',
                                                     'title' => 'Annulla',
                                                     'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')",
                                                 ]) }}
                                             {!! Form::close() !!}
+                                            @endif
                                     </div>
                                 </td>
                             </tr>
