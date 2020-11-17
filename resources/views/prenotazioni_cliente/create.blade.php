@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/prenotazioni_cliente/prenota" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
-<br>
-<br>
 {!! Form::open(['action' => ['PrenotazioneClienteController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="col-md-12 d-flex align-items-stretch">
     <div class="card card-primary card-outline" style="width: 100%">

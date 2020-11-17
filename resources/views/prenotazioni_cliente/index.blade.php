@@ -54,7 +54,10 @@
                                                     'onclick' => "return confirm('Confermi di voler annullare questa prenotazione?')",
                                                 ]) }}
                                             {!! Form::close() !!}
-                                            @endif
+                                        @else
+                                        <a button data-toggle="tooltip" data-placement="top" title="Annulla"
+                                            class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i></button></a>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
