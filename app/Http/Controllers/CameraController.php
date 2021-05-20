@@ -24,7 +24,7 @@ class CameraController extends Controller
         return view('camere.index', $data);
     }
 
-    public function create()
+    public function aggiungi()
     {
         $data = [
             'camera_piano_enum' => Enums::camera_piano_enum()
@@ -32,12 +32,13 @@ class CameraController extends Controller
         return view('camere.create', $data);
     }
 
-    public function store(Request $request)
+    public function aggiungiCamera(Request $request)
     {
-        $camera = new Camera;
-        $this->valida_richiesta_store($request);
-        $this->salva_camera($request, $camera);
-        return redirect('/camere')->with('success', 'Camera inserita con successo');
+        if(Camera::where('numero', $request->numero)->exists())
+            return 'Errore! Camera n°'.$request->numero.' già presente';
+        $this->valida_richiesta_camera($request);
+        $camera = $this->salva_camera($request);
+        return $camera ? response()->json(true) : response()->json(false);
     }
 
     public function show($numero)
@@ -83,6 +84,26 @@ class CameraController extends Controller
         return redirect('/camere')->with('success', 'Camera eliminata con successo');
     }
 
+    public function caricaImmagine(Request $request)
+    {
+        $validazione = $this->valida_richiesta_immagine($request);
+        if($validazione){
+            $image_name = $this->salva_immagine($request);
+            if($image_name){
+                return response()->json([
+                    'message' => 'Immagine caricata con successo!',
+                    'class_name' => 'alert-success',
+                    'image_name' => $image_name
+                ]);
+            }
+        }
+        return response()->json([
+            'message' => "Errore nel caricamento dell'immagine! Controlla che l'estensione sia corretta (jpeg, png, jpg, gif, svg) e che la dimensione non superi i 2Mb.",
+            'class_name' => 'alert-danger',
+            'image_name' => null
+        ]);
+    }
+
     private function valida_richiesta_update(Request $request)
     {
         $rules = [
@@ -109,7 +130,7 @@ class CameraController extends Controller
         $this->validate($request, $rules, $customMessages);
     }
 
-    private function valida_richiesta_store(Request $request)
+    private function valida_richiesta_camera(Request $request)
     {
         $rules = [
             'numero' => 'required|numeric|gt:0|unique:camera',
@@ -136,13 +157,33 @@ class CameraController extends Controller
         $this->validate($request, $rules, $customMessages);
     }
 
-    private function salva_camera(Request $request, $camera)
+    private function valida_richiesta_immagine(Request $request)
     {
-        $camera->numero = $request->input('numero');
-        $camera->numero_letti = $request->input('numero_letti');
-        $camera->costo_a_notte = $request->input('costo_a_notte');
-        $camera->piano = $request->input('piano');
-        $camera->descrizione = $request->input('descrizione');
+        $rules = [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ];
+        $customMessages = [
+        ];
+        return $this->validate($request, $rules, $customMessages);
+    }
+
+    private function salva_camera(Request $request)
+    {
+        $camera = new Camera;
+        $camera->numero = $request->numero;
+        $camera->numero_letti = $request->numero_letti;
+        $camera->costo_a_notte = $request->costo_a_notte;
+        $camera->piano = $request->piano;
+        $camera->descrizione = $request->descrizione;
+        $camera->path_foto = $request->path_foto ? $request->path_foto : '';
         $camera->save();
+        return $camera;
+    }
+
+    private function salva_immagine(Request $request)
+    {
+        $image_name = $request->image->getClientOriginalName();
+        $request->image->move(public_path('img/camere'), $image_name);
+        return $image_name;
     }
 }

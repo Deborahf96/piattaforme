@@ -22,9 +22,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/ditte_esterne', 'DittaEsternaController');
-Route::resource('/camere', 'CameraController');
 Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
 Route::get('/clienti_latoDipendente/{c}/prenotazioni', 'ClienteDipendenteController@prenotazioni');
+
+Route::group(['prefix' => 'camere'], function () {
+    Route::resource('/', 'CameraController');
+    Route::get('/aggiungi', 'CameraController@aggiungi');
+    Route::post('/aggiungi-camera', 'CameraController@aggiungiCamera');
+    Route::post('/carica-immagine', 'CameraController@caricaImmagine');
+});
 
 Route::resource('/attivita', 'AttivitaController');
 Route::resource('/dipendenti', 'DipendenteController');
