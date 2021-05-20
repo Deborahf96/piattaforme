@@ -37,10 +37,10 @@
                                 </td>
                                 <td width=20%>
                                     <div class="d-flex justify-content-around">
-                                        <a button href="/camere/{{ $camera->numero }}"
+                                        <a button href="/camere/{{ $camera->id }}"
                                             data-toggle="tooltip" data-placement="top" title="Visualizza"
                                             class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
-                                        <a button href="/camere/{{ $camera->numero }}/edit"
+                                        <a button href="/camere/{{ $camera->id }}/modifica"
                                             data-toggle="tooltip" data-placement="top" title="Modifica"
                                             class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
                                         {!! Form::open(['action' => ['CameraController@destroy',

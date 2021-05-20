@@ -14,12 +14,13 @@ class CreateCameraTable extends Migration
     public function up()
     {
         Schema::create('camera', function (Blueprint $table) {
-            $table->integer('numero')->primary();
+            $table->id();
+            $table->integer('numero');
             $table->integer('numero_letti');
             $table->integer('costo_a_notte');
             $table->string('piano');
             $table->text('descrizione');
-            $table->string('path_foto');
+            $table->string('path_foto')->nullable();
         });
     }
 
