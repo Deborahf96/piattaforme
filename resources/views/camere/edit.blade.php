@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/camere" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a camere</a>
-<br>
-<br>
 <div class="col-12">
+    <a href="/camere" class="btn btn-outline-secondary">Torna a camere</a>
+    <br>
+    <br>
     <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Modifica una camera</h3>

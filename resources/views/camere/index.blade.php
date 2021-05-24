@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/home" class="btn btn-outline-secondary">Indietro</a>
-    <br>
-    <br>
     <a href="/camere/create" class="btn btn-primary float-right">Aggiungi una nuova camera</a>
     <h1>Elenco camere</h1>
     <br>
