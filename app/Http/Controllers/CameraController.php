@@ -8,6 +8,7 @@ use App\Prenotazione;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class CameraController extends Controller
 {
@@ -18,14 +19,10 @@ class CameraController extends Controller
 
     public function index()
     {
-        $camere = Camera::all();
-        $data = [
-            'camere' => $camere
-        ];
-        return view('camere.index', $data);
+        return view('camere.index');
     }
 
-    public function aggiungi()
+    public function create()
     {
         $data = [
             'camera_piano_enum' => Enums::camera_piano_enum()
@@ -42,25 +39,25 @@ class CameraController extends Controller
         return $camera_salvata ? response()->json(true) : response()->json(false);
     }
 
-    public function show($numero)
+    public function show($id)
     {
-        $camera = Camera::where('numero', $numero)->first();
+        $camera = Camera::find($id);
         $dipendente = Dipendente::where('user_id', auth()->user()->id)->first();
-        $prenotazione = Prenotazione::where('camera_id', $camera->numero)  
+        /*$prenotazione = Prenotazione::where('camera_id', $id)  
                                     ->where('data_checkin', '<=', Carbon::now())
                                     ->where('data_checkout', '>', Carbon::now())
-                                    ->first(); 
+                                    ->first(); */
 
         $data = [
             'camera' => $camera,
-            'pren_camera_num' => $prenotazione == null ? false : true,
-            'prenotazione_id' => $prenotazione == null ? ' ' : $prenotazione->id,
+            'pren_camera_num' => /*$prenotazione == null ? */false /*: true*/,
+            'prenotazione_id' => /*$prenotazione == null ? */' ' /*: $prenotazione->id*/,
             'dipendente_check' => $dipendente == null ? false : true
         ];
         return view('camere.show', $data);
     }
 
-    public function modifica($id)
+    public function edit($id)
     {
         $camera = Camera::find($id);
         $data = [
@@ -79,11 +76,10 @@ class CameraController extends Controller
         return $camera_salvata ? response()->json(true) : response()->json(false);
     }
 
-    public function destroy($id)
+    public function elimina(Request $request)
     {
-        $camera = Camera::find($id);
-        $camera->delete();
-        return redirect('/camere')->with('success', 'Camera eliminata con successo');
+        $camera = Camera::find($request->input('id'))->delete();
+        return $camera ? response()->json(true,200) : response()->json(false, 400);
     }
 
     public function caricaImmagine(Request $request)
@@ -103,6 +99,12 @@ class CameraController extends Controller
             'class_name' => 'alert-danger',
             'image_name' => null
         ]);
+    }
+
+    public function tableCamere()
+    {
+        $camere = Camera::all();
+        return DataTables::of($camere)->make(true);
     }
 
     private function salva_camera(Request $request, $camera)

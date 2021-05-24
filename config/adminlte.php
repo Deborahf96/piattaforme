@@ -274,7 +274,7 @@ return [
                 ],
                 [
                     'text' => 'Aggiungi',
-                    'url'  => '/camere/aggiungi',
+                    'url'  => '/camere/create',
                     'icon' => 'fa fa-plus',
                 ],
             ],

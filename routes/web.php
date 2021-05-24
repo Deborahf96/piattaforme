@@ -25,13 +25,13 @@ Route::resource('/ditte_esterne', 'DittaEsternaController');
 Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
 Route::get('/clienti_latoDipendente/{c}/prenotazioni', 'ClienteDipendenteController@prenotazioni');
 
+Route::resource('/camere', 'CameraController');
 Route::group(['prefix' => 'camere'], function () {
-    Route::resource('/', 'CameraController');
-    Route::get('/aggiungi', 'CameraController@aggiungi');
     Route::post('/aggiungi-camera', 'CameraController@aggiungiCamera');
-    Route::get('/{p}/modifica', 'CameraController@modifica');
     Route::post('/modifica-camera', 'CameraController@modificaCamera');
+    Route::post('/elimina', 'CameraController@elimina');
     Route::post('/carica-immagine', 'CameraController@caricaImmagine');
+    Route::post('/table-camere', 'CameraController@tableCamere');
 });
 
 Route::resource('/attivita', 'AttivitaController');
