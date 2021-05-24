@@ -29,7 +29,7 @@ Route::resource('/camere', 'CameraController');
 Route::group(['prefix' => 'camere'], function () {
     Route::post('/aggiungi-camera', 'CameraController@aggiungiCamera');
     Route::post('/modifica-camera', 'CameraController@modificaCamera');
-    Route::post('/elimina', 'CameraController@elimina');
+    Route::post('/elimina', 'CameraController@elimina'); 
     Route::post('/carica-immagine', 'CameraController@caricaImmagine');
     Route::post('/table-camere', 'CameraController@tableCamere');
 });
