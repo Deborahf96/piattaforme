@@ -14,7 +14,7 @@ class DittaEsternaController extends Controller
         $this->middleware('dipendenti');
     }
 
-    public function index(Request $request)
+    public function index()
     {
         return view('ditte_esterne.index');
     }
@@ -31,7 +31,7 @@ class DittaEsternaController extends Controller
     public function aggiungiDitta(Request $request)
     {
         if(DittaEsterna::where('partita_iva', $request->partita_iva)->exists())
-            return 'Errore! Partita IVA '.$request->partita_iva.' già registrata';
+            return 'Attenzione! Partita IVA '.$request->partita_iva.' già registrata';
         if($request->data_fine != null && Carbon::parse($request->data_inizio)->greaterThanOrEqualTo(Carbon::parse($request->data_fine)))
             return "La data di fine deve essere maggiore della data di inizio";
         $ditta_esterna = new DittaEsterna;  

@@ -1,106 +1,123 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/dipendenti" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a dipendenti</a>
-<br>
-<br>
-{!! Form::open(['action' => ['DipendenteController@update', $dipendente->user_id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="col-12">
-    <!-- Custom Tabs -->
-    <div class="card">
+    <a href="/dipendenti" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a dipendenti</a>
+    <br>
+    <br>
+    <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Modifica un dipendente</h3>
-        </div><!-- /.card-header -->
+        </div>
         <div class="card-body">
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('nome', 'Nome completo')}}}
-                                {{{Form::text('nome', $dipendente->utente->name, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('data_nascita', 'Data di nascita')}}}
-                                {{{Form::date('data_nascita', $dipendente->utente->data_nascita, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('luogo_nascita', 'Luogo di nascita')}}}
-                                {{{Form::text('luogo_nascita', $dipendente->utente->luogo_nascita, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('indirizzo', 'Indirizzo')}}}
-                                {{{Form::text('indirizzo', $dipendente->utente->indirizzo, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('telefono', 'Telefono')}}}
-                                {{{Form::text('telefono', $dipendente->utente->telefono, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('email', 'Email')}}}
-                                {{{Form::text('email', $dipendente->utente->email, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('tipo_contratto', 'Tipo contratto')}}}
-                                {{{Form::select('tipo_contratto', $dipendente_tipo_contratto_enum, $dipendente->tipo_contratto, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un tipo di contratto' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('ruolo', 'Ruolo')}}}
-                                {{{Form::select('ruolo', $dipendente_ruolo_enum, $dipendente->ruolo, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un ruolo' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('ore_settimanali', 'Ore settimanali')}}}
-                                {{{Form::number('ore_settimanali', $dipendente->ore_settimanali, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('data_inizio', 'Data inizio')}}}
-                                {{{Form::date('data_inizio', $dipendente->data_inizio, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('data_fine', 'Data fine')}}}
-                                {{{Form::date('data_fine', $dipendente->data_fine, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('stipendio', 'Stipendio')}}}
-                                {{{Form::text('stipendio', $dipendente->stipendio, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('iban', 'IBAN')}}}
-                                {{{Form::text('iban', $dipendente->iban, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
+            <form id="formModificaDipendente">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="nome" class="control-label">Nome completo</label>*
+                        <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome completo" value="{{$dipendente->utente->name}}" required>
                     </div>
-                </div><!-- /.tab-pane -->
-            </div><!-- /.tab-content -->
-        </div><!-- /.card-body -->
+                    <div class="col-md-4 form-group">
+                        <label for="data_nascita" class="control-label">Data di nascita</label>
+                        <input type="date" class="form-control" name="data_nascita" id="data_nascita" placeholder="Data di nascita" value="{{$dipendente->utente->data_nascita}}">
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="luogo_nascita" class="control-label">Luogo di nascita</label>
+                        <input type="text" class="form-control" name="luogo_nascita" id="luogo_nascita" placeholder="Luogo di nascita" value="{{$dipendente->utente->luogo_nascita}}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="indirizzo" class="control-label">Indirizzo</label>
+                        <input type="text" class="form-control" name="indirizzo" id="indirizzo" placeholder="Indirizzo" value="{{$dipendente->utente->indirizzo}}">
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="telefono" class="control-label">Telefono</label>
+                        <input type="tel" maxlength="10" pattern="[0-9]*" class="form-control" name="telefono" id="telefono" placeholder="Telefono" value="{{$dipendente->utente->telefono}}">
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="email" class="control-label">Email</label>*
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{$dipendente->utente->email}}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="tipo_contratto" class="control-label">Tipo contratto</label>
+                        {{{Form::select('tipo_contratto', $dipendente_tipo_contratto_enum, $dipendente->tipo_contratto, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un tipo di contratto' ])}}}
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="ruolo" class="control-label">Ruolo</label>
+                        {{{Form::select('ruolo', $dipendente_ruolo_enum, $dipendente->ruolo, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un ruolo' ])}}}
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="ore_settimanali" class="control-label">Ore settimanali</label>
+                        <input type="number" min="1" class="form-control" name="ore_settimanali" id="ore_settimanali" placeholder="Ore settimanali" value="{{$dipendente->ore_settimanali}}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="data_inizio" class="control-label">Data inizio</label>
+                        <input type="date" class="form-control" name="data_inizio" id="data_inizio" placeholder="Data inizio" value="{{$dipendente->data_inizio}}">
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="data_fine" class="control-label">Data fine</label>
+                        <input type="date" class="form-control" name="data_fine" id="data_fine" placeholder="Data fine" value="{{$dipendente->data_fine}}">
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="stipendio" class="control-label">Stipendio</label>
+                        <input type="text" class="form-control" name="stipendio" id="stipendio" placeholder="Stipendio" value="{{$dipendente->stipendio}}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="iban" class="control-label">IBAN</label>
+                        <input type="text" minlength="27" maxlength="27" class="form-control" name="iban" id="iban" placeholder="IBAN" value="{{$dipendente->iban}}">
+                    </div>
+                </div>
+                <hr>
+                <input type="hidden" value="{{$dipendente->user_id}}" name="user_id" id="user_id">
+                <p class="pull-right">* campi obbligatori</p>
+                <button type="submit" id="modificaDipendente" class="btn btn-primary float-right">Conferma</button>
+            </div>
+        </form>    
     </div>
 </div>
+@stop
 
-{{ Form::hidden('_method','PUT' )}}
-{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right: 10px']) }}
-{!! Form::close() !!}
-@endsection
+@section('js')
+    <script>
+        // CSRF Token
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+         
+        $(document).ready(function() {
+            var formModificaDipendente = $('#formModificaDipendente');
+            formModificaDipendente.submit(function (e) {
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'post',
+                    url: '/dipendenti/modifica-dipendente',
+                    data: formModificaDipendente.serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        if(data==true){
+                            console.log('Submission was successful.');
+                            alert("Dipendente modificato con successo!");
+                            window.location.replace('/dipendenti');
+                        }else{
+                            alert(data);
+                        }
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                        alert("Impossibile modificare il dipendente!");
+                    },
+                });
+            });
+        });
+    </script>
+@stop

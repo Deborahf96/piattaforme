@@ -42,7 +42,15 @@ Route::group(['prefix' => 'ditte_esterne'], function () {
 });
 
 Route::resource('/attivita', 'AttivitaController');
+
 Route::resource('/dipendenti', 'DipendenteController');
+Route::group(['prefix' => 'dipendenti'], function () {
+    Route::post('/aggiungi-dipendente', 'DipendenteController@aggiungiDipendente');
+    Route::post('/modifica-dipendente', 'DipendenteController@modificaDipendente');
+    Route::post('/elimina', 'DipendenteController@elimina');
+    Route::post('/table-dipendenti', 'DipendenteController@tableDipendenti');
+});
+
 Route::resource('/moduli_assistenza', 'ModuloAssistenzaController');
 
 

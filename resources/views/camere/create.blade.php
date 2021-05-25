@@ -56,17 +56,6 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade modal-vertical-centered" id="modal_gia_presente" role="alertdialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <br><h4 class="modal-title"><span id="messaggio"></span></h4><br>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Chiudi</span></button>
-            </div>
-        </div>
-    </div>
-</div>
 @stop
     
 @section('js')

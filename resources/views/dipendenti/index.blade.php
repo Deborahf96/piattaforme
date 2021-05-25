@@ -1,91 +1,111 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/home" class="btn btn-outline-secondary">Indietro</a>
-    <hr>
-    <div class="d-flex justify-content-between" style="margin-left: 10px">
-        <div class="row">
-            {!! Form::open(['action' => ['DipendenteController@index'], 'method' => 'GET', 'enctype' =>
-            'multipart/form-data']) !!}
-            <div class="d-flex justify-content-start">
-                <div class="d-flex justitfy-content-between align-items-center">
-                    <div>
-                        <h5 style="margin-block-end: 0px"><b>Seleziona ruolo</b></h5>
-                    </div>
-                    <div style="margin-left: 20px">{!! Form::select('ruolo', $dipendente_ruolo_enum,
-                        $ruolo_corrente, ['class' => 'form-control', 'placeholder' => 'Tutti']) !!}</div>
-                </div>
-                <div style="margin-left: 20px">{{ Form::submit('Conferma', ['class' => 'btn btn-primary']) }}</div>
-                <a href="/dipendenti" class="btn btn-primary" style="margin-left: 20px">Reset Filtri</a>
-            </div>
-            {!! Form::close() !!}
-        </div>
-        <script>
-            $('[name="id"]').change(function() {
-                var optionSelected = $("option:selected", this);
-                optionValue = this.value;
-            });
-        </script>
-    </div>
-    <hr>
     <a href="/dipendenti/create" class="btn btn-primary float-right">Aggiungi un nuovo dipendente</a>
     <h1>Elenco dipendenti</h1>
     <br>
-    @if (count($dipendenti) > 0)
-        <div class="card">
-            <div class="card-body">
-                <table id="" class="display table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Nome completo</th>
-                            <th>Ruolo</th>
-                            <th>Email</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($dipendenti as $dipendente)
-                            <tr>
-                                <td width=30%>
-                                    {{ $dipendente->utente->name }}
-                                </td>
-                                <td width=20%>
-                                    {{ $dipendente->ruolo }}
-                                </td>
-                                <td width=30%>
-                                    {{ $dipendente->utente->email }}
-                                </td>
-                                <td width=20%>
-                                    <div class="d-flex justify-content-around">
-                                        <a button href="/dipendenti/{{ $dipendente->user_id }}"
-                                            data-toggle="tooltip" data-placement="top" title="Visualizza"
-                                            class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
-                                        <a button href="/dipendenti/{{ $dipendente->user_id }}/edit"
-                                            data-toggle="tooltip" data-placement="top" title="Modifica"
-                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
-                                        @php $username = $dipendente->utente->name @endphp
-                                        {!! Form::open(['action' => ['DipendenteController@destroy',
-                                        $dipendente->user_id], 'method' => 'POST']) !!}
-                                        {{ Form::hidden('_method', 'DELETE') }}
-                                        {{ Form::button('<i class="fa fa-trash"></i>', [
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-sm',
-                                    'data-toggle' => 'tooltip',
-                                    'data-placement' => 'top',
-                                    'title' => 'Elimina',
-                                    'onclick' => "return confirm('Confermi di voler eliminare questo dipendente? $username')",
-                                ]) }}
-                                        {!! Form::close() !!}
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+    <div class="card card-primary card-outline">
+        <div class="card-body">
+            <table id="tableDipendenti" class="display table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nome completo</th>
+                        <th>Ruolo</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-    @else
-        <p>Nessun dipendente inserito</p>
-    @endif
+    </div>
+@stop
 
-@endsection
+@section('js')
+    <script>
+        function elimina(user_id, nome) {
+            if(confirm('Confermi di voler eliminare il dipendente "'+nome+'"?')) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'post',
+                    url: '/dipendenti/elimina',
+                    data: { 'user_id': user_id },
+                    success: function(data) {
+                        console.log(data);
+                        if(data) {
+                            alert('Dipendente eliminato con successo!');
+                            $('#tableDipendenti').DataTable().ajax.reload();
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        alert('Errore! Non è possibile eliminare il dipendente!');
+                    },
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            var table = $('#tableDipendenti').DataTable({
+                responsive: true,
+                pageLength : 10,
+                lengthMenu: [[10, 20, 30, 50], [10, 20, 30, 50]],
+                language: {
+                    lengthMenu: "Visualizza _MENU_ elementi per pagina",
+                    zeroRecords: "Nessun dato da visualizzare",
+                    infoFiltered: "<b>(filtrati su _MAX_ totali)</b>",
+                    info: "Pagina da _PAGE_ a _PAGES_ <b>( _TOTAL_ elementi totali )</b>",
+                    infoEmpty: "Nessun dato presente",
+                    search: "Cerca:",
+                    paginate: {
+                        first: "Primo",
+                        last: "Ultimo",
+                        next: "Successivo",
+                        previous: "Precedente",
+                    },
+                    loadingRecords: "&nbsp;",
+                    processing: "Caricamento..."
+                },
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/dipendenti/table-dipendenti',
+                    type: "POST"
+                },
+                columns: [
+                    { data: "name" , width: "30%" },
+                    { data: "ruolo" , width: "20%"},
+                    { data: "email" , width: "30%" },
+                    { data: null , bSearchable: false , orderable: false , width: "20%" , render : function ( data, type, row, meta ) {
+                        var action = '<div class="d-flex justify-content-around">'+
+                                    '<a button href="/dipendenti/'+row.user_id+'" data-toggle="tooltip" data-placement="top" title="Visualizza" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>'+
+                                    '<a button href="/dipendenti/'+row.user_id+'/edit" data-toggle="tooltip" data-placement="top" title="Modifica" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>'+
+                                    '<button onclick="elimina(\''+row.user_id+'\',\''+row.name+'\')" data-toggle="tooltip" data-placement="top" title="Elimina" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></div>';
+                        return action;
+                        },
+                    },
+                ]
+            });
+
+            $('#tableDipendenti thead tr').clone(true).appendTo('#tableDipendenti thead');
+            $('#tableDipendenti thead tr:eq(1) th').each(function(i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
+                $('input', this).on('keyup change', function() {
+                    if($('#tableDipendenti').DataTable().column(i).search() !== this.value) {
+                        $('#tableDipendenti').DataTable()
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                });
+            });
+        });
+    </script>
+@stop

@@ -59,26 +59,22 @@
                                 <div class="callout callout-info">
                                     <div class="row">
                                         <div class="col-md-3"><b>Tipo contratto</b></div>
-                                        <div class="col-md-9 col-md-offset-1">
-                                            {{ $ditta_esterna->tipo_contratto }}</div>
+                                        <div class="col-md-9 col-md-offset-1">{{ $ditta_esterna->tipo_contratto }}</div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-3"><b>Paga</b></div>
-                                        <div class="col-md-9 col-md-offset-1">
-                                            {{ $ditta_esterna->paga }}</div>
+                                        <div class="col-md-9 col-md-offset-1">{{ $ditta_esterna->paga }}</div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-3"><b>Data inizio</b></div>
-                                        <div class="col-md-9 col-md-offset-1">
-                                            {{ \Carbon\Carbon::parse($ditta_esterna->data_inizio)->format('d/m/Y') }}</div>
+                                        <div class="col-md-9 col-md-offset-1">{{ \Carbon\Carbon::parse($ditta_esterna->data_inizio)->format('d/m/Y') }}</div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-3"><b>Data fine</b></div>
-                                        <div class="col-md-9 col-md-offset-1">
-                                            {{ isset($ditta_esterna->data_fine) ? \Carbon\Carbon::parse($ditta_esterna->data_fine)->format('d/m/Y') : '-' }}</div>
+                                        <div class="col-md-9 col-md-offset-1">{{ isset($ditta_esterna->data_fine) ? \Carbon\Carbon::parse($ditta_esterna->data_fine)->format('d/m/Y') : '-' }}</div>
                                     </div>
                                     <hr>
                                     <div class="row">
