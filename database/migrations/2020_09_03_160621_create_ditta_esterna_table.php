@@ -14,7 +14,8 @@ class CreateDittaEsternaTable extends Migration
     public function up()
     {
         Schema::create('ditta_esterna', function (Blueprint $table) {
-            $table->string('partita_iva')->primary();
+            $table->id();
+            $table->string('partita_iva');
             $table->string('nome');
             $table->string('indirizzo');
             $table->string('telefono');

@@ -21,7 +21,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/ditte_esterne', 'DittaEsternaController');
 Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
 Route::get('/clienti_latoDipendente/{c}/prenotazioni', 'ClienteDipendenteController@prenotazioni');
 
@@ -32,6 +31,14 @@ Route::group(['prefix' => 'camere'], function () {
     Route::post('/elimina', 'CameraController@elimina');
     Route::post('/carica-immagine', 'CameraController@caricaImmagine');
     Route::post('/table-camere', 'CameraController@tableCamere');
+});
+
+Route::resource('/ditte_esterne', 'DittaEsternaController');
+Route::group(['prefix' => 'ditte_esterne'], function () {
+    Route::post('/aggiungi-ditta', 'DittaEsternaController@aggiungiDitta');
+    Route::post('/modifica-ditta', 'DittaEsternaController@modificaDitta');
+    Route::post('/elimina', 'DittaEsternaController@elimina');
+    Route::post('/table-ditte', 'DittaEsternaController@tableDitte');
 });
 
 Route::resource('/attivita', 'AttivitaController');

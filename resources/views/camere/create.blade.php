@@ -26,28 +26,30 @@
             <form id="formAggiungiCamera">
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <label for="numero" class="control-label">N° camera</label>
+                        <label for="numero" class="control-label">N° camera</label>*
                         <input type="number" min="1" maxlength="11" class="form-control" name="numero" id="numero" placeholder="Numero" required>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label for="numero_letti" class="control-label">N° posti letto</label>
+                        <label for="numero_letti" class="control-label">N° posti letto</label>*
                         <input type="number" min="1" maxlength="11" class="form-control" name="numero_letti" id="numero_letti" placeholder="Posti letto" required>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label for="piano" class="control-label">Piano</label>
+                        <label for="piano" class="control-label">Piano</label>*
                         {{{Form::select('piano', $camera_piano_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un piano', 'required' ])}}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <label for="costo_a_notte" class="control-label">Costo a notte</label>
+                        <label for="costo_a_notte" class="control-label">Costo a notte</label>*
                         <input type="number" min="1" maxlength="11" class="form-control" name="costo_a_notte" id="costo_a_notte" placeholder="Costo a notte" required>
                     </div>
                     <div class="col-md-8 form-group">
-                        <label for="descrizione" class="control-label">Descrizione</label>
+                        <label for="descrizione" class="control-label">Descrizione</label>*
                         <input type="text" class="form-control" name="descrizione" id="descrizione" placeholder="Descrizione" required>
                     </div>
                 </div>
+                <hr>
+                <p class="pull-right">* campi obbligatori</p>
                 <span id="image_name" style="display:none"></span><input type="hidden" value="" name="path_foto" id="path_foto">
                 <button type="submit" id="aggiungiCamera" class="btn btn-primary float-right">Aggiungi</button>
             </form>

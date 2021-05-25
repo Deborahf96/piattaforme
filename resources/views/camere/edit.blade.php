@@ -29,30 +29,32 @@
             <form id="formModificaCamera">
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <label for="numero" class="control-label">N° camera</label>
-                        <input type="number" min="1" maxlength="11" class="form-control" name="numero" id="numero" placeholder={{$camera->numero}} value={{$camera->numero}} required>
+                        <label for="numero" class="control-label">N° camera</label>*
+                        <input type="number" min="1" maxlength="11" class="form-control" name="numero" id="numero" placeholder="N° camera" value="{{$camera->numero}}" required>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label for="numero_letti" class="control-label">N° posti letto</label>
-                        <input type="number" min="1" maxlength="11" class="form-control" name="numero_letti" id="numero_letti" placeholder={{$camera->numero_letti}} value={{$camera->numero_letti}} required>
+                        <label for="numero_letti" class="control-label">N° posti letto</label>*
+                        <input type="number" min="1" maxlength="11" class="form-control" name="numero_letti" id="numero_letti" placeholder="N° posti letto" value="{{$camera->numero_letti}}" required>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label for="piano" class="control-label">Piano</label>
+                        <label for="piano" class="control-label">Piano</label>*
                         {{{Form::select('piano', $camera_piano_enum, $camera->piano, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un piano', 'required' ])}}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <label for="costo_a_notte" class="control-label">Costo a notte</label>
-                        <input type="number" min="1" maxlength="11" class="form-control" name="costo_a_notte" id="costo_a_notte" placeholder={{$camera->costo_a_notte}} value={{$camera->costo_a_notte}} required>
+                        <label for="costo_a_notte" class="control-label">Costo a notte</label>*
+                        <input type="number" min="1" maxlength="11" class="form-control" name="costo_a_notte" id="costo_a_notte" placeholder="Costo a notte" value="{{$camera->costo_a_notte}}" required>
                     </div>
                     <div class="col-md-8 form-group">
-                        <label for="descrizione" class="control-label">Descrizione</label>
-                        <input type="text" class="form-control" name="descrizione" id="descrizione" placeholder={{$camera->descrizione}} value={{$camera->descrizione}} required>
+                        <label for="descrizione" class="control-label">Descrizione</label>*
+                        <input type="text" class="form-control" name="descrizione" id="descrizione" placeholder="Descrizione" value="{{$camera->descrizione}}" required>
                     </div>
                 </div>
+                <hr>
+                <p class="pull-right">* campi obbligatori</p>
                 <span id="image_name" style="display:none"></span><input type="hidden" value="" name="path_foto" id="path_foto">
-                <input type="hidden" value={{$camera->id}} name="id" id="id">
+                <input type="hidden" value="{{$camera->id}}" name="id" id="id">
                 <button type="submit" id="modificaCamera" class="btn btn-primary float-right">Conferma</button>
             </form>
         </div>
