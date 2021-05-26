@@ -1,58 +1,85 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/attivita" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a attività</a>
-<br>
-<br>
-{!! Form::open(['action' => ['AttivitaController@update', $attivita->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="col-12">
-    <!-- Custom Tabs -->
-    <div class="card">
+    <a href="/attivita" class="btn btn-outline-secondary">Torna a attività</a>
+    <br>
+    <br>
+    <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Modifica un'attività</h3>
-        </div><!-- /.card-header -->
+        </div>
         <div class="card-body">
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('ditta_esterna_partita_iva', 'Ditta esterna')}}}
-                                {{{Form::select('ditta_esterna_partita_iva', $ditte_esterne, $attivita->ditta_esterna_partita_iva, [ 'class' => 'form-control', 'placeholder' => 'Seleziona una ditta esterna' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('data', 'Data')}}}
-                                {{{Form::date('data', $attivita->data, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('ora', 'Ora')}}}
-                                {{{Form::time('ora', \Carbon\Carbon::parse($attivita->ora)->format('H:i'), [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('destinazione', 'Luogo di destinazione')}}}
-                                {{{Form::text('destinazione', $attivita->destinazione, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('costo', 'Costo')}}}
-                                {{{Form::number('costo', $attivita->costo, [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
+            <form id="formModificaAttivita">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="ditta_esterna_id" class="control-label">Ditta esterna</label>*
+                        {{{Form::select('ditta_esterna_id', $ditte_esterne, $attivita->ditta_esterna_id, [ 'class' => 'form-control', 'placeholder' => 'Seleziona una ditta esterna', 'required' ])}}}
                     </div>
-                </div><!-- /.tab-pane -->
-            </div><!-- /.tab-content -->
-        </div><!-- /.card-body -->
+                    <div class="col-md-4 form-group">
+                        <label for="data" class="control-label">Data</label>*
+                        <input type="date" class="form-control" name="data" id="data" placeholder="Data" value="{{$attivita->data}}" required>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="ora" class="control-label">Ora</label>*
+                        <input type="time" class="form-control" name="ora" id="ora" placeholder="Ora" value="{{$attivita->ora}}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="destinazione" class="control-label">Luogo di destinazione</label>*
+                        <input type="text" class="form-control" name="destinazione" id="destinazione" placeholder="Luogo di destinazione" value="{{$attivita->destinazione}}" required>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="costo" class="control-label">Costo</label>*
+                        <input type="number" min="1" class="form-control" name="costo" id="costo" placeholder="Costo" value="{{$attivita->costo}}" required>
+                    </div>
+                </div>
+                <hr>
+                <p class="pull-right">* campi obbligatori</p>
+                <input type="hidden" value="{{$attivita->id}}" name="id" id="id">
+                <button type="submit" id="modificaAttivita" class="btn btn-primary float-right">Conferma</button>
+            </form>
+        </div>
     </div>
 </div>
+@stop
 
-{{ Form::hidden('_method','PUT' )}}
-{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right: 10px']) }}
-{!! Form::close() !!}
-@endsection
+@section('js')
+    <script>
+        // CSRF Token
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+         
+        $(document).ready(function() {
+            var formModificaAttivita = $('#formModificaAttivita');
+            formModificaAttivita.submit(function (e) {
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'post',
+                    url: '/attivita/modifica-attivita',
+                    data: formModificaAttivita.serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        if(data==true){
+                            console.log('Submission was successful.');
+                            alert("Attività modificata con successo!");
+                            window.location.replace('/attivita');
+                        }else{
+                            alert(data);
+                        }
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                        alert("Impossibile modificare l'attività'!");
+                    },
+                });
+            });
+        });
+    </script>
+@stop

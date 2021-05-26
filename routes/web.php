@@ -46,6 +46,12 @@ Route::group(['prefix' => 'ditte_esterne'], function () {
 });
 
 Route::resource('/attivita', 'AttivitaController');
+Route::group(['prefix' => 'attivita'], function () {
+    Route::post('/aggiungi-attivita', 'AttivitaController@aggiungiAttivita');
+    Route::post('/modifica-attivita', 'AttivitaController@modificaAttivita');
+    Route::post('/elimina', 'AttivitaController@elimina');
+    Route::post('/table-attivita', 'AttivitaController@tableAttivita');
+});
 
 Route::resource('/dipendenti', 'DipendenteController');
 Route::group(['prefix' => 'dipendenti'], function () {

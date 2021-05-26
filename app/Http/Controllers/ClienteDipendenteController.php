@@ -64,6 +64,6 @@ class ClienteDipendenteController extends Controller
         ->filterColumn("email", function ($q, $k) { return $q->whereRaw("users.email LIKE ?", ["%$k%"]); })
         ->filterColumn("", function ($q, $k) { return ''; })
         ->filterColumn(null, function ($q, $k) { return ''; })
-        ->make(true); 
+        ->make(true);
     }
 }

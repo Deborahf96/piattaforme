@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Attivita;
 use App\DittaEsterna;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class AttivitaController extends Controller
 {
@@ -13,38 +15,30 @@ class AttivitaController extends Controller
         $this->middleware('dipendenti');
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $tipologia_corrente = $request->input('tipologia');
-        $attivita = Attivita::when(isset($tipologia_corrente), function ($query) use ($tipologia_corrente) {
-                            return $query->where('tipologia', $tipologia_corrente);
-                            })->get();
-        $data = [
-            'attivita' => $attivita,
-            'attivita_tipologia_enum' => Enums::attivita_tipologia_enum(),
-            'tipologia_corrente' => $tipologia_corrente
-        ];
-        return view('attivita.index', $data);
+        return view('attivita.index');
     }
 
     public function create()
     {
         $data = [
             'attivita_tipologia_enum' => Enums::attivita_tipologia_enum(),
-            'ditte_esterne' => DittaEsterna::where('categoria', '=', 'Servizio navetta')
-                                            ->orwhere('categoria', '=', 'Tour operator')
-                                            ->get()->pluck("nome", "partita_iva")->sort(),
-
+            'ditte_esterne' => DittaEsterna::where('categoria', 'Servizio navetta')
+                                            ->orwhere('categoria', 'Tour operator')
+                                            ->get()->pluck("ditta", "id")->sort(),
         ];
         return view('attivita.create', $data);
     }
 
-    public function store(Request $request)
+    public function aggiungiAttivita(Request $request)
     {
-        $attivita = new Attivita;
-        $this->valida_richiesta($request, $attivita->id);
-        $this->salva_attivita($request, $attivita);
-        return redirect('/attivita')->with('success', 'Attività inserita con successo');
+        if($this->gia_presente($request))
+            return "Attenzione! La combinazione di attributi 'Ditta esterna, data, ora' esiste già";
+        if(Carbon::now()->greaterThanOrEqualTo(Carbon::parse($request->data)))
+            return "La data inserita non è valida. Inserire una data maggiore rispetto alla data odierna";
+        $attivita_salvata = $this->salva_attivita($request, new Attivita);
+        return $attivita_salvata ? response()->json(true) : response()->json(false);
     }
 
     public function show($id)
@@ -64,59 +58,83 @@ class AttivitaController extends Controller
             'attivita_tipologia_enum' => Enums::attivita_tipologia_enum(),
             'ditte_esterne' => DittaEsterna::where('categoria', '=', 'Servizio navetta')
                                             ->orwhere('categoria', '=', 'Tour operator')
-                                            ->get()->pluck("nome", "partita_iva")->sort(),
+                                            ->get()->pluck("ditta", "id")->sort(),
         ];
         return view('attivita.edit', $data);
     }
 
-    public function update(Request $request, $id)
+    public function modificaAttivita(Request $request)
     {
-        $attivita = Attivita::find($id);
-        $this->valida_richiesta($request, $id);
-        $this->salva_attivita($request, $attivita);
-        return redirect('/attivita')->with('success', 'Attività modificata con successo');
+        if($this->gia_presente_id($request))
+            return "Attenzione! La combinazione di attributi 'Ditta esterna, data, ora' esiste già";
+        if(Carbon::now()->greaterThanOrEqualTo(Carbon::parse($request->data)))
+            return "La data inserita non è valida. Inserire una data maggiore rispetto alla data odierna";
+        $attivita = Attivita::find($request->id);
+        $attivita_salvata = $this->salva_attivita($request, $attivita);
+        return $attivita_salvata ? response()->json(true) : response()->json(false);
     }
 
-    public function destroy($id)
+    public function elimina(Request $request)
     {
-        $attivita = Attivita::find($id);
-        $attivita->delete();
-        return redirect('/attivita')->with('success', 'Attività eliminata con successo');
+        $attivita = Attivita::find($request->id)->delete();
+        return $attivita ? response()->json(true,200) : response()->json(false, 400);
     }
 
-    private function valida_richiesta(Request $request, $id)
+    public function tableAttivita()
     {
-        $rules = [
-            'ditta_esterna_partita_iva' => 'required|unique_ditta_data_ora:' . $request->data . ',' . $request->ora . ',' . $id,
-            'data' => 'required|date|current_date_greater_than:',
-            'ora' => 'required|date_format:"H:i"',
-            'destinazione' => 'required|max:255',
-            'costo' => 'required|numeric|gt:0',
-        ];
-        $customMessages = [
-            'ditta_esterna_partita_iva.required' => "E' necessario inserire il parametro 'Ditta esterna'",
-            'data.required' => "E' necessario inserire il parametro 'Data'",
-            'data.date' => "E' necessario inserire una data per il campo 'Data'",
-            'ora.required' => "E' necessario inserire il parametro 'Ora'",
-            'ora.date_format' => "Il formato di 'Ora' non è valido. Formato richiesto: hh:mm",
-            'destinazione.required' => "E' necessario inserire il parametro 'Luogo di destinazione'",
-            'destinazione.max' => "Il numero massimo di caratteri consentito per 'Luogo di destinazione' è 255",
-            'costo.required' => "E' necessario inserire il parametro 'Costo'",
-            'costo.numeric' => "Il campo 'Costo' può contenere solo numeri",
-            'costo.gt' => "Il campo 'Costo' deve essere maggiore di zero",
-        ];
-        $this->validate($request, $rules, $customMessages);
+        $attivita = $this->recupera_attivita();
+        return $this->genera_datatable($attivita);
     }
 
     private function salva_attivita(Request $request, $attivita)
     {
-        $attivita->ditta_esterna_partita_iva = $request->input('ditta_esterna_partita_iva');
-        $attivita->data = $request->input('data');
-        $attivita->ora = $request->input('ora');
-        $attivita->destinazione = $request->input('destinazione');
-        $attivita->costo = $request->input('costo');
-        $attivita->tipologia = $attivita->ditta_esterna->categoria == "Tour operator" ? 
-                                'Visita guidata' : $attivita->ditta_esterna->categoria;
+        $attivita->ditta_esterna_id = $request->ditta_esterna_id;
+        $attivita->data = $request->data;
+        $attivita->ora = $request->ora;
+        $attivita->destinazione = $request->destinazione;
+        $attivita->costo = $request->costo;
+        $attivita->tipologia = $attivita->ditta_esterna->categoria == "Tour operator" ? 'Visita guidata' : $attivita->ditta_esterna->categoria;
         $attivita->save();
+        return $attivita;
+    }
+
+    private function gia_presente(Request $request)
+    {
+        return Attivita::where('ditta_esterna_id', $request->ditta_esterna_id)
+            ->where('data', $request->data)
+            ->where('ora', $request->ora)
+            ->exists();
+    }
+
+    private function gia_presente_id(Request $request)
+    {
+        return Attivita::where('ditta_esterna_id', $request->ditta_esterna_id)
+            ->where('data', $request->data)
+            ->where('ora', $request->ora)
+            ->where('id', '!=', $request->id)
+            ->exists();
+    }
+
+    private function recupera_attivita()
+    {
+        return Attivita::join('ditta_esterna', 'attivita.ditta_esterna_id', 'ditta_esterna.id')
+            ->select(
+                'attivita.id',
+                'attivita.tipologia',
+                'attivita.data',
+                'attivita.ora',
+                'attivita.destinazione',
+                'attivita.costo',
+                'ditta_esterna.nome',
+            );
+    }
+
+    private function genera_datatable($attivita)
+    {
+        return DataTables::of($attivita)
+        ->filterColumn("nome", function ($q, $k) { return $q->whereRaw("ditta_esterna.nome LIKE ?", ["%$k%"]); })
+        ->filterColumn("", function ($q, $k) { return ''; })
+        ->filterColumn(null, function ($q, $k) { return ''; })
+        ->make(true);
     }
 }

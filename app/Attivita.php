@@ -11,7 +11,7 @@ class Attivita extends Model
 
     public function ditta_esterna()
     {
-        return $this->belongsTo('App\DittaEsterna', 'ditta_esterna_partita_iva');
+        return $this->belongsTo('App\DittaEsterna', 'ditta_esterna_id');
     }
 
     public function prenotazioni()

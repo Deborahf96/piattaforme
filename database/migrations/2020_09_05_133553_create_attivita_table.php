@@ -10,15 +10,15 @@ class CreateAttivitaTable extends Migration
     {
         Schema::create('attivita', function (Blueprint $table) {
             $table->id();
-            $table->string('ditta_esterna_partita_iva');
+            $table->bigInteger('ditta_esterna_id')->unsigned();
             $table->date('data');
             $table->time('ora');
             $table->string('destinazione');
             $table->string('tipologia');
             $table->integer('costo');
 
-            $table->foreign('ditta_esterna_partita_iva')->references('partita_iva')->on('ditta_esterna')->onDelete('cascade');
-            $table->unique(['ditta_esterna_partita_iva', 'data', 'ora'], 'ditta_data_ora');
+            $table->foreign('ditta_esterna_id')->references('id')->on('ditta_esterna')->onDelete('cascade');
+            $table->unique(['ditta_esterna_id', 'data', 'ora'], 'ditta_data_ora');
         });
     }
 

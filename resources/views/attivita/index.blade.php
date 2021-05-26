@@ -1,102 +1,119 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/home" class="btn btn-outline-secondary">Indietro</a>
-    <hr>
-    <div class="d-flex justify-content-between" style="margin-left: 10px">
-        <div class="row">
-            {!! Form::open(['action' => ['AttivitaController@index'], 'method' => 'GET', 'enctype' =>
-            'multipart/form-data']) !!}
-            <div class="d-flex justify-content-start">
-                <div class="d-flex justitfy-content-between align-items-center">
-                    <div>
-                        <h5 style="margin-block-end: 0px"><b>Seleziona tipologia</b></h5>
-                    </div>
-                    <div style="margin-left: 20px">{!! Form::select('tipologia', $attivita_tipologia_enum,
-                        $tipologia_corrente, ['class' => 'form-control', 'placeholder' => 'Tutte']) !!}</div>
-                </div>
-                <div style="margin-left: 20px">{{ Form::submit('Conferma', ['class' => 'btn btn-primary']) }}</div>
-                <a href="/attivita" class="btn btn-primary" style="margin-left: 20px">Reset Filtri</a>
-            </div>
-            {!! Form::close() !!}
-        </div>
-        <script>
-            $('[name="id"]').change(function() {
-                var optionSelected = $("option:selected", this);
-                optionValue = this.value;
-            });
-        </script>
-    </div>
-    <hr>
     <a href="/attivita/create" class="btn btn-primary float-right">Aggiungi una nuova attività</a>
     <h1>Elenco attività</h1>
     <br>
-    @if (count($attivita) > 0)
-        <div class="card">
-            <div class="card-body">
-                <table id="" class="display table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Ditta esterna</th>
-                            <th>Tipologia</th>
-                            <th>Data</th>
-                            <th>Ora</th>
-                            <th>Destinazione</th>
-                            <th>Costo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($attivita as $singola_attivita)
-                            <tr>
-                                <td width=20%>
-                                    {{ $singola_attivita->ditta_esterna->nome }}
-                                </td>
-                                <td width=15%>
-                                    {{ $singola_attivita->tipologia }}
-                                </td>
-                                <td width=10%>
-                                    {{ $singola_attivita->data }}
-                                </td>
-                                <td width=10%>
-                                    {{ \Carbon\Carbon::parse($singola_attivita->ora)->format('H:i') }}
-                                </td>
-                                <td width=20%>
-                                    {{ $singola_attivita->destinazione }}
-                                </td>
-                                <td width=10%>
-                                    {{ $singola_attivita->costo }} €
-                                </td>
-                                <td width=15%>
-                                    <div class="d-flex justify-content-around">
-                                        <a button href="/attivita/{{ $singola_attivita->id }}"
-                                            data-toggle="tooltip" data-placement="top" title="Visualizza"
-                                            class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
-                                        <a button href="/attivita/{{ $singola_attivita->id }}/edit"
-                                            data-toggle="tooltip" data-placement="top" title="Modifica"
-                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
-                                        {!! Form::open(['action' => ['AttivitaController@destroy',
-                                        $singola_attivita->id], 'method' => 'POST']) !!}
-                                        {{ Form::hidden('_method', 'DELETE') }}
-                                        {{ Form::button('<i class="fa fa-trash"></i>', [
-                                                'type' => 'submit',
-                                                'class' => 'btn btn-danger btn-sm',
-                                                'data-toggle' => 'tooltip',
-                                                'data-placement' => 'top',
-                                                'title' => 'Elimina',
-                                                'onclick' => "return confirm('Confermi di voler eliminare questa attività?')",
-                                            ]) }}
-                                        {!! Form::close() !!}
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+    <div class="card card-primary card-outline">
+        <div class="card-body">
+            <table id="tableAttivita" class="display table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ditta esterna</th>
+                        <th>Tipologia</th>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Destinazione</th>
+                        <th>Costo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-    @else
-        <p>Nessuna attività inserita</p>
-    @endif
+    </div>
+@stop
 
-@endsection
+@section('js')
+    <script>
+        function elimina(id, tipologia, destinazione, data, ora) {
+            if(confirm('Confermi di voler eliminare la seguente attività:\n'+tipologia+' ('+destinazione+') - '+data+' '+ora+' ?')) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'post',
+                    url: '/attivita/elimina',
+                    data: { 'id': id },
+                    success: function(data) {
+                        console.log(data);
+                        if(data) {
+                            alert('Attività eliminata con successo!');
+                            $('#tableAttivita').DataTable().ajax.reload();
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        alert("Errore! Non è possibile eliminare l'attività!");
+                    },
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            var table = $('#tableAttivita').DataTable({
+                responsive: true,
+                pageLength : 10,
+                lengthMenu: [[10, 20, 30, 50], [10, 20, 30, 50]],
+                language: {
+                    lengthMenu: "Visualizza _MENU_ elementi per pagina",
+                    zeroRecords: "Nessun dato da visualizzare",
+                    infoFiltered: "<b>(filtrati su _MAX_ totali)</b>",
+                    info: "Pagina da _PAGE_ a _PAGES_ <b>( _TOTAL_ elementi totali )</b>",
+                    infoEmpty: "Nessun dato presente",
+                    search: "Cerca:",
+                    paginate: {
+                        first: "Primo",
+                        last: "Ultimo",
+                        next: "Successivo",
+                        previous: "Precedente",
+                    },
+                    loadingRecords: "&nbsp;",
+                    processing: "Caricamento..."
+                },
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/attivita/table-attivita',
+                    type: "POST"
+                },
+                columns: [
+                    { data: "nome" , width: "20%" },
+                    { data: "tipologia" , width: "15%"},
+                    { data: "data" , width: "10%" },
+                    { data: 'ora' , width: "10%" },
+                    { data: "destinazione" , width: "20%" },
+                    { data: 'costo' , width: "10%" , render : function ( data, type, row, meta ) {
+                        return data += ' €';
+                    }},
+                    { data: null , bSearchable: false , orderable: false , width: "15%" , render : function ( data, type, row, meta ) {
+                        var action = '<div class="d-flex justify-content-around">'+
+                                    '<a button href="/attivita/'+row.id+'" data-toggle="tooltip" data-placement="top" title="Visualizza" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>'+
+                                    '<a button href="/attivita/'+row.id+'/edit" data-toggle="tooltip" data-placement="top" title="Modifica" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>'+
+                                    '<button onclick="elimina(\''+row.id+'\',\''+row.tipologia+'\',\''+row.destinazione+'\',\''+row.data+'\',\''+row.ora+'\')" data-toggle="tooltip" data-placement="top" title="Elimina" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></div>';
+                        return action;
+                        },
+                    },
+                ]
+            });
+
+            $('#tableAttivita thead tr').clone(true).appendTo('#tableAttivita thead');
+            $('#tableAttivita thead tr:eq(1) th').each(function(i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
+                $('input', this).on('keyup change', function() {
+                    if($('#tableAttivita').DataTable().column(i).search() !== this.value) {
+                        $('#tableAttivita').DataTable()
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                });
+            });
+        });
+    </script>
+@stop

@@ -34,8 +34,7 @@ class DittaEsternaController extends Controller
             return 'Attenzione! Partita IVA '.$request->partita_iva.' già registrata';
         if($request->data_fine != null && Carbon::parse($request->data_inizio)->greaterThanOrEqualTo(Carbon::parse($request->data_fine)))
             return "La data di fine deve essere maggiore della data di inizio";
-        $ditta_esterna = new DittaEsterna;  
-        $ditta_salvata = $this->salva_ditta($request, $ditta_esterna);           
+        $ditta_salvata = $this->salva_ditta($request, new DittaEsterna);           
         return $ditta_salvata ? response()->json(true) : response()->json(false);
     }
 

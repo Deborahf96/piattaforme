@@ -4,54 +4,81 @@
 <a href="/attivita" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
 <br>
 <br>
-{!! Form::open(['action' => ['AttivitaController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="col-12">
-    <!-- Custom Tabs -->
-    <div class="card">
+    <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Aggiungi una nuova attività</h3>
-        </div><!-- /.card-header -->
+        </div>
         <div class="card-body">
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('ditta_esterna_partita_iva', 'Ditta esterna')}}}
-                                {{{Form::select('ditta_esterna_partita_iva', $ditte_esterne, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona una ditta esterna' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('data', 'Data')}}}
-                                {{{Form::date('data', '', [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('ora', 'Ora')}}}
-                                {{{Form::time('ora', '', [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('destinazione', 'Luogo di destinazione')}}}
-                                {{{Form::text('destinazione', '', [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{{Form::label('costo', 'Costo')}}}
-                                {{{Form::number('costo', '', [ 'class' => 'form-control' ])}}}
-                            </div>
-                        </div>
+            <form id="formAggiungiAttivita">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="ditta_esterna_id" class="control-label">Ditta esterna</label>*
+                        {{{Form::select('ditta_esterna_id', $ditte_esterne, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona una ditta esterna', 'required' ])}}}
                     </div>
-                </div><!-- /.tab-pane -->
-            </div><!-- /.tab-content -->
-        </div><!-- /.card-body -->
+                    <div class="col-md-4 form-group">
+                        <label for="data" class="control-label">Data</label>*
+                        <input type="date" class="form-control" name="data" id="data" placeholder="Data" required>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="ora" class="control-label">Ora</label>*
+                        <input type="time" class="form-control" name="ora" id="ora" placeholder="Ora" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="destinazione" class="control-label">Luogo di destinazione</label>*
+                        <input type="text" class="form-control" name="destinazione" id="destinazione" placeholder="Luogo di destinazione" required>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="costo" class="control-label">Costo</label>*
+                        <input type="number" min="1" class="form-control" name="costo" id="costo" placeholder="Costo" required>
+                    </div>
+                </div>
+                <hr>
+                <p class="pull-right">* campi obbligatori</p>
+                <button type="submit" id="aggiungiAttivita" class="btn btn-primary float-right">Aggiungi</button>
+            </form>
+        </div>
     </div>
 </div>
-
-{{ Form::submit('Conferma', [ 'class' => 'btn btn-primary float-right', 'style' => 'margin-right: 10px']) }}
-{!! Form::close() !!}
-@endsection
+@stop
+    
+@section('js')
+    <script>
+        // CSRF Token
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+         
+        $(document).ready(function() {
+            var formAggiungiAttivita = $('#formAggiungiAttivita');
+            formAggiungiAttivita.submit(function (e) {
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'post',
+                    url: 'aggiungi-attivita',
+                    data: formAggiungiAttivita.serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        if(data==true){
+                            console.log('Submission was successful.');
+                            alert("Attività inserita con successo!");
+                            window.location.replace('/attivita');
+                        }else{
+                            alert(data);
+                        }
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                        alert("Impossibile inserire l'attività'!");
+                    },
+                });
+            });
+        });
+    </script>
+@stop
