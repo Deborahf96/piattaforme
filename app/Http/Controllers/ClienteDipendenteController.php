@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Prenotazione;
 use App\User;
+use Yajra\DataTables\Facades\DataTables;
 
 class ClienteDipendenteController extends Controller
 {
@@ -15,11 +16,7 @@ class ClienteDipendenteController extends Controller
 
     public function index()
     {
-        $clienti = Cliente::all();
-        $data = [
-            'clienti' => $clienti
-        ];
-        return view('clienti_latoDipendente.index', $data);
+        return view('clienti_latoDipendente.index');
     }
 
     public function show($user_id)
@@ -42,5 +39,31 @@ class ClienteDipendenteController extends Controller
             'cliente_name' => $cliente_name
         ];
         return view('clienti_latoDipendente.prenotazioni', $data);
+    }
+
+    public function tableClienti()
+    {
+        $clienti = $this->recupera_clienti();
+        return $this->genera_datatable($clienti);
+    }
+
+    private function recupera_clienti()
+    {
+        return Cliente::join('users', 'cliente.user_id', 'users.id')
+            ->select(
+                'cliente.user_id',
+                'users.name',
+                'users.email'
+            );
+    }
+
+    private function genera_datatable($clienti)
+    {
+        return DataTables::of($clienti)
+        ->filterColumn("name", function ($q, $k) { return $q->whereRaw("users.name LIKE ?", ["%$k%"]); })
+        ->filterColumn("email", function ($q, $k) { return $q->whereRaw("users.email LIKE ?", ["%$k%"]); })
+        ->filterColumn("", function ($q, $k) { return ''; })
+        ->filterColumn(null, function ($q, $k) { return ''; })
+        ->make(true); 
     }
 }

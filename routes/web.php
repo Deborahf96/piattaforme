@@ -21,8 +21,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
-Route::get('/clienti_latoDipendente/{c}/prenotazioni', 'ClienteDipendenteController@prenotazioni');
+Route::group(['prefix' => 'clienti_latoDipendente'], function () {
+    Route::post('/table-clienti', 'ClienteDipendenteController@tableClienti');
+    Route::get('/{c}/prenotazioni', 'ClienteDipendenteController@prenotazioni');
+});
 
 Route::resource('/camere', 'CameraController');
 Route::group(['prefix' => 'camere'], function () {

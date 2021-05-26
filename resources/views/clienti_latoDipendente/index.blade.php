@@ -1,49 +1,81 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/home" class="btn btn-outline-secondary">Indietro</a>
-    <br>
-    <br>
     <h1>Elenco clienti</h1>
     <br>
-    @if (count($clienti) > 0)
-        <div class="card">
-            <div class="card-body">
-                <table id="" class="display table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Nome completo</th>
-                            <th>Email</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($clienti as $cliente)
-                            <tr>
-                                <td width=50%>
-                                    {{ $cliente->utente->name }}
-                                </td>
-                                <td width=30%>
-                                    {{ $cliente->utente->email }}
-                                </td>
-                                <td width=20%>
-                                    <div class="d-flex justify-content-around">
-                                        <a button href="/clienti_latoDipendente/{{ $cliente->user_id }}"
-                                            data-toggle="tooltip" data-placement="top" title="Visualizza"
-                                            class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
-                                        <a button href="/clienti_latoDipendente/{{ $cliente->user_id }}/prenotazioni"
-                                            data-toggle="tooltip" data-placement="top" title="Prenotazioni"
-                                            class="btn btn-primary btn-sm"><i class="fa fa-bell"></i></button></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+    <div class="card card-primary card-outline">
+        <div class="card-body">
+            <table id="tableClienti" class="display table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nome completo</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-    @else
-        <p>Nessun cliente registrato</p>
-    @endif
+    </div>
+@stop
 
-@endsection
+@section('js')
+    <script>
+        $(document).ready(function() {
+            var table = $('#tableClienti').DataTable({
+                responsive: true,
+                pageLength : 10,
+                lengthMenu: [[10, 20, 30, 50], [10, 20, 30, 50]],
+                language: {
+                    lengthMenu: "Visualizza _MENU_ elementi per pagina",
+                    zeroRecords: "Nessun dato da visualizzare",
+                    infoFiltered: "<b>(filtrati su _MAX_ totali)</b>",
+                    info: "Pagina da _PAGE_ a _PAGES_ <b>( _TOTAL_ elementi totali )</b>",
+                    infoEmpty: "Nessun dato presente",
+                    search: "Cerca:",
+                    paginate: {
+                        first: "Primo",
+                        last: "Ultimo",
+                        next: "Successivo",
+                        previous: "Precedente",
+                    },
+                    loadingRecords: "&nbsp;",
+                    processing: "Caricamento..."
+                },
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/clienti_latoDipendente/table-clienti',
+                    type: "POST"
+                },
+                columns: [
+                    { data: "name" , width: "50%" },
+                    { data: "email" , width: "30%"},
+                    { data: null , bSearchable: false , orderable: false , width: "20%" , render : function ( data, type, row, meta ) {
+                        var action = '<div class="d-flex justify-content-around">'+
+                                    '<a button href="/clienti_latoDipendente/'+row.user_id+'" data-toggle="tooltip" data-placement="top" title="Visualizza" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>'+
+                                    '<a button href="/clienti_latoDipendente/'+row.user_id+'/prenotazioni" data-toggle="tooltip" data-placement="top" title="Prenotazioni" class="btn btn-primary btn-sm"><i class="fa fa-bell"></i></button></a></div>';
+                        return action;
+                        },
+                    },
+                ]
+            });
+
+            $('#tableClienti thead tr').clone(true).appendTo('#tableClienti thead');
+            $('#tableClienti thead tr:eq(1) th').each(function(i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
+                $('input', this).on('keyup change', function() {
+                    if($('#tableClienti').DataTable().column(i).search() !== this.value) {
+                        $('#tableClienti').DataTable()
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                });
+            });
+        });
+    </script>
+@stop

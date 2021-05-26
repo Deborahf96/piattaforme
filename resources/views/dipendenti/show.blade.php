@@ -3,7 +3,8 @@
 @section('thousand_sunny_content')
     <div class="col-12">
         <a href="/dipendenti" class="btn btn-outline-secondary">Torna a dipendenti</a>
-        <hr>
+        <br>
+        <br>
         <div class="row">
             <div class="col-md-5 d-flex align-items-stretch">
                 <div class="card card-primary card-outline" style="width: 100%">
