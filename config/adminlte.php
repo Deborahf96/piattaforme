@@ -332,7 +332,7 @@ return [
         ],
         [
             'text'    => 'Clienti',
-            'url'     => '/clienti_latoDipendente',
+            'url'     => '/clienti',
             'can'     => 'dipendenti',
             'icon'    => 'fa fa-users',
         ],
@@ -372,12 +372,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Visualizza',
-                    'url'  => '/clienti_latoCliente',
+                    'url'  => '/cliente',
                     'icon' => 'fa fa-search-plus',
                 ],
                 [
                     'text' => 'Modifica',
-                    'url'  => '/clienti_latoCliente/edit',
+                    'url'  => '/cliente/edit',
                     'icon' => 'fa fa-edit',
                 ],
                 [

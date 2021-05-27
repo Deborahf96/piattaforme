@@ -6,7 +6,7 @@
     <br>
     <div class="card card-primary card-outline">
         <div class="card-header d-flex p-0">
-            <h5 class="card-title p-3">Cliente</h5>
+            <h5 class="card-title p-3">@if(Auth::user()->id_level == 0) Cliente @else Profilo @endif</h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -36,6 +36,41 @@
             </div>
         </div>
     </div>
-    <a href="/clienti_latoDipendente/{{ $cliente->user_id }}/prenotazioni" class="btn btn-info" style="margin-right: 10px">Visualizza prenotazioni</a>
+    @if(Auth::user()->id_level == 0)
+        <a href="/clienti/{{ $cliente->user_id }}/prenotazioni" class="btn btn-info" style="margin-right: 10px">Visualizza prenotazioni</a>
+    @else
+        <a href="/cliente/edit" class="btn btn-primary" style="margin-right: 10px">Modifica profilo</a>
+        <a href="/modifica_password" class="btn btn-primary" style="margin-right: 10px">Modifica password</a>
+        <button onclick="elimina()" data-toggle="tooltip" data-placement="top" title="Elimina" class="btn btn-danger float-right">Elimina</button>
+    @endif
 </div>
+@stop
+
+@section('js')
+    <script>
+        function elimina() {
+            if(confirm('Confermi di voler eliminare questo account?')) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'post',
+                    url: '/cliente/elimina',
+                    success: function(data) {
+                        console.log(data);
+                        if(data) {
+                            alert('Account eliminato con successo!');
+                            window.location.replace('/login');
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        alert("Errore! Non è possibile eliminare l'account'!");
+                    },
+                });
+            }
+        }
+    </script>
 @stop

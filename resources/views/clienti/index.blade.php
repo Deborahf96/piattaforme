@@ -47,7 +47,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: '/clienti_latoDipendente/table-clienti',
+                    url: '/clienti/table-clienti',
                     type: "POST"
                 },
                 columns: [
@@ -55,8 +55,8 @@
                     { data: "email" , width: "30%"},
                     { data: null , bSearchable: false , orderable: false , width: "20%" , render : function ( data, type, row, meta ) {
                         var action = '<div class="d-flex justify-content-around">'+
-                                    '<a button href="/clienti_latoDipendente/'+row.user_id+'" data-toggle="tooltip" data-placement="top" title="Visualizza" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>'+
-                                    '<a button href="/clienti_latoDipendente/'+row.user_id+'/prenotazioni" data-toggle="tooltip" data-placement="top" title="Prenotazioni" class="btn btn-primary btn-sm"><i class="fa fa-bell"></i></button></a></div>';
+                                    '<a button href="/clienti/'+row.user_id+'" data-toggle="tooltip" data-placement="top" title="Visualizza" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>'+
+                                    '<a button href="/clienti/'+row.user_id+'/prenotazioni" data-toggle="tooltip" data-placement="top" title="Prenotazioni" class="btn btn-primary btn-sm"><i class="fa fa-bell"></i></button></a></div>';
                         return action;
                         },
                     },

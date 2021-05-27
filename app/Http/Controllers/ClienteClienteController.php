@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ClienteClienteController extends Controller
@@ -17,85 +19,73 @@ class ClienteClienteController extends Controller
 
     public function show() 
     {
-        $user_id = Auth::user()->id;
-        $cliente = Cliente::where('user_id', $user_id)->first();
+        $cliente = Cliente::where('user_id', Auth::user()->id)->first();
         $data = [
             'cliente' => $cliente
         ];
-        return view('clienti_latoCliente.show', $data);
+        return view('clienti.show', $data);
     }
 
     public function edit()
     {
-        $user_id = Auth::user()->id;
-        $cliente = Cliente::where('user_id', $user_id)->first();
+        $cliente = Cliente::where('user_id', Auth::user()->id)->first();
         $data = [
             'cliente' => $cliente,
             'cliente_metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
         ];
-        return view('clienti_latoCliente.edit', $data);
+        return view('clienti.edit', $data);
     }
 
-    public function update(Request $request)
+    public function modifica(Request $request)
     {
-        $user_id = Auth::user()->id;
-        $cliente = Cliente::where('user_id', $user_id)->first();
-        $this->valida_richiesta($request, $user_id);
-        $this->salva_cliente($request, $cliente);
-        return redirect('/clienti_latoCliente')->with('success', 'Profilo modificato con successo');
+        if(User::where('id', '!=', $request->user_id)->where('email', $request->email)->exists())
+            return 'Attenzione! Email ('.$request->email.') già registrata';
+        DB::beginTransaction();
+        try{
+            $this->salva_utente($request);
+            $this->salva_cliente($request);
+            DB::commit();
+        } catch(Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+        return response()->json(true);
     }
 
-    public function destroy()
+    public function elimina()
     {
-        $user_id = Auth::user()->id;
-        $cliente = Cliente::where('user_id', $user_id)->first();
-        $cliente->delete();
-        Auth::logout();
-        return redirect('/login')->with('success', 'Account eliminato con successo');
+        DB::beginTransaction();
+        try{
+            $user_id = Auth::user()->id;
+            Cliente::where('user_id', $user_id)->first()->delete();
+            User::find($user_id)->delete();
+            Auth::logout();
+            DB::commit();
+        } catch(Exception $e) {
+            DB::rollBack();
+            return response()->json($e->getMessage(), 400);
+        }
+        return response()->json(true, 200);
     }
 
-    private function valida_richiesta(Request $request, $user_id)
+    private function salva_cliente(Request $request)
     {
-        $rules = [
-            'nome' => 'required|max:255',
-            'data_nascita' => 'nullable|date',
-            'luogo_nascita' => 'nullable|max:255',
-            'indirizzo' => 'nullable|max:255',
-            'telefono' => 'nullable|min:9|max:10',
-            'email' => 'required|email|unique:users,email,'.$user_id,
-            'metodo_pagamento' => 'nullable',
-        ];
-        $customMessages = [
-            'nome.required' => "E' necessario inserire il parametro 'Nome completo'",
-            'nome.max' => "Il numero massimo di caratteri consentito per 'Nome completo' è 255",
-            'data_nascita.date' => "E' necessario inserire una data per il campo 'Data di nascita'",
-            'luogo_nascita.max' => "Il numero massimo di caratteri consentito per 'Luogo di nascita' è 255",
-            'indirizzo.max' => "Il numero massimo di caratteri consentito per 'Indirizzo' è 255",
-            'telefono.min' => "Il numero minimo di caratteri consentito per 'Telefono' è 9",
-            'telefono.max' => "Il numero massimo di caratteri consentito per 'Telefono' è 10",
-            'email.required' => "E' necessario inserire il parametro 'Email'",
-            'email.email' => "Formato email errato",
-            'email.unique' => "Il valore inserito in 'Email' esiste già",
-        ];
-        $this->validate($request, $rules, $customMessages);
-    }
-
-    private function salva_cliente(Request $request, $cliente)
-    {
-        $this->salva_utente($request, $cliente->utente);
-        $cliente->metodo_pagamento = $request->input('metodo_pagamento');
+        $cliente = Cliente::where('user_id', $request->user_id)->first();
+        $cliente->metodo_pagamento = $request->metodo_pagamento;
         $cliente->save();
+        return $cliente;
     }
 
-    private function salva_utente(Request $request, $user)
+    private function salva_utente(Request $request)
     {
-        $user->name = $request->input('nome');
-        $user->data_nascita = $request->input('data_nascita');
-        $user->luogo_nascita = $request->input('luogo_nascita');
-        $user->indirizzo = $request->input('indirizzo');
-        $user->telefono = $request->input('telefono');
-        $user->email = $request->input('email');
+        $user = User::find($request->user_id);
+        $user->name = $request->nome;
+        $user->data_nascita = $request->data_nascita;
+        $user->luogo_nascita = $request->luogo_nascita;
+        $user->indirizzo = $request->indirizzo;
+        $user->telefono = $request->telefono;
+        $user->email = $request->email;
         $user->password = Hash::make('password');
         $user->save();
+        return $user;
     }
 }

@@ -16,7 +16,7 @@ class ClienteDipendenteController extends Controller
 
     public function index()
     {
-        return view('clienti_latoDipendente.index');
+        return view('clienti.index');
     }
 
     public function show($user_id)
@@ -27,7 +27,7 @@ class ClienteDipendenteController extends Controller
             'cliente' => $cliente,
             'prenotazioni_cliente' => $prenotazioni_cliente,
         ];
-        return view('clienti_latoDipendente.show', $data);
+        return view('clienti.show', $data);
     }
 
     public function prenotazioni($user_id)
@@ -38,7 +38,7 @@ class ClienteDipendenteController extends Controller
             'prenotazioni' => $prenotazioni,
             'cliente_name' => $cliente_name
         ];
-        return view('clienti_latoDipendente.prenotazioni', $data);
+        return view('clienti.prenotazioni', $data);
     }
 
     public function tableClienti()

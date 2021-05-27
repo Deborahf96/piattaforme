@@ -25,10 +25,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/modifica_password', 'ResettaPasswordController@resetta_password_view');
 Route::post('/modifica-password', 'ResettaPasswordController@cambia_password');
 
-Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
-Route::group(['prefix' => 'clienti_latoDipendente'], function () {
+Route::resource('/clienti', 'ClienteDipendenteController');
+Route::group(['prefix' => 'clienti'], function () {
     Route::post('/table-clienti', 'ClienteDipendenteController@tableClienti');
     Route::get('/{c}/prenotazioni', 'ClienteDipendenteController@prenotazioni');
+});
+
+Route::group(['prefix' => 'cliente'], function () {
+    Route::get('/', 'ClienteClienteController@show');
+    Route::get('/edit', 'ClienteClienteController@edit');
+    Route::post('/modifica', 'ClienteClienteController@modifica');
+    Route::post('/elimina', 'ClienteClienteController@elimina');
 });
 
 Route::resource('/camere', 'CameraController');
@@ -76,12 +83,6 @@ Route::resource('/prenotazioni', 'PrenotazioneController');
 Route::get('/prenotazioni_cliente/{p}/riepilogo', 'PrenotazioneClienteController@riepilogo');
 Route::get('/prenotazioni_cliente/prenota', 'PrenotazioneClienteController@prenota');
 Route::resource('/prenotazioni_cliente', 'PrenotazioneClienteController');
-
-// Cliente
-Route::get('/clienti_latoCliente', 'ClienteClienteController@show');
-Route::get('/clienti_latoCliente/edit', 'ClienteClienteController@edit');
-Route::match(['put','patch'], '/clienti_latoCliente', 'ClienteClienteController@update');
-Route::delete('/clienti_latoCliente', 'ClienteClienteController@destroy');
 
 Route::get('/accesso_negato_clienti', 'AccessoNegatoController@accesso_negato_clienti');
 Route::get('/accesso_negato_dipendenti', 'AccessoNegatoController@accesso_negato_dipendenti');
