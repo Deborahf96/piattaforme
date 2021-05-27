@@ -6,6 +6,7 @@ use App\Attivita;
 use App\DittaEsterna;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttivitaController extends Controller
@@ -119,10 +120,10 @@ class AttivitaController extends Controller
                 'attivita.id',
                 'attivita.tipologia',
                 'attivita.data',
-                'attivita.ora',
                 'attivita.destinazione',
                 'attivita.costo',
                 'ditta_esterna.nome',
+                DB::raw('TIME_FORMAT(attivita.ora, "%H:%i") as ora')
             );
     }
 
@@ -130,6 +131,7 @@ class AttivitaController extends Controller
     {
         return DataTables::of($attivita)
         ->filterColumn("nome", function ($q, $k) { return $q->whereRaw("ditta_esterna.nome LIKE ?", ["%$k%"]); })
+        ->filterColumn("ora", function ($q, $k) { return $q->whereRaw("TIME_FORMAT(attivita.ora, '%H:%i') LIKE ?", ["%$k%"]); })
         ->filterColumn("", function ($q, $k) { return ''; })
         ->filterColumn(null, function ($q, $k) { return ''; })
         ->make(true);
