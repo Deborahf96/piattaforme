@@ -72,7 +72,10 @@ Route::group(['prefix' => 'dipendenti'], function () {
 });
 
 Route::resource('/moduli_assistenza', 'ModuloAssistenzaController');
-
+Route::group(['prefix' => 'moduli_assistenza'], function () {
+    Route::post('/invia', 'ModuloAssistenzaController@invia');
+    Route::post('/table', 'ModuloAssistenzaController@table');
+});
 
 Route::get('/prenotazioni/{p}/riepilogo', 'PrenotazioneController@riepilogo');
 Route::get('/prenotazioni/prenota', 'PrenotazioneController@prenota');

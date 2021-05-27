@@ -1,51 +1,85 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="/home" class="btn btn-outline-secondary">Indietro</a>
-    <br>
-    <br>    
     <a href="/moduli_assistenza/create" class="btn btn-primary float-right">Invia una richiesta</a>
     <h1>Le tue richieste di assistenza</h1>
     <br>
-    @if (count($moduli_assistenza) > 0)
-        <div class="card">
-            <div class="card-body">
-                <table id="" class="display table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Tipologia di assistenza</th>
-                            <th>Oggetto</th>
-                            <th>Data</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($moduli_assistenza as $modulo_assistenza)
-                            <tr>
-                                <td width=30%>
-                                    {{ $modulo_assistenza->tipologia }}
-                                </td>
-                                <td width=30%>
-                                    {{ $modulo_assistenza->oggetto }}
-                                </td>
-                                <td width=30%>
-                                    {{ \Carbon\Carbon::parse($modulo_assistenza->created_at)->format('Y/m/d H:i') }}
-                                </td>
-                                <td width=10%>
-                                    <div class="d-flex justify-content-around">
-                                        <a button href="/moduli_assistenza/{{ $modulo_assistenza->id }}"
-                                            data-toggle="tooltip" data-placement="top" title="Visualizza"
-                                            class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+    <div class="card card-primary card-outline">
+        <div class="card-body">
+            <table id="table" class="display table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tipologia di assistenza</th>
+                        <th>Oggetto</th>
+                        <th>Data</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-    @else
-        <p>Nessuna richiesta di assistenza effettuata</p>
-    @endif
+    </div>
+@stop
 
-@endsection
+@section('js')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#table').DataTable({
+                responsive: true,
+                pageLength : 10,
+                lengthMenu: [[10, 20, 30, 50], [10, 20, 30, 50]],
+                language: {
+                    lengthMenu: "Visualizza _MENU_ elementi per pagina",
+                    zeroRecords: "Nessun dato da visualizzare",
+                    infoFiltered: "<b>(filtrati su _MAX_ totali)</b>",
+                    info: "Pagina da _PAGE_ a _PAGES_ <b>( _TOTAL_ elementi totali )</b>",
+                    infoEmpty: "Nessun dato presente",
+                    search: "Cerca:",
+                    paginate: {
+                        first: "Primo",
+                        last: "Ultimo",
+                        next: "Successivo",
+                        previous: "Precedente",
+                    },
+                    loadingRecords: "&nbsp;",
+                    processing: "Caricamento..."
+                },
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/moduli_assistenza/table',
+                    type: "POST"
+                },
+                columns: [
+                    { data: "tipologia" , width: "30%" },
+                    { data: "oggetto" , width: "30%"},
+                    { data: "created_at" , width: "30%" , render : function (data, type, row, meta) {
+                        return moment(data).format("DD-MM-YYYY HH:mm")
+                    }},
+                    { data: null , bSearchable: false , orderable: false , width: "10%" , render : function ( data, type, row, meta ) {
+                        return '<div class="d-flex justify-content-around"><a button href="/moduli_assistenza/'+row.id+'" data-toggle="tooltip" data-placement="top" title="Visualizza" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a></div>';
+                        },
+                    },
+                ]
+            });
+
+            $('#table thead tr').clone(true).appendTo('#table thead');
+            $('#table thead tr:eq(1) th').each(function(i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
+                $('input', this).on('keyup change', function() {
+                    if($('#table').DataTable().column(i).search() !== this.value) {
+                        $('#table').DataTable()
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                });
+            });
+        });
+    </script>
+@stop
+
