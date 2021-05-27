@@ -52,18 +52,16 @@ class DipendenteController extends Controller
 
     public function show($user_id)
     {
-        $dipendente = Dipendente::where('user_id', $user_id)->first();
         $data = [
-            'dipendente' => $dipendente,
+            'dipendente' => Dipendente::where('user_id', $user_id)->first(),
         ];
         return view('dipendenti.show', $data);
     }
 
     public function edit($user_id)
     {
-        $dipendente = Dipendente::where('user_id', $user_id)->first();
         $data = [
-            'dipendente' => $dipendente,
+            'dipendente' => Dipendente::where('user_id', $user_id)->first(),
             'dipendente_ruolo_enum' => Enums::dipendente_ruolo_enum(),
             'dipendente_tipo_contratto_enum' => Enums::tipo_contratto_enum(),
         ];

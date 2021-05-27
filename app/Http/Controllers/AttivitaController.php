@@ -43,18 +43,16 @@ class AttivitaController extends Controller
 
     public function show($id)
     {
-        $attivita = Attivita::find($id);
         $data = [
-            'attivita' => $attivita
+            'attivita' => Attivita::find($id)
         ];
         return view('attivita.show', $data);
     }
 
     public function edit($id)
     {
-        $attivita = Attivita::find($id);
         $data = [
-            'attivita' => $attivita,
+            'attivita' => Attivita::find($id),
             'attivita_tipologia_enum' => Enums::attivita_tipologia_enum(),
             'ditte_esterne' => DittaEsterna::where('categoria', '=', 'Servizio navetta')
                                             ->orwhere('categoria', '=', 'Tour operator')
@@ -69,8 +67,7 @@ class AttivitaController extends Controller
             return "Attenzione! La combinazione di attributi 'Ditta esterna, data, ora' esiste già";
         if(Carbon::now()->greaterThanOrEqualTo(Carbon::parse($request->data)))
             return "La data inserita non è valida. Inserire una data maggiore rispetto alla data odierna";
-        $attivita = Attivita::find($request->id);
-        $attivita_salvata = $this->salva_attivita($request, $attivita);
+        $attivita_salvata = $this->salva_attivita($request, Attivita::find($request->id));
         return $attivita_salvata ? response()->json(true) : response()->json(false);
     }
 

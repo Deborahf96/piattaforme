@@ -34,14 +34,12 @@ class CameraController extends Controller
     {
         if(Camera::where('numero', $request->numero)->exists())
             return 'Errore! Camera n°'.$request->numero.' già presente';
-        $camera = new Camera;
-        $camera_salvata = $this->salva_camera($request, $camera);
+        $camera_salvata = $this->salva_camera($request, new Camera);
         return $camera_salvata ? response()->json(true) : response()->json(false);
     }
 
     public function show($id)
     {
-        $camera = Camera::find($id);
         $dipendente = Dipendente::where('user_id', auth()->user()->id)->first();
         /*$prenotazione = Prenotazione::where('camera_id', $id)  
                                     ->where('data_checkin', '<=', Carbon::now())
@@ -49,7 +47,7 @@ class CameraController extends Controller
                                     ->first(); */
 
         $data = [
-            'camera' => $camera,
+            'camera' => Camera::find($id),
             'pren_camera_num' => /*$prenotazione == null ? */false /*: true*/,
             'prenotazione_id' => /*$prenotazione == null ? */' ' /*: $prenotazione->id*/,
             'dipendente_check' => $dipendente == null ? false : true
@@ -59,9 +57,8 @@ class CameraController extends Controller
 
     public function edit($id)
     {
-        $camera = Camera::find($id);
         $data = [
-            'camera' => $camera,
+            'camera' => Camera::find($id),
             'camera_piano_enum' => Enums::camera_piano_enum(),
         ];
         return view('camere.edit', $data);
@@ -71,8 +68,7 @@ class CameraController extends Controller
     {
         if(Camera::where('id', '!=', $request->id)->where('numero', $request->numero)->exists())
             return 'Errore! Camera n°'.$request->numero.' già presente';
-        $camera = Camera::find($request->id);
-        $camera_salvata = $this->salva_camera($request, $camera);
+        $camera_salvata = $this->salva_camera($request, Camera::find($request->id));
         return $camera_salvata ? response()->json(true) : response()->json(false);
     }
 

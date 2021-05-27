@@ -19,18 +19,16 @@ class ClienteClienteController extends Controller
 
     public function show() 
     {
-        $cliente = Cliente::where('user_id', Auth::user()->id)->first();
         $data = [
-            'cliente' => $cliente
+            'cliente' => Cliente::where('user_id', Auth::user()->id)->first()
         ];
         return view('clienti.show', $data);
     }
 
     public function edit()
     {
-        $cliente = Cliente::where('user_id', Auth::user()->id)->first();
         $data = [
-            'cliente' => $cliente,
+            'cliente' => Cliente::where('user_id', Auth::user()->id)->first(),
             'cliente_metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
         ];
         return view('clienti.edit', $data);

@@ -21,22 +21,18 @@ class ClienteDipendenteController extends Controller
 
     public function show($user_id)
     {
-        $cliente = Cliente::where('user_id', $user_id)->first();
-        $prenotazioni_cliente = Prenotazione::where('cliente_user_id', $user_id);
         $data = [
-            'cliente' => $cliente,
-            'prenotazioni_cliente' => $prenotazioni_cliente,
+            'cliente' => Cliente::where('user_id', $user_id)->first(),
+            'prenotazioni_cliente' => Prenotazione::where('cliente_user_id', $user_id),
         ];
         return view('clienti.show', $data);
     }
 
     public function prenotazioni($user_id)
     {
-        $prenotazioni = Prenotazione::where('cliente_user_id', $user_id)->get();
-        $cliente_name = User::where('id', $user_id)->value('name');
         $data = [
-            'prenotazioni' => $prenotazioni,
-            'cliente_name' => $cliente_name
+            'prenotazioni' => Prenotazione::where('cliente_user_id', $user_id)->get(),
+            'cliente_name' => User::where('id', $user_id)->value('name'),
         ];
         return view('clienti.prenotazioni', $data);
     }

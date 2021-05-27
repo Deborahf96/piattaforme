@@ -40,18 +40,16 @@ class DittaEsternaController extends Controller
 
     public function show($partita_iva)
     {
-        $ditta_esterna = DittaEsterna::where('partita_iva', $partita_iva)->first();
         $data = [
-            'ditta_esterna' => $ditta_esterna
+            'ditta_esterna' => DittaEsterna::where('partita_iva', $partita_iva)->first()
         ];
         return view('ditte_esterne.show', $data);
     }
 
     public function edit($partita_iva)
     {
-        $ditta_esterna = DittaEsterna::where('partita_iva', $partita_iva)->first();
         $data = [
-            'ditta_esterna' => $ditta_esterna,
+            'ditta_esterna' => DittaEsterna::where('partita_iva', $partita_iva)->first(),
             'ditta_esterna_categoria_enum' => Enums::ditta_esterna_categoria_enum(),
             'ditta_esterna_tipo_contratto_enum' => Enums::tipo_contratto_enum(),
         ];
@@ -64,8 +62,7 @@ class DittaEsternaController extends Controller
             return 'Errore! Partita IVA '.$request->partita_iva.' già registrata';
         if(Carbon::parse($request->data_inizio)->greaterThanOrEqualTo(Carbon::parse($request->data_fine)))
             return "La data di fine deve essere maggiore della data di inizio";
-        $ditta_esterna = DittaEsterna::find($request->id);
-        $ditta_salvata = $this->salva_ditta($request, $ditta_esterna);           
+        $ditta_salvata = $this->salva_ditta($request, DittaEsterna::find($request->id));           
         return $ditta_salvata ? response()->json(true) : response()->json(false);
     }
 

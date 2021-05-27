@@ -15,9 +15,8 @@ class ModuloAssistenzaController extends Controller
 
     public function index()
     {
-        $user_id = Auth::user()->id;
         $data = [
-            'moduli_assistenza' => ModuloAssistenza::where('cliente_user_id', $user_id)->get()
+            'moduli_assistenza' => ModuloAssistenza::where('cliente_user_id', Auth::user()->id)->get()
         ];
         return view('moduli_assistenza.index', $data);
     }
@@ -32,23 +31,20 @@ class ModuloAssistenzaController extends Controller
 
     public function store(Request $request)
     {
-        $assistenza = new ModuloAssistenza();
-        $user_id = Auth::user()->id;
-        $this->valida_richiesta($request, $assistenza->id);
-        $this->salva_richiesta($request, $assistenza, $user_id);
+        $this->valida_richiesta($request);
+        $this->salva_richiesta($request, new ModuloAssistenza, Auth::user()->id);
         return redirect('/moduli_assistenza')->with('success', 'Richiesta inviata con successo');
     }
 
     public function show($id)
     {
-        $assistenza = ModuloAssistenza::where('id', $id)->first();
         $data = [
-            'assistenza' => $assistenza,
+            'assistenza' => ModuloAssistenza::find($id),
         ];
         return view('moduli_assistenza.show', $data);
     }
 
-    private function valida_richiesta(Request $request, $id)
+    private function valida_richiesta(Request $request)
     {
         $rules = [
             'tipologia' => 'required',
@@ -62,16 +58,16 @@ class ModuloAssistenzaController extends Controller
             'messaggio.required' => "E' necessario inserire il parametro 'Messaggio'",
             'messaggio.max' => "Il numero massimo di caratteri consentito per 'Messaggio' è 65535",
         ];
-
         $this->validate($request, $rules, $customMessages);
     }
 
     private function salva_richiesta(Request $request, $assistenza, $user_id)
     {
         $assistenza->cliente_user_id = $user_id;
-        $assistenza->tipologia = $request->input('tipologia');
-        $assistenza->oggetto = $request->input('oggetto');
-        $assistenza->messaggio = $request->input('messaggio');
+        $assistenza->tipologia = $request->tipologia;
+        $assistenza->oggetto = $request->oggetto;
+        $assistenza->messaggio = $request->messaggio;
         $assistenza->save();
+        return $assistenza;
     }
 }
