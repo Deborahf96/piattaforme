@@ -66,20 +66,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $utente = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
         if (Dipendente::all()->count() == 0) {
+            $utente = $this->create_user($data, 0);
             $dipendente = new Dipendente;
             $dipendente->user_id = $utente->id;
             $dipendente->save();
         } else {
+            $utente = $this->create_user($data, 1);
             $cliente = new Cliente;
             $cliente->user_id = $utente->id;
             $cliente->save();
         }
         return $utente;
+    }
+
+    private function create_user(array $data, $id_level)
+    {
+        $user = new User;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->id_level = $id_level;
+        $user->save();
+        return $user;
     }
 }

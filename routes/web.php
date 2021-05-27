@@ -22,6 +22,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/modifica_password', 'ResettaPasswordController@resetta_password_view');
+Route::post('/modifica-password', 'ResettaPasswordController@cambia_password');
+
 Route::resource('/clienti_latoDipendente', 'ClienteDipendenteController');
 Route::group(['prefix' => 'clienti_latoDipendente'], function () {
     Route::post('/table-clienti', 'ClienteDipendenteController@tableClienti');
@@ -84,8 +87,5 @@ Route::get('/accesso_negato_clienti', 'AccessoNegatoController@accesso_negato_cl
 Route::get('/accesso_negato_dipendenti', 'AccessoNegatoController@accesso_negato_dipendenti');
 Route::get('/', 'AccessoNegatoController@dashboard');
 Route::get('/info', 'AccessoNegatoController@info');
-
-Route::get('/modifica_password', 'ResettaPasswordController@resetta_password_view');
-Route::post('/modifica_password/{user_id}', 'ResettaPasswordController@cambia_password');
 
 

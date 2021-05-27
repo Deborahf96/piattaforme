@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,34 +17,29 @@ class ResettaPasswordController extends Controller
 
     public function resetta_password_view()
     {
-        $user = Auth::user();
-        return view('resetta_password.resetta')->with(['user' => $user]);
+        return view('resetta_password.resetta')->with(['user' => Auth::user()]);
     }
 
-    public function cambia_password(Request $request, $user_id)
+    public function cambia_password(Request $request)
     {
-        $user = User::find($user_id);
-        $this->valida_password($request);
-        $user->update([
-            'password' => Hash::make($request->input('password')),
-        ]);
-        return redirect('/')->with('success', "Password modificata");
-    }
-
-    private function valida_password($request)
-    {
-        $rules = [
-            'password' => 'required|min:8|confirmed',
-            'password_confirmation' => 'required'
-        ];
-        
-        $customMessages = [
-            'password.required' => "E' necessario inserire una password",
-            'password.min' => "La password deve avere minimo 8 caratteri",
-            'password.confirmed' => "Le password inserite non coincidono",
-            'password_confirmation.required' => "E' necessario inserire la password anche nel campo 'Ripeti password'",
-        ];
-
-        $this->validate($request, $rules, $customMessages);
+        try{
+            $user = User::find($request->id);
+            if(Hash::check($request->password_corrente, $user->password) && $request->password == $request->password_confirm){
+                $user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+            }
+            else{
+                if(!Hash::check($request->password_corrente, $user->password))
+                    return back()->with('warningPassword', 'Errore! Password corrente non corretta.');
+                else if($request->password != $request->password_confirm)
+                    return back()->with('warningPassword', 'Errore! La nuova password non coincide con quella confermata.');
+                else 
+                    return back()->with('warningPassword', 'Errore! Password errata.');
+            }
+        } catch(Exception $e) {
+            return back()->with('warningPassword', 'Impossibile modificare la password!');
+        }
+        return back()->with('successPassword', 'Password modificata con successo!');
     }
 }

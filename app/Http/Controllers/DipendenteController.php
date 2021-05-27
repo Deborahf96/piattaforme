@@ -123,6 +123,7 @@ class DipendenteController extends Controller
         $user->telefono = $request->telefono;
         $user->email = $request->email;
         $user->password = Hash::make('password');
+        $user->id_level = 0;
         $user->save();
         return $user;
     }

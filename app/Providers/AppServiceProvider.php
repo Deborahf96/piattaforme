@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
     private function unique_ditta_data_ora()
     {
         Validator::extend('unique_ditta_data_ora', function ($attribute, $value, $parameters, $validator) {
-            $count = Attivita::where('ditta_esterna_partita_iva', $value)
+            $count = Attivita::where('ditta_esterna_id', $value)
                 ->where('data', $parameters[0])
                 ->where('ora', $parameters[1])
                 ->where('id', '!=', $parameters[2])
@@ -97,14 +97,12 @@ class AppServiceProvider extends ServiceProvider
             return Auth::guest();
         });
         Gate::define('dipendenti', function (?User $user) {
-            if (auth()->user() == null) return false;
-            $dipendente = Dipendente::where('user_id', auth()->user()->id)->first();
-            return $dipendente == null ? false : true;
+            if (auth()->user() == null || auth()->user()->id_level == 1) return false;
+            return true;
         });
         Gate::define('clienti', function (?User $user) {
-            if (auth()->user() == null) return false;
-            $cliente = Cliente::where('user_id', auth()->user()->id)->first();
-            return $cliente == null ? false : true;
+            if (auth()->user() == null || auth()->user()->id_level == 0) return false;
+            return true;
         });
     }
 }
