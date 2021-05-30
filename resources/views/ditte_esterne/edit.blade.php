@@ -100,7 +100,7 @@
                         if(data==true){
                             console.log('Submission was successful.');
                             alert("Ditta modificata con successo!");
-                            window.location.replace('/ditte_esterne');
+                            window.location.replace('/ditte_esterne/'+<?php echo $ditta_esterna->partita_iva ?>);
                         }else{
                             alert(data);
                         }

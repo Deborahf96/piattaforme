@@ -106,7 +106,7 @@
                         if(data==true){
                             console.log('Submission was successful.');
                             alert("Dipendente modificato con successo!");
-                            window.location.replace('/dipendenti');
+                            window.location.replace('/dipendenti/'+<?php echo $dipendente->user_id ?>);
                         }else{
                             alert(data);
                         }

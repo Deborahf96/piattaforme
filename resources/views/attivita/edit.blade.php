@@ -68,7 +68,7 @@
                         if(data==true){
                             console.log('Submission was successful.');
                             alert("Attività modificata con successo!");
-                            window.location.replace('/attivita');
+                            window.location.replace('/attivita/'+<?php echo $attivita->id ?>);
                         }else{
                             alert(data);
                         }
