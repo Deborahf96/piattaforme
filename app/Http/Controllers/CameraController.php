@@ -125,7 +125,7 @@ class CameraController extends Controller
 
     private function salva_immagine(Request $request)
     {
-        $image_name = $request->image->getClientOriginalName();
+        $image_name = $request->path_foto ? $request->path_foto : rand() . '.png';
         $request->image->move(public_path('img/camere'), $image_name);
         return $image_name;
     }

@@ -17,6 +17,9 @@
                         <form method="POST" enctype="multipart/form-data" id="formCaricaImmagine">
                             @csrf
                             <input type="file" name="image">
+                            @if($camera->path_foto!=null)
+                                <input type="hidden" value="{{$camera->path_foto}}" name="path_foto" id="path_foto" required>
+                            @endif
                             <button class="btn btn-primary" type="submit">Carica</button>
                         </form>
                     </div>
@@ -53,7 +56,7 @@
                 </div>
                 <hr>
                 <p class="pull-right">* campi obbligatori</p>
-                <span id="image_name" style="display:none"></span><input type="hidden" value="" name="path_foto" id="path_foto">
+                <span id="image_name" style="display:none"></span><input type="hidden" value="{{ isset($camera->path_foto) ? $camera->path_foto : '' }}" name="path_foto" id="path_foto">
                 <input type="hidden" value="{{$camera->id}}" name="id" id="id">
                 <button type="submit" id="modificaCamera" class="btn btn-primary float-right">Conferma</button>
             </form>
@@ -125,7 +128,7 @@
                         if(data==true){
                             console.log('Submission was successful.');
                             alert("Camera modificata con successo!");
-                            window.location.replace('/camere');
+                            window.location.replace('/camere/'+<?php echo $camera->id ?>);
                         }else{
                             alert(data);
                         }
