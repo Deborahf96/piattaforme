@@ -11,7 +11,7 @@ class Prenotazione extends Model
 
     public function camera()
     {
-        return $this->belongsTo('App\Camera', 'camera_numero');
+        return $this->belongsTo('App\Camera', 'camera_id');
     }
 
     public function cliente_user_id()

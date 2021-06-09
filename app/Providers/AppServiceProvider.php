@@ -82,7 +82,7 @@ class AppServiceProvider extends ServiceProvider
     private function unique_camera_datain_dataout()
     {
         Validator::extend('unique_camera_datain_dataout', function ($attribute, $value, $parameters, $validator) {
-            $count = Prenotazione::where('camera_numero', $value)
+            $count = Prenotazione::where('camera_id', $value)
                 ->where('data_checkin', $parameters[0])
                 ->where('data_checkout', $parameters[1])
                 ->where('id', '!=', $parameters[2])

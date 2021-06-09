@@ -55,9 +55,8 @@ class Enums
     public static function metodo_pagamento_enum()
     {
         return [
-            'Bonifico bancario' => 'Bonifico bancario',
-            'Carta di credito' => 'Carta di credito',
-            'Paga in struttura' => 'Paga in struttura',
+            'Pagamento in struttura' => 'Pagamento in struttura',
+            'Pagamento online' => 'Pagamento online',
         ];
     }
 

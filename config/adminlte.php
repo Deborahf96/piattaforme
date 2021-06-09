@@ -399,7 +399,7 @@ return [
                 ],
                 [
                     'text' => 'Prenota',
-                    'url'  => '/prenotazioni_cliente/prenota',
+                    'url'  => '/prenotazioni/prenota',
                     'icon' => 'fa fa-plus',
                 ],
             ],

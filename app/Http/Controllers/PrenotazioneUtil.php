@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PrenotazioneUtil
 {
     public static function camere_escluse($data_checkin, $data_checkout, $num_persone){
-        return Prenotazione::join('camera', 'prenotazione.camera_numero', '=', 'camera.numero')
+        return Prenotazione::join('camera', 'prenotazione.camera_id', '=', 'camera.id')
                 ->where(function ($query) use ($data_checkin, $data_checkout, $num_persone) {
                     $query->where('camera.numero_letti', '>=', $num_persone)
                         ->where('data_checkout', '>', $data_checkin)
@@ -40,9 +40,8 @@ class PrenotazioneUtil
 
     public static function salva_attivita($request, $prenotazione)
     {
-        $lista_attivita = $request->input('attivita');
-        if(isset($lista_attivita))
-            foreach($lista_attivita as $singola_attivita_id)
+        if(isset($request->attivita))
+            foreach($request->attivita as $singola_attivita_id)
             {
                 $attivita = Attivita::find($singola_attivita_id);
                 $prenotazione->attivita()->attach($attivita);
