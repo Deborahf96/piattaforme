@@ -343,21 +343,10 @@ return [
             'icon'    => 'fa fa-shopping-bag',
         ],
         [
-            'text'    => 'Gestione marketing',
-            'url'     => '/info',
-            'can'     => 'dipendenti',
-            'icon'    => 'fa fa-book',
-        ],[
             'text'    => 'Gestione assistenza',
             'url'     => '/info',
             'can'     => 'dipendenti',
             'icon'    => 'fa fa-question-circle',
-        ],
-        [
-            'text'    => 'Recensioni',
-            'url'     => '/info',
-            'can'     => 'dipendenti',
-            'icon'    => 'fa fa-star',
         ],
         [
             'text'    => 'Modifica password',
@@ -420,12 +409,6 @@ return [
                     'icon' => 'fa fa-share',
                 ],
             ],
-        ],
-        [
-            'text'    => 'Recensioni',
-            'url'     => '/info',
-            'can'     => 'clienti',
-            'icon'    => 'fa fa-star',
         ],
     ],
 

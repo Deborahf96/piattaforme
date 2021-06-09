@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
     <div class="col-12">
-        <a href="/dipendenti" class="btn btn-outline-secondary">Torna a dipendenti</a>
-        <br>
-        <br>
         <div class="row">
             <div class="col-md-5 d-flex align-items-stretch">
                 <div class="card card-primary card-outline" style="width: 100%">
@@ -95,11 +92,7 @@
             </div>
         </div>
         <a href="/dipendenti/{{ $dipendente->user_id }}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
-        <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza turni</button>
-        <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza piano ferie</button>
-        <button type="button" class="btn btn-info disabled">Visualizza buste paga</button>
         <button onclick="elimina({{$dipendente->user_id}})" data-toggle="tooltip" data-placement="top" title="Elimina" class="btn btn-danger float-right">Elimina</button>
-        <hr>
     </div>
 @stop
 

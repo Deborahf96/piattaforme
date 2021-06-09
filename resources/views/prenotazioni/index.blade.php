@@ -3,7 +3,6 @@
 @section('thousand_sunny_content')
     <a href="/prenotazioni/prenota" class="btn btn-primary float-right">Aggiungi una nuova prenotazione</a>
     <h1>Elenco prenotazioni</h1>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-body">
             <table id="table" class="display table table-striped table-bordered">
@@ -119,7 +118,7 @@
                         var title = (row.check_pernottamento == 'Confermato') ? 'Annulla pernottamento' : 'Conferma pernottamento';
                         return '<div class="d-flex justify-content-around">'+
                                 '<a button href="/prenotazioni/'+row.id+'" data-toggle="tooltip" data-placement="top" title="Visualizza" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>'+
-                                '<button onclick="check(\''+row.id+'\',\''+row.check_pernottamento+'\')" data-toggle="tooltip" data-placement="top" title="'+title+'" class="btn btn-warning btn-sm"><i class="fa fa-check-circle"></i></button>'+
+                                '<button onclick="check(\''+row.id+'\',\''+row.check_pernottamento+'\')" data-toggle="tooltip" data-placement="top" title="'+title+'" class="btn btn-warning btn-sm"><i class="fa fa-check"></i></button>'+
                                 '<button onclick="elimina(\''+row.id+'\')" data-toggle="tooltip" data-placement="top" title="Annulla" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></div>';
                         },
                     },

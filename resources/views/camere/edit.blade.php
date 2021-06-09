@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
 <div class="col-12">
-    <a href="/camere" class="btn btn-outline-secondary">Torna a camere</a>
-    <br>
-    <br>
     <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Modifica una camera</h3>
@@ -29,6 +26,7 @@
                     <button type="button" name="visualizzaImmagine" data-target="#visualizzaImmagine" data-toggle="modal" class="btn btn-warning float-left" style="margin-right: 10px">Visualizza immagine corrente</button>
                 </div>
             </div>
+            <hr>
             <form id="formModificaCamera">
                 <div class="row">
                     <div class="col-md-4 form-group">
@@ -55,10 +53,12 @@
                     </div>
                 </div>
                 <hr>
-                <p class="pull-right">* campi obbligatori</p>
                 <span id="image_name" style="display:none"></span><input type="hidden" value="{{ isset($camera->path_foto) ? $camera->path_foto : '' }}" name="path_foto" id="path_foto">
                 <input type="hidden" value="{{$camera->id}}" name="id" id="id">
-                <button type="submit" id="modificaCamera" class="btn btn-primary float-right">Conferma</button>
+                <div class="row">
+                    <div class="col-6"><p class="pull-right">* campi obbligatori</p></div>
+                    <div class="col-6"><button type="submit" id="modificaCamera" class="btn btn-primary float-right">Conferma</button></div>
+                </div>
             </form>
         </div>
     </div>

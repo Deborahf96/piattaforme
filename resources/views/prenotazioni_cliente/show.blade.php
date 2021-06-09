@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
     <div class="col-md-12">
-        <a href="/prenotazioni_cliente" class="btn btn-outline-secondary">Torna allo storico prenotazioni</a>
-        <br>
-        <br>
         <div class="card card-primary card-outline">
             <div class="card-header d-flex p-0">
                 <h5 class="card-title p-3">Prenotazione</h5>
@@ -55,7 +52,6 @@
                 <button onclick="elimina({{$prenotazione->id}})" data-toggle="tooltip" data-placement="top" title="Annulla" class="btn btn-danger float-right" style="margin-right: 10px; margin-left: 10px">Annulla</button>
             </div>
         @endif
-        <hr>
     </div>
 @stop
 

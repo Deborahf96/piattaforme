@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
 <div class="col-md-12">
-    <a href="{{ URL::previous() }}" class="btn btn-outline-secondary">Indietro</a>
-    <br>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-header d-flex p-0">
             <h5 class="card-title p-3">Camera</h5>
@@ -46,10 +43,9 @@
         @if($pren_camera_num)
             <a href="/prenotazioni/{{$prenotazione_id}}" class="btn btn-primary" style="margin-right: 10px">Visualizza prenotazione attuale</a>
         @else
-            <button type="button" class="btn btn-info disabled">Visualizza prenotazione attuale</button>
+            <button type="button" class="btn btn-info disabled" data-toggle="tooltip" data-placement="top" title="Nessuna prenotazione">Visualizza prenotazione attuale</button>
         @endif
         <button onclick="elimina({{$camera->id}},{{$camera->numero}})" data-toggle="tooltip" data-placement="top" title="Elimina" class="btn btn-danger float-right">Elimina</button>
-    <hr>
     @endif
 </div>
 @stop

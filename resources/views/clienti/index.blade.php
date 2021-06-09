@@ -2,7 +2,6 @@
 
 @section('thousand_sunny_content')
     <h1>Elenco clienti</h1>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-body">
             <table id="tableClienti" class="display table table-striped table-bordered">
@@ -61,20 +60,6 @@
                         },
                     },
                 ]
-            });
-
-            $('#tableClienti thead tr').clone(true).appendTo('#tableClienti thead');
-            $('#tableClienti thead tr:eq(1) th').each(function(i) {
-                var title = $(this).text();
-                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
-                $('input', this).on('keyup change', function() {
-                    if($('#tableClienti').DataTable().column(i).search() !== this.value) {
-                        $('#tableClienti').DataTable()
-                            .column(i)
-                            .search( this.value )
-                            .draw();
-                    }
-                });
             });
         });
     </script>

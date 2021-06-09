@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-    <a href="{{URL::previous()}}" class="btn btn-outline-secondary">Indietro</a>
-    <br>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-header d-flex p-0">
             <h5 class="card-title p-3">@if(Auth::user()->id_level == 0) Cliente @else Profilo @endif</h5>
@@ -28,11 +25,6 @@
                 <div class="col-md-3 col-md-offset-1">{{ isset($cliente->utente->telefono) ? $cliente->utente->telefono : '-' }}</div>
                 <div class="col-md-2"><b>Email</b></div>
                 <div class="col-md-3 col-md-offset-1">{{ $cliente->utente->email }}</div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-2"><b>Metodo di pagamento</b></div>
-                <div class="col-md-3 col-md-offset-1">{{ isset($cliente->metodo_pagamento) ? $cliente->metodo_pagamento : '-' }}</div>
             </div>
         </div>
     </div>

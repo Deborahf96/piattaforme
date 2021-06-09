@@ -28,12 +28,10 @@ class PrenotazioneClienteController extends Controller
 
     public function create(Request $request)
     {
-        $pagamento_default = Cliente::where('user_id', Auth::user()->id)->first()->metodo_pagamento;
         $camera = Camera::where('numero', $request->camera_numero)->first();
         $costo_totale = (Carbon::parse($request->data_checkin)->diffinDays(Carbon::parse($request->data_checkout), false))*$camera->costo_a_notte;
         $data = [
             'metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
-            'pagamento_default' => isset($pagamento_default) ? $pagamento_default : '',
             'camera' => $camera,
             'data_checkin' => $request->data_checkin,
             'data_checkout' => $request->data_checkout,

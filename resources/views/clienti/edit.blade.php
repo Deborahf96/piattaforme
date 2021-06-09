@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
 <div class="col-12">
-    <a href="/cliente" class="btn btn-outline-secondary">Indietro</a>
-    <br>
-    <br>
     <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Modifica profilo</h3>
@@ -39,16 +36,12 @@
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{$cliente->utente->email}}" required>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <label for="metodo_pagamento" class="control-label">Metodo di pagamento</label>
-                        {{{Form::select('metodo_pagamento', $cliente_metodo_pagamento_enum, $cliente->metodo_pagamento, [ 'class' => 'form-control', 'placeholder' => 'Seleziona un metodo di pagamento' ])}}}
-                    </div>
-                </div>
                 <hr>
-                <p class="pull-right">* campi obbligatori</p>
-                <input type="hidden" value="{{$cliente->user_id}}" name="user_id" id="user_id">
-                <button type="submit" id="modificaProfilo" class="btn btn-primary float-right">Conferma</button>
+                <div class="row">
+                    <input type="hidden" value="{{$cliente->user_id}}" name="user_id" id="user_id">
+                    <div class="col-6"><p class="pull-right">* campi obbligatori</p></div>
+                    <div class="col-6"><button type="submit" id="modificaProfilo" class="btn btn-primary float-right">Conferma</button></div>
+                </div>
             </form>
         </div>
     </div>

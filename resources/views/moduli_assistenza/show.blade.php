@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
 <div class="col-12">
-    <a href="/moduli_assistenza" class="btn btn-outline-secondary">Torna alle tue richieste</a>
-    <br>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-header d-flex p-0">
             <h5 class="card-title p-3">Richiesta di assistenza</h5>

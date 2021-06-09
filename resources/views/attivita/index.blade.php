@@ -3,7 +3,6 @@
 @section('thousand_sunny_content')
     <a href="/attivita/create" class="btn btn-primary float-right">Aggiungi una nuova attività</a>
     <h1>Elenco attività</h1>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-body">
             <table id="tableAttivita" class="display table table-striped table-bordered">
@@ -99,20 +98,6 @@
                         },
                     },
                 ]
-            });
-
-            $('#tableAttivita thead tr').clone(true).appendTo('#tableAttivita thead');
-            $('#tableAttivita thead tr:eq(1) th').each(function(i) {
-                var title = $(this).text();
-                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
-                $('input', this).on('keyup change', function() {
-                    if($('#tableAttivita').DataTable().column(i).search() !== this.value) {
-                        $('#tableAttivita').DataTable()
-                            .column(i)
-                            .search( this.value )
-                            .draw();
-                    }
-                });
             });
         });
     </script>

@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
 <div class="col-12">
-    <a href="/moduli_assistenza" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
-    <br>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Richiedi informazioni/Invia un reclamo</h3>
@@ -27,7 +24,7 @@
                         {{{Form::textarea('messaggio', '', [ 'class' => 'form-control', 'placeholder' => 'Inserisci un messaggio ...' , 'required'])}}}
                     </div>
                 </div>
-                <button type="submit" id="invia" class="btn btn-primary float-right">Invia</button>
+                <button type="submit" id="invia" class="btn btn-primary float-right">Invia richiesta</button>
             </form>
         </div>
     </div>

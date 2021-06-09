@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
 <div class="col-12">
-    <a href="/attivita" class="btn btn-outline-secondary">Torna a attività</a>
-    <br>
-    <br>
     <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Modifica un'attività</h3>
@@ -36,9 +33,11 @@
                     </div>
                 </div>
                 <hr>
-                <p class="pull-right">* campi obbligatori</p>
-                <input type="hidden" value="{{$attivita->id}}" name="id" id="id">
-                <button type="submit" id="modificaAttivita" class="btn btn-primary float-right">Conferma</button>
+                <div class="row">
+                    <input type="hidden" value="{{$attivita->id}}" name="id" id="id">
+                    <div class="col-6"><p class="pull-right">* campi obbligatori</p></div>
+                    <div class="col-6"><button type="submit" id="modificaAttivita" class="btn btn-primary float-right">Conferma</button></div>
+                </div>
             </form>
         </div>
     </div>

@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/camere" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
-<br>
-<br>
 <div class="col-12">
     <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
@@ -23,6 +20,7 @@
                     <span id="message" style="margin-top: 20px"></span>
                 </div>
             </div>
+            <hr>
             <form id="formAggiungiCamera">
                 <div class="row">
                     <div class="col-md-4 form-group">
@@ -49,9 +47,11 @@
                     </div>
                 </div>
                 <hr>
-                <p class="pull-right">* campi obbligatori</p>
                 <span id="image_name" style="display:none"></span><input type="hidden" value="" name="path_foto" id="path_foto">
-                <button type="submit" id="aggiungiCamera" class="btn btn-primary float-right">Aggiungi</button>
+                <div class="row">
+                    <div class="col-6"><p class="pull-right">* campi obbligatori</p></div>
+                    <div class="col-6"><button type="submit" id="aggiungiCamera" class="btn btn-primary float-right">Aggiungi</button></div>
+                </div>
             </form>
         </div>
     </div>

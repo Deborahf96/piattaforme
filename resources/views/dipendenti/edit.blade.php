@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
 <div class="col-12">
-    <a href="/dipendenti" class="btn btn-outline-secondary" style="margin-left: 10px">Torna a dipendenti</a>
-    <br>
-    <br>
     <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
             <h3 class="card-title p-3">Modifica un dipendente</h3>
@@ -74,9 +71,11 @@
                     </div>
                 </div>
                 <hr>
-                <input type="hidden" value="{{$dipendente->user_id}}" name="user_id" id="user_id">
-                <p class="pull-right">* campi obbligatori</p>
-                <button type="submit" id="modificaDipendente" class="btn btn-primary float-right">Conferma</button>
+                <div class="row">
+                    <input type="hidden" value="{{$dipendente->user_id}}" name="user_id" id="user_id">
+                    <div class="col-6"><p class="pull-right">* campi obbligatori</p></div>
+                    <div class="col-6"><button type="submit" id="modificaDipendente" class="btn btn-primary float-right">Conferma</button></div>
+                </div>
             </div>
         </form>    
     </div>

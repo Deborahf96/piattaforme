@@ -3,7 +3,6 @@
 @section('thousand_sunny_content')
     <a href="/prenotazioni/prenota" class="btn btn-primary float-right">Effettua una nuova prenotazione</a>
     <h1>Storico prenotazioni</h1>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-body">
             <table id="table" class="display table table-striped table-bordered">

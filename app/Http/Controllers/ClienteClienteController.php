@@ -29,7 +29,6 @@ class ClienteClienteController extends Controller
     {
         $data = [
             'cliente' => Cliente::where('user_id', Auth::user()->id)->first(),
-            'cliente_metodo_pagamento_enum' => Enums::metodo_pagamento_enum(),
         ];
         return view('clienti.edit', $data);
     }
@@ -68,7 +67,6 @@ class ClienteClienteController extends Controller
     private function salva_cliente(Request $request)
     {
         $cliente = Cliente::where('user_id', $request->user_id)->first();
-        $cliente->metodo_pagamento = $request->metodo_pagamento;
         $cliente->save();
         return $cliente;
     }

@@ -3,7 +3,6 @@
 @section('thousand_sunny_content')
     <a href="/moduli_assistenza/create" class="btn btn-primary float-right">Invia una richiesta</a>
     <h1>Le tue richieste di assistenza</h1>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-body">
             <table id="table" class="display table table-striped table-bordered">
@@ -64,20 +63,6 @@
                         },
                     },
                 ]
-            });
-
-            $('#table thead tr').clone(true).appendTo('#table thead');
-            $('#table thead tr:eq(1) th').each(function(i) {
-                var title = $(this).text();
-                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
-                $('input', this).on('keyup change', function() {
-                    if($('#table').DataTable().column(i).search() !== this.value) {
-                        $('#table').DataTable()
-                            .column(i)
-                            .search( this.value )
-                            .draw();
-                    }
-                });
             });
         });
     </script>

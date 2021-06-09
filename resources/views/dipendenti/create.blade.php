@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
-<a href="/dipendenti" class="btn btn-outline-secondary" style="margin-left: 10px">Indietro</a>
-<br>
-<br>
 <div class="col-12">
     <div class="card card-outline card-primary">
         <div class="card-header d-flex p-0">
@@ -74,8 +71,10 @@
                     </div>
                 </div>
                 <hr>
-                <p class="pull-right">* campi obbligatori</p>
-                <button type="submit" id="aggiungiDitta" class="btn btn-primary float-right">Aggiungi</button>
+                <div class="row">
+                    <div class="col-6"><p class="pull-right">* campi obbligatori</p></div>
+                    <div class="col-6"><button type="submit" id="aggiungi" class="btn btn-primary float-right">Aggiungi</button>
+                </div>
             </form>
         </div>
     </div>

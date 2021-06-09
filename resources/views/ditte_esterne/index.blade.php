@@ -3,7 +3,6 @@
 @section('thousand_sunny_content')
     <a href="/ditte_esterne/create" class="btn btn-primary float-right">Aggiungi una nuova ditta</a>
     <h1>Elenco ditte esterne</h1>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-body">
             <table id="tableDitte" class="display table table-striped table-bordered">
@@ -98,20 +97,6 @@
                         },
                     },
                 ]
-            });
-
-            $('#tableDitte thead tr').clone(true).appendTo('#tableDitte thead');
-            $('#tableDitte thead tr:eq(1) th').each(function(i) {
-                var title = $(this).text();
-                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
-                $('input', this).on('keyup change', function() {
-                    if($('#tableDitte').DataTable().column(i).search() !== this.value) {
-                        $('#tableDitte').DataTable()
-                            .column(i)
-                            .search( this.value )
-                            .draw();
-                    }
-                });
             });
         });
     </script>

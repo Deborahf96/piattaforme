@@ -1,12 +1,9 @@
 @extends('layouts.app')
 
 @section('thousand_sunny_content')
+    @php $azione = $prenotazione->check_pernottamento == 'Confermato' ? 'Annulla pernottamento' : 'Conferma pernottamento'; @endphp
+    @php $button = $prenotazione->check_pernottamento == 'Confermato' ? 'fas fa-times' : 'fas fa-check'; @endphp
     <div class="col-md-12">
-        <a href="/prenotazioni" class="btn btn-outline-secondary">Torna a prenotazioni</a>
-        @php $azione = $prenotazione->check_pernottamento == 'Confermato' ? 'Annulla pernottamento' : 'Conferma pernottamento'; @endphp
-        <button onclick="check({{$prenotazione->id}},'{{$prenotazione->check_pernottamento}}')" data-toggle="tooltip" data-placement="top" title="{{$azione}}" class="btn btn-warning float-right" style="margin-right: 10px">{{$azione}}</button>
-        <br>
-        <br>
         <div class="card card-primary card-outline">
             <div class="card-header d-flex p-0">
                 <h5 class="card-title p-3">Prenotazione</h5>
@@ -37,7 +34,9 @@
                     <div class="col-md-2"><b>Importo</b></div>
                     <div class="col-md-3 col-md-offset-1">{{ $prenotazione->importo }} €</div>
                     <div class="col-md-2"><b>Conferma avvenuto pernottamento</b></div>
-                    <div class="col-md-3 col-md-offset-1">{{ $prenotazione->check_pernottamento }}</div>
+                    <div class="col-md-3 col-md-offset-1">{{ $prenotazione->check_pernottamento }}
+                    <button onclick="check({{$prenotazione->id}},'{{$prenotazione->check_pernottamento}}')" data-toggle="tooltip" data-placement="top" title="{{$azione}}" class="btn btn-warning float-right" style="margin-right: 10px"><i class="{{$button}}"></i></button>
+                </div>
                 </div>
                 <hr>
                 <div class="row">
@@ -57,7 +56,6 @@
         @endif
         <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza fattura</button>
         <button onclick="elimina({{$prenotazione->id}})" data-toggle="tooltip" data-placement="top" title="Annulla" class="btn btn-danger float-right">Annulla</button>
-        <hr>
     </div>
 @stop
 

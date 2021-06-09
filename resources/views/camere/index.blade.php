@@ -3,7 +3,6 @@
 @section('thousand_sunny_content')
     <a href="/camere/create" class="btn btn-primary float-right">Aggiungi una nuova camera</a>
     <h1>Elenco camere</h1>
-    <br>
     <div class="card card-primary card-outline">
         <div class="card-body">
             <table id="tableCamere" class="display table table-striped table-bordered">
@@ -96,20 +95,6 @@
                         },
                     },
                 ]
-            });
-
-            $('#tableCamere thead tr').clone(true).appendTo('#tableCamere thead');
-            $('#tableCamere thead tr:eq(1) th').each(function(i) {
-                var title = $(this).text();
-                $(this).html('<input type="text" style="width:100%" placeholder="'+title+'" />');
-                $('input', this).on('keyup change', function() {
-                    if($('#tableCamere').DataTable().column(i).search() !== this.value) {
-                        $('#tableCamere').DataTable()
-                            .column(i)
-                            .search( this.value )
-                            .draw();
-                    }
-                });
             });
         });
     </script>

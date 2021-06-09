@@ -2,9 +2,6 @@
 
 @section('thousand_sunny_content')
     <div class="col-12">
-        <a href="{{URL::previous()}}" class="btn btn-outline-secondary">Indietro</a>
-        <br>
-        <br>
         <div class="row">
             <div class="col-md-5 d-flex align-items-stretch">
                 <div class="card card-primary card-outline" style="width: 100%">
@@ -91,9 +88,7 @@
         </div>
         <a href="/ditte_esterne/{{ $ditta_esterna->partita_iva }}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
         <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza attività</button>
-        <button type="button" class="btn btn-info disabled">Visualizza fatture</button>
         <button onclick="elimina({{$ditta_esterna->id}})" data-toggle="tooltip" data-placement="top" title="Elimina" class="btn btn-danger float-right">Elimina</button>
-        <hr>
     </div>
 @stop
 
