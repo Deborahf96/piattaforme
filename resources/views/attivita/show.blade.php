@@ -39,7 +39,7 @@
 @section('js')
     <script>
         function elimina(id) {
-            if(confirm("Confermi di voler eliminare l'attività'?")) {
+            if(confirm("Sei sicuro di voler eliminare l'attività'?")) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

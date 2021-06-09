@@ -22,7 +22,7 @@
 @section('js')
     <script>
         function elimina(user_id, nome) {
-            if(confirm('Confermi di voler eliminare il dipendente "'+nome+'"?')) {
+            if(confirm('Sei sicuro di voler eliminare il dipendente "'+nome+'"?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -25,7 +25,7 @@
 @section('js')
     <script>
         function elimina(id, tipologia, destinazione, data, ora) {
-            if(confirm('Confermi di voler eliminare la seguente attività:\n'+tipologia+' ('+destinazione+') - '+data+' '+ora+' ?')) {
+            if(confirm('Sei sicuro di voler eliminare la seguente attività:\n'+tipologia+' ('+destinazione+') - '+data+' '+ora+' ?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

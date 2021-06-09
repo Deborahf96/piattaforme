@@ -23,7 +23,7 @@
 @section('js')
     <script>
         function elimina(id, numero) {
-            if(confirm('Confermi di voler eliminare la camera N°'+numero+'?')) {
+            if(confirm('Sei sicuro di voler eliminare la camera N°'+numero+'?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

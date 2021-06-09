@@ -24,7 +24,7 @@
 @section('js')
     <script>
         function elimina(id, nome) {
-            if(confirm('Confermi di voler eliminare la ditta "'+nome+'"?')) {
+            if(confirm('Sei sicuro di voler eliminare la ditta "'+nome+'"?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

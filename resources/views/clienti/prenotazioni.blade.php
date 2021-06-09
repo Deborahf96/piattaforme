@@ -25,7 +25,7 @@
         var id = {!! json_encode($cliente->id) !!};
 
         function elimina(id) {
-            if(confirm('Confermi di voler annullare questa prenotazione?')) {
+            if(confirm('Sei sicuro di voler annullare questa prenotazione?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -52,7 +52,7 @@
 
         function check(id, check_pernottamento) {
             var azione = (check_pernottamento == 'Confermato') ? 'annullare' : 'confermare';
-            if(confirm('Confermi di voler '+azione+' il pernottamento di questa prenotazione?')) {
+            if(confirm('Sei sicuro di voler '+azione+' il pernottamento di questa prenotazione?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

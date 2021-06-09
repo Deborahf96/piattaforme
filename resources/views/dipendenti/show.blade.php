@@ -99,7 +99,7 @@
 @section('js')
     <script>
         function elimina(user_id) {
-            if(confirm('Confermi di voler eliminare il dipendente?')) {
+            if(confirm('Sei sicuro di voler eliminare il dipendente?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

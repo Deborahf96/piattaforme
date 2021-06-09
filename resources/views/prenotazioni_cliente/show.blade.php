@@ -58,7 +58,7 @@
 @section('js')
     <script>
         function elimina(id) {
-            if(confirm('Confermi di voler annullare questa prenotazione?')) {
+            if(confirm('Sei sicuro di voler annullare questa prenotazione?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

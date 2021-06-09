@@ -41,7 +41,7 @@
 @section('js')
     <script>
         function elimina() {
-            if(confirm('Confermi di voler eliminare questo account?')) {
+            if(confirm('Sei sicuro di voler eliminare questo account?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
