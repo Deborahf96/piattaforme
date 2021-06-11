@@ -30,7 +30,7 @@
     </div>
 </div>
 @stop
-   
+
 @section('js')
     <script>
         // CSRF Token
