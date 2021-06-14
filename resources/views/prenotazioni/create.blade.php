@@ -28,15 +28,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-2"><b>Metodo di pagamento</b></div>
-                    <div class="col-md-3">
-                        <div class="d-flex align-items-center">
-                            @if(Auth::user()->id_level == 0)
-                                {{{Form::select('metodo_pagamento', $metodo_pagamento_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona metodo di pagamento', 'required' ])}}}
-                            @else
-                                {{{Form::select('metodo_pagamento', $metodo_pagamento_enum, $pagamento_default, [ 'class' => 'form-control', 'placeholder' => 'Seleziona metodo di pagamento' ])}}}
-                            @endif
-                        </div>
-                    </div>
+                    <div class="col-md-3 d-flex align-items-center">{{{Form::select('metodo_pagamento', $metodo_pagamento_enum, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona metodo di pagamento', 'required' ])}}}</div>
                     <div class="col-md-2"><b>Importo parziale:</b></div>
                     <div class="col-md-3">{{$costo_totale}} €</div>
                     <input type="hidden" value="{{$costo_totale}}" name="costo_totale" id="costo_totale">
@@ -51,14 +43,20 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-5 form-group">
-                        <label for="cliente_user_id" class="control-label">Cliente già registrato</label>
-                        {{{Form::select('cliente_user_id', $clienti, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un cliente' ])}}}
-                    </div>
-                    <div class="col-1" style="margin-left: 20px">oppure</div>
-                    <div class="col-md-5 form-group">
                         <label for="cliente" class="control-label">Nuovo cliente</label>
                         <input type="text" class="form-control" name="cliente" id="cliente" placeholder="Nome e cognome">
                     </div> 
+                    <div class="col-1" style="margin-left: 20px">oppure</div>
+                    <div class="col-md-5 form-group">
+                        <label for="cliente_user_id" class="control-label">Cliente già registrato</label>
+                        {{{Form::select('cliente_user_id', $clienti, '', [ 'class' => 'form-control', 'placeholder' => 'Seleziona un cliente' ])}}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        <label for="email" class="control-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,7 +103,6 @@
         @else
             <p>Nessuna attività disponibile</p>
         @endif
-        <a href="{{URL::previous()}}" class="btn btn-outline-secondary">Indietro</a>
         <button type="submit" id="avanti" class="btn btn-primary float-right">Avanti</button>
     </div>
 </form>
@@ -132,8 +129,12 @@
                     success: function (data) {
                         console.log(data);
                         if(data!=''){
-                            console.log('Submission was successful.');
-                            window.location.replace('/prenotazioni/riepilogo/'+data);
+                            if(data.length > 5)
+                                alert(data);
+                            else {
+                                console.log('Submission was successful.');
+                                window.location.replace('/prenotazioni/riepilogo/'+data);
+                            }
                         }else{
                             alert(data);
                         }

@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class PrenotazioneController extends Controller
@@ -77,6 +78,16 @@ class PrenotazioneController extends Controller
 
     public function prenotaCamera(Request $request)
     {
+        if($request->email) {
+            if(!($request->cliente))
+                return "Attenzione! Compila il campo 'Nuovo cliente'";
+            if(User::where('email', $request->email)->exists())
+                return 'Attenzione! Email ('.$request->email.') già registrata';
+        }
+        if($request->cliente && !($request->email))
+            return "Attenzione! Compila il campo 'Email'";
+        if(!$request->cliente && !$request->cliente_user_id)
+            return "Attenzione! Inserire dati cliente";
         DB::beginTransaction();
         try{
             $prenotazione = $this->salva_prenotazione($request);
@@ -114,6 +125,7 @@ class PrenotazioneController extends Controller
     {
         $prenotazione = Prenotazione::find($request->id);
         $prenotazione->check_pernottamento = $prenotazione->check_pernottamento == 'Confermato' ? 'Non confermato' : 'Confermato';
+        $prenotazione->conferma_pagamento = true;
         $prenotazione->save();
         return $prenotazione ? response()->json(true,200) : response()->json(false, 400);
     }
@@ -130,15 +142,29 @@ class PrenotazioneController extends Controller
         return $this->genera_datatable($prenotazioni);
     }
 
+    public function pagamento(Request $request)
+    {
+        $prenotazione = Prenotazione::find($request->id);
+        $prenotazione->conferma_pagamento = true;
+        return $prenotazione->save() ? response()->json(true) : response()->json(false);
+    }
+
     private function salva_prenotazione(Request $request)
     {
         $prenotazione = new Prenotazione;
-        if(Auth::user()->id_level == 0){
-            $prenotazione->cliente_user_id = $request->cliente_user_id;
-            $prenotazione->cliente = $request->cliente;
-        }
-        else
+        if(Auth::user()->id_level == 0) {
+            if($request->cliente && $request->email) {
+                $utente = $this->create_user($request);
+                $cliente = new Cliente;
+                $cliente->user_id = $utente->id;
+                $cliente->save();
+                $prenotazione->cliente_user_id = $cliente->user_id;
+            }else {
+                $prenotazione->cliente_user_id = $request->cliente_user_id;
+            }
+        }else {
             $prenotazione->cliente_user_id = Auth::user()->id;
+        }
         $prenotazione->camera_id = $request->camera_id;
         $prenotazione->data_checkin = $request->data_checkin;
         $prenotazione->data_checkout = $request->data_checkout;
@@ -170,5 +196,16 @@ class PrenotazioneController extends Controller
         ->filterColumn("", function ($q, $k) { return ''; })
         ->filterColumn(null, function ($q, $k) { return ''; })
         ->make(true);
+    }
+
+    private function create_user(Request $request)
+    {
+        $user = new User;
+        $user->name = $request->cliente;
+        $user->email = $request->email;
+        $user->password = Hash::make('password');
+        $user->id_level = 1;
+        $user->save();
+        return $user;
     }
 }

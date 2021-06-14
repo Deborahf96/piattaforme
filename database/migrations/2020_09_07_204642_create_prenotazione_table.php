@@ -19,11 +19,11 @@ class CreatePrenotazioneTable extends Migration
             $table->date('data_checkin');
             $table->date('data_checkout');
             $table->bigInteger('cliente_user_id')->unsigned()->nullable();
-            $table->string('cliente')->nullable();  
             $table->integer('num_persone');
             $table->integer('importo');
             $table->string('metodo_pagamento');
             $table->string('check_pernottamento'); 
+            $table->tinyInteger('conferma_pagamento')->default(0);
 
             $table->foreign('camera_id')->references('id')->on('camera')->onDelete('cascade');
             $table->foreign('cliente_user_id')->references('user_id')->on('cliente')->onDelete('set null');
