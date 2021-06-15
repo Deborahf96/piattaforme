@@ -54,7 +54,7 @@
                         console.log(data);
                         if(data) {
                             alert('Account eliminato con successo!');
-                            window.location.replace('/login');
+                            window.location.replace('/about_us');
                         }
                     },
                     error: function(data) {

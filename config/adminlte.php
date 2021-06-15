@@ -352,7 +352,7 @@ return [
             'text'    => 'Gestione assistenza',
             'url'     => '/info',
             'can'     => 'dipendenti',
-            'icon'    => 'fa fa-question-circle',
+            'icon'    => 'fa fa-info-circle',
         ],
         [
             'text'    => 'Modifica password',
@@ -401,7 +401,7 @@ return [
         ],
         [
             'text'    => 'Area assistenza',
-            'icon'    => 'fa fa-question-circle',
+            'icon'    => 'fa fa-info-circle',
             'can'     => 'clienti',
             'submenu' => [
                 [

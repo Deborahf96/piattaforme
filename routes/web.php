@@ -20,8 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/about_us', 'HomeController@aboutUs');
+Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
+Route::get('/about_us', 'HomeController@aboutUs')->name('about_us');
 
 Route::get('/modifica_password', 'ResettaPasswordController@resetta_password_view');
 Route::post('/modifica-password', 'ResettaPasswordController@cambia_password');
