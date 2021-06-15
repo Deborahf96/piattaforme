@@ -246,6 +246,12 @@ return [
             'can' => 'non_loggato',
         ],
         [
+            'text' => 'About Us',
+            'url' => '/about_us',
+            'icon'    => '',
+            'topnav' => true,
+        ],
+        [
             'text' => 'Prenotazioni',
             'icon' => 'fa fa-bell',
             'can'  => 'dipendenti',

@@ -10,8 +10,9 @@
                     <tr>
                         <th>Data check-in</th>
                         <th>Data check-out</th>
-                        <th>Importo</th>
                         <th>Camera</th>
+                        <th>Cliente</th>
+                        <th>Importo</th>
                         <th>Check pernottamento</th>
                         <th></th>
                     </tr>
@@ -109,12 +110,13 @@
                 columns: [
                     { data: "data_checkin" , width: "15%" },
                     { data: "data_checkout" , width: "15%"},
-                    { data: "importo" , width: "15%" , render : function ( data, type, row, meta ) {
+                    { data: 'numero' , width: "10%" },
+                    { data: 'name' , width: "15%" },
+                    { data: "importo" , width: "10%" , render : function ( data, type, row, meta ) {
                         return data += ' €';
                     }},
-                    { data: 'numero' , width: "15%" },
                     { data: 'check_pernottamento' , width: "20%" },
-                    { data: null , bSearchable: false , orderable: false , width: "20%" , render : function ( data, type, row, meta ) {
+                    { data: null , bSearchable: false , orderable: false , width: "15%" , render : function ( data, type, row, meta ) {
                         var title = (row.check_pernottamento == 'Confermato') ? 'Annulla pernottamento' : 'Conferma pernottamento';
                         return '<div class="d-flex justify-content-around">'+
                                 '<a button href="/prenotazioni/'+row.id+'" data-toggle="tooltip" data-placement="top" title="Visualizza" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></button></a>'+

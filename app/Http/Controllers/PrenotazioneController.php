@@ -21,18 +21,9 @@ class PrenotazioneController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $data_corrente = $request->data_corrente;
-        $prenotazioni = Prenotazione::when(isset($data_corrente), function ($query) use ($data_corrente) {
-                                    return $query->where('data_checkin', '<=', $data_corrente)
-                                                ->where('data_checkout', ">=", $data_corrente);
-                                    })->get();
-        $data = [
-            'prenotazioni' => $prenotazioni,
-            'data_corrente' => $data_corrente,
-        ];
-        return view('prenotazioni.index', $data);
+        return view('prenotazioni.index');
     }
 
     public function prenota(Request $request)
@@ -179,12 +170,14 @@ class PrenotazioneController extends Controller
     private function recupera_prenotazioni()
     {
         return Prenotazione::join('camera', 'prenotazione.camera_id', 'camera.id')
+            ->join('users', 'prenotazione.cliente_user_id', 'users.id')
             ->select(
                 'prenotazione.id',
                 'prenotazione.data_checkin',
                 'prenotazione.data_checkout',
                 'prenotazione.importo',
                 'prenotazione.check_pernottamento',
+                'users.name',
                 'camera.numero',
             );
     }
@@ -193,6 +186,7 @@ class PrenotazioneController extends Controller
     {
         return DataTables::of($prenotazioni)
         ->filterColumn("numero", function ($q, $k) { return $q->whereRaw("camera.numero LIKE ?", ["%$k%"]); })
+        ->filterColumn("name", function ($q, $k) { return $q->whereRaw("users.name LIKE ?", ["%$k%"]); })
         ->filterColumn("", function ($q, $k) { return ''; })
         ->filterColumn(null, function ($q, $k) { return ''; })
         ->make(true);
