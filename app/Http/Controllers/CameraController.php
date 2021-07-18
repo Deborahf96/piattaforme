@@ -41,15 +41,15 @@ class CameraController extends Controller
     public function show($id)
     {
         $dipendente = Dipendente::where('user_id', auth()->user()->id)->first();
-        /*$prenotazione = Prenotazione::where('camera_id', $id)  
+        $prenotazione = Prenotazione::where('camera_id', $id)  
                                     ->where('data_checkin', '<=', Carbon::now())
                                     ->where('data_checkout', '>', Carbon::now())
-                                    ->first(); */
+                                    ->first(); 
 
         $data = [
             'camera' => Camera::find($id),
-            'pren_camera_num' => /*$prenotazione == null ? */false /*: true*/,
-            'prenotazione_id' => /*$prenotazione == null ? */' ' /*: $prenotazione->id*/,
+            'pren_camera_num' => $prenotazione == null ? false : true,
+            'prenotazione_id' => $prenotazione == null ? ' ' : $prenotazione->id,
             'dipendente_check' => $dipendente == null ? false : true
         ];
         return view('camere.show', $data);

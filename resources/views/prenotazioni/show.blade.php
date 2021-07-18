@@ -54,7 +54,7 @@
         @if($prenotazione->cliente == null)
             <a href="/clienti/{{ $prenotazione->cliente_user_id }}"  class="btn btn-info" style="margin-right: 10px">Visualizza profilo cliente</a>
         @endif
-        <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza fattura</button>
+        <!--button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza fattura</button-->
         <button onclick="elimina({{$prenotazione->id}})" data-toggle="tooltip" data-placement="top" title="Annulla" class="btn btn-danger float-right">Annulla</button>
     </div>
 @stop

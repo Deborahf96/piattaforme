@@ -245,6 +245,13 @@ return [
             'topnav_right' => true,
             'can' => 'non_loggato',
         ],
+        /*[
+            'text' => 'Carrello',
+            'url' => '/register',
+            'icon'    => 'fa fa-shopping-cart',
+            'topnav_right' => true,
+            'can' => 'loggato',
+        ],*/
         [
             'text' => 'About Us',
             'url' => '/about_us',
@@ -342,7 +349,7 @@ return [
             'can'     => 'dipendenti',
             'icon'    => 'fa fa-users',
         ],
-        [
+        /*[
             'text'    => 'Gestione fatture',
             'url'     => '/info',
             'can'     => 'dipendenti',
@@ -353,7 +360,7 @@ return [
             'url'     => '/info',
             'can'     => 'dipendenti',
             'icon'    => 'fa fa-info-circle',
-        ],
+        ],*/
         [
             'text'    => 'Modifica password',
             'url'     => '/modifica_password',

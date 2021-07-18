@@ -69,16 +69,18 @@ class PrenotazioneController extends Controller
 
     public function prenotaCamera(Request $request)
     {
-        if($request->email) {
-            if(!($request->cliente))
-                return "Attenzione! Compila il campo 'Nuovo cliente'";
-            if(User::where('email', $request->email)->exists())
-                return 'Attenzione! Email ('.$request->email.') già registrata';
+        if(Auth::user()->id_level == 0) {
+            if($request->email) {
+                if(!($request->cliente))
+                    return "Attenzione! Compila il campo 'Nuovo cliente'";
+                if(User::where('email', $request->email)->exists())
+                    return 'Attenzione! Email ('.$request->email.') già registrata';
+            }
+            if($request->cliente && !($request->email))
+                return "Attenzione! Compila il campo 'Email'";
+            if(!$request->cliente && !$request->cliente_user_id)
+                return "Attenzione! Inserire dati cliente";
         }
-        if($request->cliente && !($request->email))
-            return "Attenzione! Compila il campo 'Email'";
-        if(!$request->cliente && !$request->cliente_user_id)
-            return "Attenzione! Inserire dati cliente";
         DB::beginTransaction();
         try{
             $prenotazione = $this->salva_prenotazione($request);

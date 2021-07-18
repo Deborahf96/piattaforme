@@ -93,6 +93,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function post_register_policies()
     {
+        /*Gate::define('loggato', function (?User $user) {
+            return Auth::check();
+        });*/
         Gate::define('non_loggato', function (?User $user) {
             return Auth::guest();
         });
