@@ -43,6 +43,7 @@ class ClienteClienteController extends Controller
             $this->salva_cliente($request);
             DB::commit();
         } catch(Exception $e) {
+            DB::rollBack();
             return response()->json($e->getMessage(), 400);
         }
         return response()->json(true);

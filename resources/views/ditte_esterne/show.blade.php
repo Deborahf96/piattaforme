@@ -87,7 +87,7 @@
             </div>
         </div>
         <a href="/ditte_esterne/{{ $ditta_esterna->partita_iva }}/edit" class="btn btn-primary" style="margin-right: 10px">Modifica</a>
-        <button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza attività</button>
+        <!--button type="button" class="btn btn-info disabled" style="margin-right: 10px">Visualizza attività</button-->
         <button onclick="elimina({{$ditta_esterna->id}})" data-toggle="tooltip" data-placement="top" title="Elimina" class="btn btn-danger float-right">Elimina</button>
     </div>
 @stop

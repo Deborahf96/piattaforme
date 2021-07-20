@@ -87,6 +87,7 @@ class PrenotazioneController extends Controller
             PrenotazioneUtil::salva_attivita($request, $prenotazione);
             DB::commit();
         } catch(Exception $e) {
+            DB::rollBack();
             return response()->json($e->getMessage(), 400);
         }
         return $prenotazione->id;
